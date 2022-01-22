@@ -1,0 +1,30 @@
+
+
+* {
+    color: #FAF8FC;
+    font-family: Poppins;
+    font-style: normal;
+}
+
+.navbar {
+    background: #1D193F;
+}
+
+.ElemList {
+    display: flex;
+    padding-left: 50px;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+body {
+    background: #403672;
+}
+
+#hambergerButton {
+    display: block;
+}
+
+#magnifierButton {
+
+}
