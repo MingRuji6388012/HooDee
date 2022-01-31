@@ -16,43 +16,46 @@
 
 <body>
     
-    <nav class="nav navbar">
-        <a class="nav-link">
-            <img class="figure-img" src="public/logo/Logo.png" alt="logo" href="google.com" height="50"/>
-        </a>
-        <a class="nav-link"></a>
-        <a class="nav-link"></a>
-        <a class="nav-link"></a>
-        <a class="nav-link" href="#" role="button">Search</a>
-        <a class="nav-link" href="#" role="button">About us</a>
-        <a class="nav-link rounded login-button" href="#" role="button">Log in</a>
+    <nav class="navbar navbar-expand-sm">
+        <div class="container">
+            <a class="navbar-brand">
+                <img class="figure-img" src="public/logo/Logo.png" alt="logo" href="#" height="50"/>
+            </a>
+            <ul class="navbar-nav">
+                
+                <!-- <li class="nav-item"><a class="nav-link"></a></li>
+                <li class="nav-item"><a class="nav-link"></a></li>
+                <li class="nav-item"><a class="nav-link"></a></li> -->
+                <li class="nav-item"><a class="nav-link" href="#" role="button">Search</a></li>
+                <li class="nav-item"><a class="nav-link" href="#" role="button">About us</a></li>
+                <li class="nav-item"><a class="nav-link rounded login-button" href="#" role="button">Log in</a></li>
+            </ul>
+        </div>
     </nav>
     
     <!-- todo: 
          make size of title and text looks better -->
-    <div class="container">
-        <div class="row centered">
-            <div class="col"></div>
-            <div class="col">
+    <div class="container music-container">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">
                 <div class="music-title">Music</div>
             </div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
                 <div class="showall">
-                    <a href="#">Show all</a>
+                    <a href="#" id="music-showall" onclick="on_showall('music-showall')">Show all</a>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col-lg-1"></div>
         </div>
         
-        <div class="row centered">
-            <div class="col"></div>
+        <div class="row music-row">
+            <div class="col-lg-1"></div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/song1.jpg" alt="song1 img">
                     <div class="card-body">
@@ -61,7 +64,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/song2.jpg" alt="song2 img">
                     <div class="card-body">
@@ -70,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/song3.jpg" alt="song3 img">
                     <div class="card-body">
@@ -80,7 +83,7 @@
                 </div>
             </div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/song3.jpg" alt="song4 img">
                     <div class="card-body">
@@ -90,7 +93,7 @@
                 </div>
             </div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/song3.jpg" alt="song5 img">
                     <div class="card-body">
@@ -100,39 +103,87 @@
                 </div>
             </div>
             
-            <div class="col"></div>
+            <div class="col-lg-1"></div>
+        </div>
+
+        <div class="row music-row default-hidden" hidden>
+            <div class="col-lg-1"></div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/song1.jpg" alt="song1 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">song name1</figcaption>
+                        <figcaption class="card-text">artist1</figcaption>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/song2.jpg" alt="song2 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">song name2</figcaption>
+                        <figcaption class="card-text">artist2</figcaption>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/song3.jpg" alt="song3 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">song name3</figcaption>
+                        <figcaption class="card-text">artist3</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/song3.jpg" alt="song4 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">song name4</figcaption>
+                        <figcaption class="card-text">artist4</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/song3.jpg" alt="song5 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">song name4</figcaption>
+                        <figcaption class="card-text">artist5</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-1"></div>
         </div>
         <!-- <div class="showall">Show all</div> -->
     </div>
 
-    <div class="container">
-        <div class="row centered">
-            <div class="col"></div>
-            <div class="col">
+    <div class="container music-container">
+        <div class="row">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-2">
                 <div class="music-title">Playlist</div>
             </div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col"></div>
-            <div class="col">
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2"></div>
+            <div class="col-lg-2">
                 <div class="showall">
-                    <a href="#">Show all</a>
+                    <a href="#" id="playlist-showall" onclick="on_showall('playlist-showall')">Show all</a>
                 </div>
             </div>
-            <div class="col"></div>
+            <div class="col-lg-1"></div>
         </div>
         
-        
-        <div class="row centered">
-        
+        <div class="row playlist-row">
             
-            <div class="col">
-
-            </div>
+            <div class="col-lg-1"></div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
                     <div class="card-body">
@@ -141,7 +192,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/playlist2.jpg" alt="playlist2 img">
                     <div class="card-body">
@@ -150,7 +201,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/playlist3.jpg" alt="playlist3 img">
                     <div class="card-body">
@@ -160,7 +211,7 @@
                 </div>
             </div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
                     <div class="card-body">
@@ -170,7 +221,7 @@
                 </div>
             </div>
             
-            <div class="col">
+            <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
                     <div class="card-body">
@@ -180,10 +231,64 @@
                 </div>
             </div>
             
-            <div class="col">
-
+            <div class="col-lg-1"></div>
+        </div>
+        <div class="row playlist-row default-hidden" hidden>
+            
+            <div class="col-lg-1"></div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">Playlist name1</figcaption>
+                        <figcaption class="card-text">user1</figcaption>
+                    </div>
+                </div>
             </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/playlist2.jpg" alt="playlist2 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">Playlist name2</figcaption>
+                        <figcaption class="card-text">user1</figcaption>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/playlist3.jpg" alt="playlist3 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">Playlist name3</figcaption>
+                        <figcaption class="card-text">user1</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">Playlist name1</figcaption>
+                        <figcaption class="card-text">user1</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/playlist1.jpg" alt="playlist1 img">
+                    <div class="card-body">
+                        <figcaption class="card-title">Playlist name1</figcaption>
+                        <figcaption class="card-text">user1</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-1"></div>
         </div>
     </div>
+
+    <script src="home.js"></script>
 </body>
 </html>
