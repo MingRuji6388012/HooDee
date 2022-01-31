@@ -18,6 +18,37 @@ body {
     background-color: #1D193F !important;
 }
 
-.login-button{
+/* for coloring login button */
+.login-button, .login-button-submit {
     background-color: #B775FB !important;
 }
+
+.login-button-submit {
+    border-radius: 30px;
+    width: 200px !important;
+    height: 52px !important;
+}
+
+.logo-form {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.input-fields {
+    width: 340px
+}
+
+.login-button-block {
+    margin-top: 50px;
+}
+
+
+/* for centering things */
+.login-button-block, .logo-form, .input-fields {
+    margin-left: auto;
+    margin-right: auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
