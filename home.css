@@ -1,14 +1,7 @@
-
-
 * {
     color: #FAF8FC !important;
     font-family: Poppins;
     font-style: normal;
-}
-
-.navbar {
-    background: #1D193F;
-
 }
 
 .music-card{
@@ -49,4 +42,8 @@ body {
 .col-lg-2{
     /* margin-left: 10px;
     margin-right: 10px; */
+}
+
+.nav-item{
+    margin: 20px;
 }

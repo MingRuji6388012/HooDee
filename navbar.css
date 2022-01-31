@@ -1,15 +1,8 @@
-*{
-    font-family: Poppins, sans-serif;
-    box-sizing: border-box;
-    margin: 0 !important;
-    padding: 0 ;
-}
-
 body {
     background-color: #403672 !important; 
 }
 
-li, a, button{
+.navbar li, .navbar a, .navbar button{
     font-weight: 500 ; 
     font-size: 21px;
     color: #EDF0F1 !important;
@@ -32,6 +25,7 @@ header{
 }
 
 .nav_links{
+    margin: 0 !important;
     list-style: none !important;
 }
 
@@ -46,7 +40,7 @@ header{
     transition: all 0.15s ease 0s !important;
 }
 
-button{
+.login button{
     padding: 5px 30px !important;
     background-color: #B775FB;
     border: none !important;
@@ -54,14 +48,14 @@ button{
     cursor: pointer;
 }
 
-button:hover{
+.login button:hover{
     background-color: #62569C;
     transition: all 0.25s ease 0s !important;
 }
 
 @media only screen and (max-width: 768px) {
     li, a, button{
-        font-size: 17px;
+        font-size: 17px !important;
     }
 
     .logo{
@@ -69,6 +63,3 @@ button:hover{
         height: 50px !important;
     }
 }
-/* .login{
-    background-color: #B775FB !important;
-} */
