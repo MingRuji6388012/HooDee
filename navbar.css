@@ -1,3 +1,11 @@
+
+
+* {
+    color: #FAF8FC !important;
+    font-family: Poppins;
+    font-style: normal;
+}
+
 body {
     background-color: #403672 !important; 
 }
@@ -9,6 +17,7 @@ body {
     text-decoration: none !important;
 }
 
+
 header{
     background-color: #1D193F ;
     display: flex;
@@ -17,7 +26,7 @@ header{
     padding: 10px 1.5% !important;
 }
 
-.logo{
+.logo, .home{
     cursor: pointer;
     width: 160px !important;
     height: 70px !important;
