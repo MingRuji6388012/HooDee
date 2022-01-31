@@ -28,6 +28,6 @@ body {
     padding: 1em;
     border-radius: 10px;
 }
-.search_bar {
-    background-color: #FAF8FC !important;
+#search-bar {
+    color: black !important;
 }
