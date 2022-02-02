@@ -12,6 +12,10 @@
     border-radius: 10px;
 }
 
+.music-card:hover{
+    background-color:#B775FB !important;
+}
+
 body {
     background-color: #403672 !important; 
 }

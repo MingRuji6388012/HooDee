@@ -28,6 +28,9 @@ body {
     padding: 1em;
     border-radius: 10px;
 }
+.his-music-card:hover{
+    background-color: #B775FB !important;
+}
 #search-bar {
     color: black !important;
 }
