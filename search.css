@@ -3,43 +3,56 @@
     font-family: Poppins;
     font-style: normal;
 }
+
 body {
     background-color: #403672 !important; 
 }
+
 .login-button {
     background-color: #B775FB !important;
 }
+
 .search_bar {
     background-color: #FAF8FC !important;
     height: 100 px;
     width: 100 px;
 }
+
 .bar {
     margin-top: 50px;
 }
+
 .btn-outline-secondary {
     background-color: #FAF8FC !important;
 }
+
 .music-container{
     margin-top: 50px;
 }
+
 .his-music-card{
     background-color: rgba(196, 196, 196, 0.2) !important;
     padding: 1em;
     border-radius: 10px;
 }
+
 .his-music-card:hover{
     background-color: #B775FB  !important;
 }
+
+/*When hover, the image("more vert" button) will show up*/
 .his-music-card:hover .showWhenHover{
     margin-top: 10px;
     max-width: 0.7ex;
     float: right;
 }
+
+/*When not hover, the image("more vert" button) is hidden*/
 .his-music-card .showWhenHover{
     max-width: 0ex;
     float: right;
 }
+
 #search-bar {
     color: black !important;
 }

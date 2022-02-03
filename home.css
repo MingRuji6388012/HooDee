@@ -16,12 +16,14 @@
     background-color:#B775FB !important;
 }
 
+/*When hover, the image("more vert" button) will show up*/
 .music-card:hover .showWhenHover{
     margin-top: 10px;
     max-width: 0.7ex;
     float: right;
 }
 
+/*When not hover, the image("more vert" button) is hidden*/
 .music-card .showWhenHover{
     max-width: 0ex;
     float: right;
@@ -52,12 +54,5 @@ body {
 }
 
 .music-container, .playlist-container {
-    /* margin-left: 17px !important;
-    margin-right: 17px !important; */
     margin-top: 50px;
-}
-
-.col-lg-2{
-    /* margin-left: 10px;
-    margin-right: 10px; */
 }
