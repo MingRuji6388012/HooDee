@@ -31,32 +31,59 @@
     <a class="login" href="login.html"><button>Log in</button></a>
   </header>
 
-    <div class="bar container">
-        
-        <div class="input-group">
-            <div class="input-group-prepend">
-                <span class="search_bar input-group-text">
-                    <img src="public/button/magnifier_white.png" height="34"/>
-                </span>
+    <div class="bar container px-0">
+        <form>
+            <!-- search bar (text input)  -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="search_bar input-group-text">
+                        <img src="public/button/magnifier_white.png" height="34"/>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar">
+                <div class="input-group-append">
+                    <span class="search_bar input-group-text" onclick="on_click_cross('search-bar');">
+                        <img src="public/button/cross.png" height="34"/>
+                    </span>
+                </div>
             </div>
-            <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar">
-            <div class="input-group-append">
-                <span class="search_bar input-group-text" onclick="on_click_cross('search-bar');">
-                    <img src="public/button/cross.png" height="34"/>
-                </span>
+
+            <!-- select search mode (radio button)  -->
+            <div class="row my-3 search-mode-radio-button">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="all-radio-button" value="all" checked>
+                    <label class="form-check-label" for="inlineRadio1">All</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inlines mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="user-radio-button" value="user">
+                    <label class="form-check-label" for="inlineRadio2">User</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="music-radio-button" value="music">
+                    <label class="form-check-label" for="inlineRadio2">Music</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="artist-radio-button" value="artist">
+                    <label class="form-check-label" for="inlineRadio2">Artist</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="playlist-artist-button" value="playlist">
+                    <label class="form-check-label" for="inlineRadio2">Playlist</label>
+                </div>
+                <div class="col-lg-5 done-button mx-0 px-4">
+                    <input class="btn justify-content-end" type="submit" value="Done"/>
+                </div>
+                <div class="col-lg-1"></div>
+
             </div>
-        </div>
-        
+        </form>
     </div>
 
     <div class="container music-container">
         <div class="row my-3">
             <div class="col-lg-1"></div>
-            <div class="col-lg-2 music-title">Search history</div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
-            <div class="col-lg-2"></div>
+            <div class="col-lg-10 music-title">Search history</div>
             <div class="col-lg-1"></div>
         </div>
         
