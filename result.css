@@ -21,15 +21,20 @@
     font-size: 13px;
     color: rgba(196, 196, 196, 1) !important;
 }
+
 .non-top-result-name {
     font-size: 13px;
 }
 
-.showall{
+.showall {
     text-align: right;
 }
 
-.showall a{
+.showall a {
     font-size: 13px;
     color: rgb(166, 146, 187) !important;
+}
+
+#search-bar {
+    color: black !important;
 }
