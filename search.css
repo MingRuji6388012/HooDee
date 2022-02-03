@@ -29,7 +29,16 @@ body {
     border-radius: 10px;
 }
 .his-music-card:hover{
-    background-color: #B775FB !important;
+    background-color: #B775FB  !important;
+}
+.his-music-card:hover .showWhenHover{
+    margin-top: 10px;
+    max-width: 0.7ex;
+    float: right;
+}
+.his-music-card .showWhenHover{
+    max-width: 0ex;
+    float: right;
 }
 #search-bar {
     color: black !important;
