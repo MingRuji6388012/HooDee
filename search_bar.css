@@ -1,0 +1,45 @@
+
+/* Search bar related below */
+#search-bar {
+    color: black !important;
+}
+.search_bar {
+    background-color: #FAF8FC !important;
+    height: 100 px;
+    width: 100 px;
+}
+.done-button {
+    display:flex;
+    justify-content:flex-end;
+    align-items:center;
+}
+.done-button input{
+    background-color: #9792C1; 
+}
+/* https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons */
+.search-mode-radio-button div input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #C4C4C4;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #C4C4C4;   
+}
+.search-mode-radio-button div input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: #333131;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid #C4C4C4;
+}
