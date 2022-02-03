@@ -16,6 +16,17 @@
     background-color:#B775FB !important;
 }
 
+.music-card:hover .showWhenHover{
+    margin-top: 10px;
+    max-width: 0.7ex;
+    float: right;
+}
+
+.music-card .showWhenHover{
+    max-width: 0ex;
+    float: right;
+}
+
 body {
     background-color: #403672 !important; 
 }
