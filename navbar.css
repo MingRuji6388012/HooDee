@@ -1,14 +1,5 @@
 
-
-* {
-    color: #FAF8FC !important;
-    font-family: Poppins;
-    font-style: normal;
-}
-
-body {
-    background-color: #403672 !important; 
-}
+/* THIS FILE SHOULD ONLY RELATED TO CSS IN THE NAVBAR  */
 
 .navbar li, .navbar a, .navbar button{
     font-weight: 500 ; 
