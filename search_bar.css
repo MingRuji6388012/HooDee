@@ -1,8 +1,11 @@
 
 /* Search bar related below */
+
+/* color inside search bar */
 #search-bar {
-    color: black !important;
+    color: black !important; 
 }
+/* color of search bar itself */
 .search_bar {
     background-color: #FAF8FC !important;
     height: 100 px;
@@ -16,6 +19,8 @@
 .done-button input{
     background-color: #9792C1; 
 }
+
+/* custom color in radio buttons */
 /* https://stackoverflow.com/questions/4253920/how-do-i-change-the-color-of-radio-buttons */
 .search-mode-radio-button div input[type='radio']:after {
     width: 15px;
