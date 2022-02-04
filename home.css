@@ -6,25 +6,25 @@
     font-style: normal;
 }
 
-.music-card{
+.music-card {
     background-color: rgba(196, 196, 196, 0.2) !important;
     padding: 1em;
     border-radius: 10px;
 }
 
-.music-card:hover{
+.music-card:hover {
     background-color:#B775FB !important;
 }
 
 /*When hover, the image("more vert" button) will show up*/
-.music-card:hover .showWhenHover{
+.music-card:hover .showWhenHover {
     margin-top: 10px;
     max-width: 0.7ex;
     float: right;
 }
 
 /*When not hover, the image("more vert" button) is hidden*/
-.music-card .showWhenHover{
+.music-card .showWhenHover {
     max-width: 0ex;
     float: right;
 }
@@ -33,7 +33,7 @@ body {
     background-color: #403672 !important; 
 }
 
-.login-button{
+.login-button {
     background-color: #B775FB !important;
 }
 
@@ -44,15 +44,19 @@ body {
     text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
-.showall{
+.showall {
     text-align: right;
 }
 
-.showall a{
+.showall a {
     font-size: 13px;
     color: rgb(166, 146, 187) !important;
 }
 
 .music-container, .playlist-container {
     margin-top: 50px;
+}
+
+.listentimes {
+    max-width: 2ex;
 }
