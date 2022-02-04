@@ -18,6 +18,8 @@
 }
 .done-button input{
     background-color: #9792C1; 
+    border-radius: 20px;
+    width: 100px;
 }
 
 /* custom color in radio buttons */
