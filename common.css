@@ -87,3 +87,6 @@ button:hover,
 a {
     text-decoration: none;
 }
+a:hover {
+    text-decoration: underline;
+}
