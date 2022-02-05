@@ -21,8 +21,7 @@
     color: #fff;
     position: relative;
     border-radius: 20px;
-    margin: 0rem 4rem;
-    margin-top: 5%;
+    margin: 3rem 4rem;
 }
 
 .profile-pic {
@@ -43,8 +42,9 @@
     border-radius: 15px;
 }
 
-.text {
+.profile-text {
     color: rgb(141, 46, 46) !important;
+    margin: 0px;
 }
 
 .social-media a img {
