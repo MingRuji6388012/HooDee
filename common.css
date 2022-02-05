@@ -29,10 +29,6 @@ body {
     max-width: 0ex;
     float: right;
 }
-.music-card-horizontal {
-    background-color: transparent; /* this one will override typical music card class */
-    border: none; 
-}
 .music-title {
     font-style: normal;
     font-weight: 600;
