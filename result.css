@@ -1,4 +1,3 @@
-
 .non-top-result-type {
     font-size: 13px;
     color: rgba(196, 196, 196, 1) !important;
@@ -7,6 +6,12 @@
 .non-top-result-name {
     font-size: 13px;
 }
+
 .text {
     font-size: 20px;
+}
+
+.card-title.non-top-result-name.m-0 {
+    font-weight: 400 !important;
+    font-size: 15px !important;
 }
