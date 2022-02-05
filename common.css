@@ -84,4 +84,6 @@ button:hover,
     background-color: #62569C !important;
     transition: all 0.25s ease 0s !important;
 }
-
+a {
+    text-decoration: none;
+}
