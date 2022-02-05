@@ -1,0 +1,24 @@
+
+.playlist-info {
+    background-color: rgba(196, 196, 196, 0.2) !important;
+}
+.playlist-name-header{
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    font-weight: 600;
+    font-size: 67px;
+    line-height: 100px;
+}
+.playlist-description-header {
+    font-weight: normal;
+    font-size: 13px;
+    line-height: 19px;
+    color: #C4C4C4 !important;
+    margin-bottom: 12px;
+}
+.follow-button {
+    width: 100px;
+}
+.playlist-follower-header {
+    margin-left: 20px;
+    font-size: 17px;
+}

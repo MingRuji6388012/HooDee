@@ -29,6 +29,12 @@ body {
     max-width: 0ex;
     float: right;
 }
+/* http://howtocenterincss.com/#contentType=text&horizontal=left&vertical=middle&browser.IE=11 */
+/* vertical centering */
+.card-description, .vertical-dropdown {
+    display: flex;
+    align-items: center;
+}
 .music-title {
     font-style: normal;
     font-weight: 600;
