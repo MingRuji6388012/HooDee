@@ -53,6 +53,11 @@
     margin-right: 5px;
 }
 
+.social-media a img:hover {
+    background-color: #A692BB;
+    border-radius: 50px;
+}
+
 .Topic {
     text-align: center;
     margin-top: 40px;
