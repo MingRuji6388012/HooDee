@@ -11,7 +11,7 @@ body {
 }
 
 .music-card {
-    background-color: rgba(196, 196, 196, 0.2) !important;
+    background-color: rgba(196, 196, 196, 0.2);
     padding: 1em;
     border-radius: 10px;
 }
@@ -29,6 +29,10 @@ body {
     max-width: 0ex;
     float: right;
 }
+.music-card-horizontal {
+    background-color: transparent; /* this one will override typical music card class */
+    border: none; 
+}
 .music-title {
     font-style: normal;
     font-weight: 600;
@@ -41,4 +45,8 @@ body {
 .showall a {
     font-size: 13px;
     color: rgb(166, 146, 187) !important;
+}
+.follow-button {
+    background-color:#B775FB !important;
+    border-radius: 10px;
 }
