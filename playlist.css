@@ -17,6 +17,9 @@
 }
 .follow-button {
     width: 100px;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+    text-align: center;
 }
 .playlist-follower-header {
     margin-left: 20px;
