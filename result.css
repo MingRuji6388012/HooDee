@@ -10,3 +10,8 @@
 .text {
     font-size: 20px;
 }
+
+.card-title.non-top-result-name.m-0 {
+    font-weight: 400 !important;
+    font-size: 15px !important;
+}
