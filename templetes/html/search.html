@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- font related -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <!-- bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    
+    <!-- personal css -->
+    <link rel="stylesheet" href="search.css" />
+
+    <!-- navbar related -->
+    <link rel="stylesheet" href="navbar.css" />
+
+    <!-- search bar related -->
+    <script src="search_bar.js"></script>
+    <link rel="stylesheet" href="search_bar.css">
+    
+    <!-- common css  -->
+    <link rel="stylesheet" href="common.css">
+
+    <title>search</title>
+
+</head>
+
+<body>
+    <header class="navbar">
+        <a class="home" href="home.html">
+            <img class="logo" src="public/logo/Logo.png" alt="logo"/>
+        </a>
+        <nav>
+        <ul class="nav_links">
+            <li class="nav_items"><a href="search.html">Search</a></li>
+            <li class="nav_items"><a href="about_us.html">About Us</a></li>
+        </ul>
+        </nav>
+        <a class="login" href="login.html"><button>Log in</button></a>
+    </header>
+
+    <div class="bar container px-0 my-5">
+        <form action="./result.html" >
+            <!-- search bar (text input)  -->
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <span class="search_bar input-group-text">
+                        <img src="public/button/magnifier_white.png" height="34"/>
+                    </span>
+                </div>
+                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar" name="text">
+                <div class="input-group-append">
+                    <span class="search_bar input-group-text" onclick="on_click_cross('search-bar');">
+                        <img src="public/button/cross.png" height="34"/>
+                    </span>
+                </div>
+            </div>
+
+            <!-- select search mode (radio button)  -->
+            <div class="row my-3 search-mode-radio-button">
+                <div class="col-lg-1"></div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="quantifier" id="all-radio-button" value="all" checked>
+                    <label class="form-check-label" for="inlineRadio1">All</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inlines mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="quantifier" id="user-radio-button" value="user">
+                    <label class="form-check-label" for="inlineRadio2">User</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music">
+                    <label class="form-check-label" for="inlineRadio2">Music</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="quantifier" id="artist-radio-button" value="artist">
+                    <label class="form-check-label" for="inlineRadio2">Artist</label>
+                </div>
+                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
+                    <input class="form-check-input" type="radio" name="quantifier" id="playlist-artist-button" value="playlist">
+                    <label class="form-check-label" for="inlineRadio2">Playlist</label>
+                </div>
+                <div class="col-lg-5 done-button mx-0 px-4">
+                    <input class="btn justify-content-end" type="submit" value="Done"/>
+                </div>
+                <div class="col-lg-1"></div>
+
+            </div>
+        </form>
+    </div>
+
+    <div class="container music-container">
+        <div class="row my-3">
+            <div class="col-lg-1"></div>
+            <div class="col-lg-10 music-title">Search history</div>
+            <div class="col-lg-1"></div>
+        </div>
+        
+        <div class="row history-row">
+            <div class="col-lg-1"></div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/money.jpg" alt="song1 img">
+                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="Money"></div>
+                    <div class="card-body">
+                        <figcaption class="card-title">Money</figcaption>
+                        <figcaption class="card-text">Artist: Lisa</figcaption>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/butter.jpg" alt="Butter">
+                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="card-body">
+                        <figcaption class="card-title">Butter</figcaption>
+                        <figcaption class="card-text">Artist: BTS</figcaption>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/riBBon.jpg" alt="riBBon">
+                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="card-body">
+                        <figcaption class="card-title">riBBon</figcaption>
+                        <figcaption class="card-text">Artist: BamBam</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/positions.jpg" alt="Positions">
+                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="card-body">
+                        <figcaption class="card-title">Positions</figcaption>
+                        <figcaption class="card-text">Artist: Ariana</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-2">
+                <div class="card music-card">
+                    <img class="card-img-top" src="public/test me.jpg" alt="Test me">
+                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="card-body">
+                        <figcaption class="card-title">Test me</figcaption>
+                        <figcaption class="card-text">Artist: 4EVE</figcaption>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-1"></div>
+        </div>
+
+    </div>
+
+</body>
+</html>
