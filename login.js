@@ -54,9 +54,9 @@ login_route.post("/authentication", function (req, res) {
                 LoginTime : Date.now()
             }
             connection.query("INSERT INTO LoginLog VALUES ?;", values);
-            return res.send({authenticate: true});
+            res.send({authenticate: true});
         }
-        return res.send({authenticate: false});
+        res.send({authenticate: false});
     });
     connection.end();
     
