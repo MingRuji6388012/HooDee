@@ -143,4 +143,10 @@ connection.query("SELECT * FROM LoginLog;", function(error, results, fields) {
     console.log(results);
 });
 
+connection.query("SELECT * FROM Music;", function(error, results, fields){
+    if(error) throw error;
+    console.log("Music: ");
+    console.log(results);
+});
+
 connection.end();

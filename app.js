@@ -1,9 +1,10 @@
 const express = require("express");
-const path = require("path");
+// const path = require("path");
 const login = require("./login.js");
 const search = require("./search.js");
-const home = require("./home.js");
+// const home = require("./home.js");
 const user_api = require("./user.js");
+const music_api = require("./music.js");
 require('dotenv').config();
 
 const app = express();
@@ -16,6 +17,7 @@ const app = express();
 app.use("/login", login.login_route);
 app.use("/search", search.search_api_route);
 app.use("/api/user", user_api.user_api_route);
+app.use("/api/music", music_api.music_api_route);
 
 
 app.listen(process.env.PORT, function () {
