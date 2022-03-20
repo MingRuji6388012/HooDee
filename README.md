@@ -8,7 +8,7 @@ HooDee is music streaming website which
 - 6388012 Rujiphart (Ming)
 - 6388185 Bunradar (Oil)
 
-have contributed to Web Programming project.
+have contributed to Web Programming project which included in ITCS212 Web programming subject on Faculty of ICT, Mahidol University.
 
 
 ## Progress :date:
