@@ -28,7 +28,7 @@ user_api_route.post("/registeration", function(req, res) {
 
     expected to response
     {
-        "authenticate" : bool,
+        "error" : bool,
         "message" : "register complete"
     }
     */
@@ -41,16 +41,12 @@ user_api_route.post("/registeration", function(req, res) {
     user.Password = hashed_password;
     user.Role = 0; // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
     user.TimeCreated = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    connection.connect();
     connection.query("INSERT INTO User SET ?;", user, function(error, result, fields) {
-        if (error) throw error;
+        if (error) res.status(500).send({ error: true, message: error.toString()});
         // res.status(400).send({ authenticate: false, message: "SQL SUCKS" });
-        res.send({ authenticate: true, message: "registeration complete" });
+        res.send({ error: false, message: "registeration complete" });
     });
-    connection.end();
 });
-
-
 
 user_api_route.post("/authentication", function (req, res) {
     /*
@@ -178,6 +174,32 @@ user_api_route.delete("/remove", function(req, res){
         else res.send({error: false, message: "that person gone in to dust"});
     });
 
+});
+
+
+user_api_route.get("/search_by_username", function(req, res){
+    /**
+     * Search users in db by username
+     * expected to get
+     * {
+     *      "UserName" : value,
+     * }
+     * in req query
+     * 
+     * expected to response
+     * {
+     *      "error" : bool,
+     *      "users" : list of user(username, firstname, lastname, dob, userprofileimg, role) or null,
+     *      "message" : exception message 
+     * }
+     */
+    let username = req.query.UserName;
+    if (username == null) {res.status(400).send({error: true, users: null, message: "UserName can't be null"}); return;}
+    let username_query = "%" + username + "%";
+    connection.query("SELECT UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ?;", username_query, function(error, results, fields){
+        if(error) res.status(500).send({error: true, users: null, messsage: error.toString()});
+        else res.send({error: false, users: results, message: "returning found users"});
+    });
 });
 
 module.exports.user_api_route = user_api_route;
