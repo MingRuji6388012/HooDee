@@ -41,10 +41,11 @@ user_api_route.post("/registeration", function(req, res) {
     user.Password = hashed_password;
     user.Role = 0; // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
     user.TimeCreated = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    user.IsDeleted = false;
     connection.query("INSERT INTO User SET ?;", user, function(error, result, fields) {
         if (error) res.status(500).send({ error: true, message: error.toString()});
         // res.status(400).send({ authenticate: false, message: "SQL SUCKS" });
-        res.send({ error: false, message: "registeration complete" });
+        else res.send({ error: false, message: "registeration complete" });
     });
 });
 
@@ -217,10 +218,10 @@ user_api_route.post("/follow", function(req, res){
     });
 });
 
-user_api_route.post("/unfollow", function(req, res){
+user_api_route.delete("/follow", function(req, res){
     let FolloweeID = req.body.FolloweeID;
     let FollowerID = req.body.FollowerID;
-    connection.query("DELETE FROM UserFollowUser WHERE FolloweeID = ? and FollowerID = ?;", [FolloweeID, FollowerID], function(error, results, fields){
+    connection.query("UPDATE UserFollowUser SET IsUnFollow = true WHERE FolloweeID = ? and FollowerID = ?;", [FolloweeID, FollowerID], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else if(results.affectedRows == 0) res.send({error: false, message: "Didn't follow in the first place"})
         else res.send({error: false, message: "unfollow complete"});
