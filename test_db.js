@@ -162,4 +162,22 @@ connection.query("SELECT * FROM UserFollowUser;",  function(error, results, fiel
     console.log(results);
 });
 
+connection.query("SELECT * FROM Playlist;",  function(error, results, fields){
+    if(error) throw error;
+    console.log("Playlist: ");
+    console.log(results);
+});
+
+connection.query("SELECT * FROM UserFollowPlaylist;",  function(error, results, fields){
+    if(error) throw error;
+    console.log("UserFollowPlaylist: ");
+    console.log(results);
+});
+
+connection.query("SELECT * FROM Music m INNER JOIN MusicInPlaylist mip ON m.MusicID = mip.MusicID;",  function(error, results, fields){
+    if(error) throw error;
+    console.log("MusicInPlaylist with Music: ");
+    console.log(results);
+});
+
 connection.end();
