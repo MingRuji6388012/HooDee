@@ -29,19 +29,15 @@ music_api_route.post("/add", function(req, res){
      * }
      */
     let music = req.body.Music;
-    music.TimeCreated = new Date().toISOString().slice(0, 19).replace('T', ' ');
+    let transaction = {
+        UserID: music.UserID, 
+        MusicID: music.MusicID, 
+        CreateTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        IsDeleted: false,
+    }
     connection.query("INSERT INTO Music SET ?;", music, function(error, results, fields){
         if(error) {res.status(500).send({error: true, message: error.toString()}); return;} 
-        let transaction = {
-            UserID: music.UserID, 
-            MusicID: music.MusicID, 
-            CreateTime: music.TimeCreated,
-            IsDeleted: false,
-        }
-        connection.query("INSERT INTO UserCreateMusic SET ?;", transaction, function(error, results, fields){
-            if(error) {res.status(500).send({error: true, message: error.toString()}); return;}
-        });
-        res.send({error: false, message: "add song success"});
+        else res.send({error: false, message: "add song success"});
     });    
 });
 
