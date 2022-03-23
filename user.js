@@ -89,7 +89,7 @@ user_api_route.post("/authentication", function (req, res) {
     let password = user.Password;
     // maybe hash them
     // check email and hashed_password with db
-    connection.query('SELECT * FROM User WHERE email = ?;', email, function(error, results, fields) {
+    connection.query('SELECT * FROM User WHERE email = ? WHERE IsDelete = false;', email, function(error, results, fields) {
         if(error) res.status(500).send({error: true, message: error.toString()});
 
         let found_user = results[0];
@@ -163,20 +163,19 @@ user_api_route.delete("/remove", function(req, res){
      * expected to response
      * {
      *      "error" : bool,
-     *      "message" : "rm user succ"
+     *      "message" : str
      * }
      * 
      */
     console.log("delete acc");
     let user_id  = req.body.UserID;
     // tobe fix
-    connection.query("DELETE FROM User WHERE UserID = ?;", user_id, function(error, results, fields){
+    connection.query("UPDATE User SET IsDelete = true WHERE UserID = ?;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "that person gone in to dust"});
     });
 
 });
-
 
 user_api_route.get("/search_by_username", function(req, res){
     /**
@@ -227,5 +226,14 @@ user_api_route.delete("/follow", function(req, res){
         else res.send({error: false, message: "unfollow complete"});
     });
 })
+
+user_api_route.get("/search_by_id/:id", function(req, res){
+    let user_id = req.params.id;
+    connection.query("SELECT * FROM User WHERE UserID = ?;", user_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), user: null});
+        else if (results.length && !results[0].IsDeleted) res.send({error: false, message: "User found", user: results[0]});
+        else res.send({error: false, message: "User is deleted or no user use that id", user: null});
+    });
+});
 
 module.exports.user_api_route = user_api_route;
