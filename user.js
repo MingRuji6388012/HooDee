@@ -208,7 +208,8 @@ user_api_route.post("/follow", function(req, res){
     let record = {
         FolloweeID: FolloweeID,
         FollowerID: FollowerID,
-        FollowTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
+        FollowTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        IsUnFollow: false
     }
     // add checker here, or maybe change db's FolloweeID and FollowerID to primary keys
     connection.query("INSERT INTO UserFollowUser SET ?;", record, function(error, results, fields){
