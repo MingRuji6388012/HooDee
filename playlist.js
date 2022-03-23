@@ -40,8 +40,8 @@ playlist_api_route.post("/create", function(req, res){
 playlist_api_route.put("/edit", function(req, res){
     let playlist = req.body.Playlist;
     let playlist_id = playlist.PlaylistID;
-    delete playlist.TimeCreated; // strictly cant edit
-    delete playlist.IsDeleted; // strictly cant edit with this method
+    if(playlist.TimeCreated !== undefined) delete playlist.TimeCreated; // strictly cant edit
+    if(playlist.IsDeleted !== undefined) delete playlist.IsDeleted; // strictly cant edit with this method
 
     connection.query("UPDATE Playlist SET ? WHERE PlaylistID = ?;", [playlist, playlist_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
@@ -60,17 +60,26 @@ playlist_api_route.get("/search_by_authorname/:AuthorName", function(req, res){
 
 playlist_api_route.get("/search_by_playlistname/:PlaylistName", function(req, res){
     /**
-     * 
      * {
      *      "PlaylistName" : value
      * }
      */
     let playlist_name = req.params.PlaylistName; // str
-    if(!playlist_name) {res.status(400).send({error: true, message: "playlist name can't be null"}); return;}
+    if(playlist_name === null) {res.status(400).send({error: true, message: "playlist name can't be null"}); return;}
     let playlist_name_query = "%" + playlist_name + "%";
     connection.query("SELECT * FROM Playlist WHERE PlaylistName LIKE ? AND WHERE IsDeleted = False;", playlist_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, playlists:results, message: "playlist(s) found"});
+    });
+});
+
+playlist_api_route.delete("/delete", function(req, res){
+    let playlist_id = req.body.PlaylistID;
+    connection.query("UPDATE Playlist SET IsDeleted = true WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString()});
+        else if(results.affectedRows == 0) res.send({error: false, message: "playlist not found"});
+        else if(results.affectedRows > 0 && results.changedRows == 0) res.send({error: false, message: "playlist is already deleted"});
+        else res.send({error: false, message: "playlist delete complete"}); 
     });
 });
 
@@ -90,17 +99,6 @@ playlist_api_route.post("/user_follow", function(req, res){
     });
 });
 
-playlist_api_route.delete("/delete", function(req, res){
-    let playlist_id = req.body.PlaylistID;
-    connection.query("UPDATE Playlist SET IsDeleted = true WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
-        if(error) res.status(500).send({error: true, message: error.toString()});
-        else if(results.affectedRows == 0) res.send({error: false, message: "playlist not found"});
-        else if(results.affectedRows > 0 && results.changedRows == 0) res.send({error: false, message: "playlist is already deleted"});
-        else res.send({error: false, message: "playlist delete complete"}); 
-    });
-});
-
-
 playlist_api_route.delete("/user_follow", function(req, res){
     let user_id = req.body.UserID; // int
     let playlist_id = req.body.PlaylistID; // int
@@ -110,8 +108,8 @@ playlist_api_route.delete("/user_follow", function(req, res){
     });
 });
 
-playlist_api_route.get("/user_follow", function(req, res){
-    let user_id = req.query.UserID; // int
+playlist_api_route.get("/user_follow/:UserID", function(req, res){
+    let user_id = req.params.UserID; // int
     connection.query("SELECT * FROM UserFollowPlaylist ufp INNER JOIN Playlist p on ufp.PlaylistID = p.PlaylistID WHERE ufp.UserID = ? AND ufp.IsUnFollow = 0;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, playlists: null, message: error.toString()});
         else res.send({error: false, playlists: results, message: "return playlist success"});
