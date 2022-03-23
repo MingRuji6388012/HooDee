@@ -24,16 +24,16 @@ body {
 
 /*When hover, the image("more vert" button) will show up*/
 
-.music-card:hover .showWhenHover {
+.music-card:hover .dropimg {
     margin-top: 10px;
-    max-width: 0.7ex;
+    max-width: 0.9ex;
     float: right;
 }
 
 
 /*When not hover, the image("more vert" button) is hidden*/
 
-.music-card .showWhenHover {
+.music-card .dropimg {
     max-width: 0ex;
     float: right;
 }
