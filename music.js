@@ -32,16 +32,17 @@ music_api_route.post("/add", function(req, res){
     let transaction = {
         UserID: music.UserID, 
         MusicID: music.MusicID, 
-        CreateTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
+        MusicName: music.MusicName,
+        TimeCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         IsDeleted: false,
     }
-    connection.query("INSERT INTO Music SET ?;", music, function(error, results, fields){
+    connection.query("INSERT INTO Music SET ? AND IsDeleted = false;", transaction, function(error, results, fields){
         if(error) {res.status(500).send({error: true, message: error.toString()}); return;} 
         else res.send({error: false, message: "add song success"});
     });    
 });
 
-music_api_route.get("/search", function(req, res){
+music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
     /**
      * expected to get
      * {
@@ -110,6 +111,15 @@ music_api_route.put("/edit", function(req, res){
     connection.query("UPDATE Music SET ? WHERE MusicID = ?;", [music, music_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "edit success"});
+    });
+});
+
+music_api_route.get("/search_by_authorname/:name", function(req, res){
+    let author_name = req.params.name;
+    let author_name_query = "%" + author_name + "%";
+    connection.query("SELECT MusicID, m.UserID, m.MusicName, m.MusicIMG, m.MusicFile, u.UserID, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE UserName LIKE ? AND u.IsDeleted = False AND m.IsDeleted = False;", author_name_query, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), music: null});
+        else res.send({error: false, message: "Musics found", musics: results});
     });
 });
 
