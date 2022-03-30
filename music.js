@@ -57,7 +57,7 @@ music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
      */
     let music_name = req.params.MusicName;
     let music_name_query = "%" + music_name + "%";
-    connection.query("SELECT * FROM Music WHERE MusicName LIKE ? AND IsDeleted = False;", music_name_query, function(error, results, fields){
+    connection.query("SELECT MusicID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserID, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE MusicName LIKE ? AND m.IsDeleted = False;", music_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, musics: null, message: error.toString()});
         else res.send({error: false, musics: results, message: "search successful"});
     });
