@@ -45,7 +45,7 @@
     </header>
 
     <div class="bar container px-0 my-5">
-        <form onsubmit="on_search();">
+        <form action="/result" method="GET">
             <!-- search bar (text input)  -->
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -75,10 +75,6 @@
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
                     <input class="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music">
                     <label class="form-check-label" for="inlineRadio2">Music</label>
-                </div>
-                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="quantifier" id="artist-radio-button" value="artist">
-                    <label class="form-check-label" for="inlineRadio2">Artist</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
                     <input class="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist">
