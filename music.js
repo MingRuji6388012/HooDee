@@ -36,7 +36,7 @@ music_api_route.post("/add", function(req, res){
         TimeCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         IsDeleted: false,
     }
-    connection.query("INSERT INTO Music SET ? AND IsDeleted = false;", transaction, function(error, results, fields){
+    connection.query("INSERT INTO Music SET ?;", transaction, function(error, results, fields){
         if(error) {res.status(500).send({error: true, message: error.toString()}); return;} 
         else res.send({error: false, message: "add song success"});
     });    
@@ -45,9 +45,7 @@ music_api_route.post("/add", function(req, res){
 music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
     /**
      * expected to get
-     * {
-     *      "MusicName" : value
-     * }
+     * "MusicName" : str
      * in request query
      * 
      * expected to return
@@ -57,9 +55,9 @@ music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
      *      "message" : str
      * }
      */
-    let music_name = req.query.MusicName;
+    let music_name = req.params.MusicName;
     let music_name_query = "%" + music_name + "%";
-    connection.query("SELECT * FROM Music WHERE MusicName LIKE ?;", music_name_query, function(error, results, fields){
+    connection.query("SELECT * FROM Music WHERE MusicName LIKE ? AND IsDeleted = False;", music_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, musics: null, message: error.toString()});
         else res.send({error: false, musics: results, message: "search successful"});
     });
