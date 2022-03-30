@@ -37,7 +37,12 @@ user_api_route.post("/registeration", function(req, res) {
     let salt = crypto.randomBytes(20).toString("hex");
     let hashed_password = crypto.createHash('sha256').update(password + salt).digest('hex');
     let user = {
+        UserName : req.body.User.UserName,
+        FirstName : req.body.User.FirstName,
+        LastName : req.body.User.LastName,
+        UserProfileIMG : req.body.User.UserProfileIMG,
         Email : req.body.User.Email,
+        DOB : req.body.User.DOB,
         Password : hashed_password,
         salt : salt,
         Role : 0, // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
