@@ -31,7 +31,8 @@ music_api_route.post("/add", function(req, res){
     let music = req.body.Music;
     let transaction = {
         UserID: music.UserID, 
-        MusicID: music.MusicID, 
+        MusicIMG: music.MusicIMG, 
+        MusicFile: music.MusicFile, 
         MusicName: music.MusicName,
         TimeCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         IsDeleted: false,
