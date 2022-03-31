@@ -200,16 +200,20 @@ function create_half_horizontal_card(top_text, bottom_text, img_url, href){
     card_body_div.append(card_title, card_text);
     
     let card_body_div_wrapper = document.createElement("div");
-    card_body_div_wrapper.append(card_body_div);
     card_body_div_wrapper.classList.add("col-lg-auto");
+    card_body_div_wrapper.append(card_body_div);
     
     let card_img = document.createElement("img");
     card_img.setAttribute("src", img_url);
-    card_img.classList.add("col-lg-1");
+    card_img.classList.add("img-fluid", "rounded-start", "card-img-top");
+
+    let card_img_div = document.createElement("div");
+    card_img_div.append(card_img);
+    card_img_div.classList.add("col-lg-1");
 
     let inner_card_div = document.createElement("div");
     inner_card_div.classList.add("row", "no-gutters");
-    inner_card_div.append(card_img, card_body_div_wrapper);
+    inner_card_div.append(card_img_div, card_body_div_wrapper);
 
     let card_div = document.createElement("div");
     card_div.classList.add("card", "music-card", "p-1", "m-1");
