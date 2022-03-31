@@ -122,4 +122,13 @@ music_api_route.get("/search_by_authorname/:name", function(req, res){
     });
 });
 
+music_api_route.get("/search_by_authorid/:id", function(req, res){
+    let user_id = req.params.id;
+    connection.query("SELECT MusicID, UserID, MusicName, MusicIMG, MusicFile, TimeCreated FROM Music WHERE IsDeleted = False AND UserID = ?;", user_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), musics: null});
+        else res.send({error: false, message: "querying music success", musics: results});
+    });
+});
+
+
 module.exports.music_api_route = music_api_route;
