@@ -20,6 +20,9 @@ app.use("/public", express.static(path.join(__dirname, "templetes", "public")));
 // app.use("/", home.home_route);
 app.use("/images", express.static(path.join(__dirname, "templetes", "images")));
 
+app.get("/user", function(req, res) {
+    res.sendFile(path.join(__dirname, "templetes", "html", "artist.html"));
+});
 // app.use("/login", login.login_route);
 app.use("/search", search.search_route);
 app.use("/result", result.result_route);

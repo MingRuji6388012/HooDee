@@ -5,7 +5,8 @@ import {
     empty_vertical_card, 
     create_half_horizontal_card, 
     empty_half_horizontal_card, 
-    top_card 
+    top_card,
+    get_parameter
 } from "./common.js"
 
 window.onload = async function() {
@@ -48,18 +49,6 @@ window.onload = async function() {
 
     // user handler
     user_handler(data);
-}
-
-function get_parameter(){
-    const url = window.location.href;
-    let url_split = url.split("?");
-    let parameters = url_split[1].split("&");
-    let dict = {};
-    parameters.forEach(element => {
-        let [key, value] = element.split("=");
-        dict[key] = value;
-    });
-    return dict;
 }
 
 function playlist_handler(data){
