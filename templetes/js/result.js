@@ -1,5 +1,12 @@
-
-
+import { 
+    EACH_ROW, 
+    create_vertical_card, 
+    padding_border, 
+    empty_vertical_card, 
+    create_half_horizontal_card, 
+    empty_half_horizontal_card, 
+    top_card 
+} from "./common.js"
 
 window.onload = async function() {
     const $_GET = get_parameter();
@@ -31,6 +38,7 @@ window.onload = async function() {
     console.log(data);
 
     // push item in templete here *sigh*
+    // maybe make these three async later
 
     // music handler
     music_handler(data);
@@ -54,52 +62,6 @@ function get_parameter(){
     return dict;
 }
 
-function create_vertical_card(top_text, bottom_text, img_url, href){
-    let user_name_div = document.createElement("figcaption");
-    user_name_div.classList.add("card-text");
-    user_name_div.appendChild(document.createTextNode(bottom_text));
-
-    let playlist_name_div = document.createElement("figcaption");
-    playlist_name_div.classList.add("card-title");
-    playlist_name_div.appendChild(document.createTextNode(top_text));
-    
-    let card_body = document.createElement("div");
-    card_body.classList.add("card-body");
-    card_body.appendChild(playlist_name_div);
-    card_body.appendChild(user_name_div);
-
-    let anchor_playlist = document.createElement("a");
-    anchor_playlist.setAttribute("href", href); 
-    anchor_playlist.appendChild(card_body);
-
-    let card_img = document.createElement("img");
-    card_img.classList.add("card-img-top");
-    card_img.setAttribute("src", img_url);
-    card_img.setAttribute("alt", "playlist img");
-
-    let card_div = document.createElement("div");
-    card_div.classList.add("card");
-    card_div.classList.add("music-card");
-    card_div.appendChild(card_img);
-    card_div.appendChild(anchor_playlist);
-
-    let most_outer_div = document.createElement("div");
-    most_outer_div.classList.add("col-lg-2");
-    most_outer_div.appendChild(card_div);
-    return most_outer_div;
-}
-
-const EACH_ROW = 5;
-const EMPTY_PLAYLIST_CARD = create_vertical_card("Don't stop me", "Oily😀", "public/dont stop me now.webp", "playlist.html");
-const BORDER = document.createElement("div");
-BORDER.classList.add("col-lg-1");
-
-function padding_border(){
-    return BORDER.cloneNode(true);
-}
-function empty_vertical_card(){
-    return EMPTY_PLAYLIST_CARD.cloneNode(true);
-}
 function playlist_handler(data){
     if(data.playlist !== null && !data.playlist.error){
         document.querySelector("#playlist").hidden = false;
@@ -160,7 +122,7 @@ function music_handler(data){
         document.querySelector("#top-music").hidden = false; // im not so sure that what should be hidden
         let parent_node = document.querySelector("#music-append"); 
         let musics = data.music.musics;
-        let music, top_text, bottom_text, href, img;
+        let music, top_text, bottom_text, href, img, half_hori_card_div;
         for(let c = 0; c < EACH_ROW; c++){
             if(c < musics.length) {
                 music = musics[c];
@@ -186,102 +148,3 @@ function music_handler(data){
         console.log(data.music.message);
     }
 }
-function create_half_horizontal_card(top_text, bottom_text, img_url, href){
-    let card_title = document.createElement("figcaption");
-    card_title.classList.add("card-title");
-    card_title.appendChild(document.createTextNode(top_text));
-
-    let card_text = document.createElement("figcaption");
-    card_text.classList.add("card-text");
-    card_text.appendChild(document.createTextNode(bottom_text));
-
-    let card_body_div = document.createElement("div");
-    card_body_div.classList.add("card-body", "p-0");
-    card_body_div.append(card_title, card_text);
-    
-    let card_body_div_wrapper = document.createElement("div");
-    card_body_div_wrapper.classList.add("col-lg-auto");
-    card_body_div_wrapper.append(card_body_div);
-    
-    let card_img = document.createElement("img");
-    card_img.setAttribute("src", img_url);
-    card_img.classList.add("img-fluid", "rounded-start", "card-img-top");
-
-    let card_img_div = document.createElement("div");
-    card_img_div.append(card_img);
-    card_img_div.classList.add("col-lg-1");
-
-    let inner_card_div = document.createElement("div");
-    inner_card_div.classList.add("row", "no-gutters");
-    inner_card_div.append(card_img_div, card_body_div_wrapper);
-
-    let card_div = document.createElement("div");
-    card_div.classList.add("card", "music-card", "p-1", "m-1");
-    card_div.append(inner_card_div);
-
-    let anchor = document.createElement("a");
-    anchor.setAttribute("href", href);
-    anchor.append(card_div);
-    return anchor;
-}
-const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "public/minecraft-volume-alpha.jpg", "music")
-function empty_half_horizontal_card(){
-    return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
-}
-function top_card(top_text, bottom_text, img_url, href){
-    let card_title = document.createElement("figcaption");
-    card_title.classList.add("card-title", "h6");
-    card_title.append(top_text);
-
-    let card_text = document.createElement("figcaption");
-    card_text.classList.add("card-text");
-    card_text.append(bottom_text);
-
-    let card_body = document.createElement("div");
-    card_body.classList.add("card-body");
-    card_body.append(card_title, card_text);
-
-    let card_body_div_wrapper = document.createElement("div");
-    card_body_div_wrapper.classList.add("col-md-6");
-    card_body_div_wrapper.append(card_body);
-
-    let img = document.createElement("img");
-    img.setAttribute("src", img_url);
-    img.classList.add("img-fluid", "rounded-start", "card-img-top");
-    
-    let img_div = document.createElement("div");
-    img_div.classList.add("col-md-6");
-    img_div.append(img);
-
-    let inner_card_div = document.createElement("div");
-    inner_card_div.classList.add("row", "no-gutters", "fluid");
-    inner_card_div.append(img_div, card_body_div_wrapper);
-
-    let card_div = document.createElement("div");
-    card_div.classList.add("card", "music-card", "top-card");
-    card_div.append(inner_card_div);
-
-    let anchor = document.createElement("a");
-    anchor.setAttribute("href", href);
-    anchor.append(card_div);
-    return anchor;
-}
-
-
-/* 
-<a href="artist.html">
-    <div class="card music-card top-card">
-        <div class="row no-gutters fluid">
-            <div class="col-md-6">
-                <img src="public/misumi-san.jpg" class="img-fluid rounded-start card-img-top" alt="...">
-            </div>
-            <div class="col-md-6">
-                <div class="card-body">
-                    <figcaption class="card-title h6">Misumi Yuka</figcaption>
-                    <figcaption class="card-text">Artist</figcaption>
-                </div>
-            </div>
-        </div>
-    </div>
-</a> 
-*/
