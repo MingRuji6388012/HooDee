@@ -135,4 +135,12 @@ playlist_api_route.delete("/add_music", function(req, res){
     });
 });
 
+playlist_api_route.get("/search_by_userid/:UserID", function(req, res){
+    let user_id = req.params.UserID;
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, TimeCreated FROM Playlist WHERE PlaylistCreator = ? AND IsDeleted = false;", user_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), playlists: null});
+        else res.send({error: false, message: "getting playlists success", playlists: results});
+    });
+});
+
 module.exports.playlist_api_route = playlist_api_route;
