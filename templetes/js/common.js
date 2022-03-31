@@ -49,7 +49,7 @@ export function create_vertical_card(top_text, bottom_text, img_url, href){
 }
 
 export const EACH_ROW = 5;
-const EMPTY_PLAYLIST_CARD = create_vertical_card("Don't stop me", "Oily😀", "public/dont stop me now.webp", "playlist.html");
+const EMPTY_PLAYLIST_CARD = create_vertical_card("top text", "bottom text", "https://www.memecreator.org/static/images/memes/4100601.jpg", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 const BORDER = document.createElement("div");
 BORDER.classList.add("col-lg-1");
 

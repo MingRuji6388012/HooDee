@@ -95,15 +95,15 @@ function user_handler(data){
         document.querySelector("#artist").hidden = false; // its called artist for backward compatibility reason
         let parent_node = document.querySelector("#user-append"); 
         let users = data.user.users;
-        let top_text, bottom_text, href;
+        let top_text, img_url, href;
         parent_node.appendChild(padding_border());
         for(let c = 0; c < EACH_ROW; c++){
             let verti_card_div = null; 
             if(c < users.length) {
                 top_text = users[c].UserName;
-                bottom_text = users[c].UserProfileIMG;
+                img_url = users[c].UserProfileIMG;
                 href = "artist"; // TODO: tbd
-                verti_card_div = create_vertical_card(top_text, "User", bottom_text, href);
+                verti_card_div = create_vertical_card(top_text, "User", img_url, href);
             }
             else{ // default
                 verti_card_div = empty_vertical_card(); 
