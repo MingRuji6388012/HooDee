@@ -33,3 +33,38 @@ function on_showall(id){
     }
 
 }
+
+window.onload = async function() {
+    
+    let data = await fetch(`/api/music/search_by_musicname/%25`, { 
+        method: "GET",
+    }).then(res => res.json());
+    console.log(data);
+    search_history_appender(data);
+};
+
+function search_history_appender(data){
+    if(!data.error){
+        let parent_node = document.querySelector("#home-history-append");
+        let top_text, bottom_text, img, href, card_tobe_append;
+        let d;
+        
+        parent_node.hidden = false;
+        parent_node.append(padding_border());
+        for(let i = 0; i < EACH_ROW; i++){
+            if(i < data["musics"].length){
+                d = data["musics"][i];
+                top_text = d.MusicName
+                bottom_text = d.UserName;
+                img = d.MusicIMG ? d.MusicIMG : "public/what is love.jpg"; // default value
+                href = d.MusicFile; // TODO: tbd
+                card_tobe_append = create_vertical_card(top_text, bottom_text, img, href);
+            }
+            else{ // default
+                card_tobe_append = empty_vertical_card();
+            }
+            parent_node.append(card_tobe_append);
+        }
+        parent_node.append(padding_border());
+    }
+}
