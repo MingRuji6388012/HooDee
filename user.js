@@ -217,8 +217,7 @@ user_api_route.post("/follow", function(req, res){
     let record = {
         FolloweeID: FolloweeID,
         FollowerID: FollowerID,
-        FollowTime: new Date().toISOString().slice(0, 19).replace('T', ' '),
-        IsUnFollow: false
+        FollowTime: new Date().toISOString().slice(0, 19).replace('T', ' ')
     }
     // add checker here, or maybe change db's FolloweeID and FollowerID to primary keys
     connection.query("INSERT INTO UserFollowUser SET ?;", record, function(error, results, fields){
@@ -230,7 +229,7 @@ user_api_route.post("/follow", function(req, res){
 user_api_route.delete("/follow", function(req, res){
     let FolloweeID = req.body.FolloweeID;
     let FollowerID = req.body.FollowerID;
-    connection.query("UPDATE UserFollowUser SET IsUnFollow = true WHERE FolloweeID = ? and FollowerID = ?;", [FolloweeID, FollowerID], function(error, results, fields){
+    connection.query("DELETE FROM UserFollowUser WHERE FolloweeID = ? and FollowerID = ?;", [FolloweeID, FollowerID], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else if(results.affectedRows == 0) res.send({error: false, message: "Didn't follow in the first place"})
         else res.send({error: false, message: "unfollow complete"});
