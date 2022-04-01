@@ -22,27 +22,28 @@
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
 
-    <!-- this page's css -->
+    <!-- this page's js/css -->
     <link rel="stylesheet" href="playlist.css" />
+    <script type="module" src="playlist.js"></script>
 
-    <title>Aimer - HooDee</title>
+    <title>HooDee</title>
 </head>
 <body>
     <header class="navbar">
-        <a class="home" href="home.html">
+        <a class="home" href="/">
             <img class="logo" src="public/logo/Logo.png" alt="logo"/>
         </a>
         <nav>
             <ul class="nav_links">
                 <li class="nav_items">
-                    <a href="search.html">Search</a>
+                    <a href="search">Search</a>
                 </li>
                 <li class="nav_items">
-                    <a href="about_us.html">About Us</a>
+                    <a href="about_us">About Us</a>
                 </li>
             </ul>
         </nav>
-        <a class="login" href="login.html">
+        <a class="login" href="login">
             <button>Log in</button>
         </a>
     </header>
@@ -52,13 +53,13 @@
             <div class="row">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-11">
-                    <div class="playlist-name-header">Aimer playlist</div>
-                    <div class="playlist-description-header">Lorem ipsum dolor sit amet consectetur adipisicing elit. Maiores iusto, facilis labore deleniti eveniet tempore inventore quam exercitationem amet rerum.</div>
+                    <div class="playlist-name-header" id="playlist-name">Playlist</div>
+                    <div class="playlist-description-header" id="playlist-creator">User</div>
                     <div class="playlist-follow-follower-header">
                         <span class="follow-button-header">
                             <button class="btn follow-button">Follow</button>
                         </span> 
-                        <span class="playlist-follower-header">20M FOLLOWERS</span>
+                        <span class="playlist-follower-header" id="playlist-follows">XXXX FOLLOWERS (tobe fixed later)</span>
                     </div>
                     
                 </div>
@@ -71,23 +72,23 @@
             <div class="row">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-9 music-title">Musics</div>
-                <div class="col-lg-1 showall"><a href="">Show all</a></div>
-                <div class="col-lg-1"></div>
+                <!-- <div class="col-lg-1 showall"><a href="">Show all</a></div> -->
+                <div class="col-lg-auto"></div>
             </div>
         </div>
 
         <div class="container">
             <div class="row">
                 <div class="col-lg-1"></div>
-                <div class="col-lg-10">
+                <div class="col-lg-10" id="music-append">
                     <!-- music-card-horizontal -->
-                    <div class="card music-card p-1 my-2">
+                    <!-- <div class="card music-card p-1 my-2">
                         <div class="row no-gutters">
                             <div class="col-lg-1"><img class="img-fluid rounded-start card-img-top" src="public/Aimer.jpg" alt=""></div>
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">One and last</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -101,7 +102,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Hz</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -115,7 +116,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Tone</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -129,7 +130,7 @@
                             <div class="col-lg-10">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">I beg you</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -143,7 +144,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">One and last</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -157,7 +158,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Hz</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -171,7 +172,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Tone</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -185,7 +186,7 @@
                             <div class="col-lg-10">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">I beg you</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -199,7 +200,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">One and last</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -213,7 +214,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Hz</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -227,7 +228,7 @@
                             <div class="col-lg-10 card-description">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">Tone</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
@@ -241,14 +242,14 @@
                             <div class="col-lg-10">
                                 <figcaption class="card-body py-0">
                                     <div class="card-title my-0">I beg you</div>
-                                    <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                                    <div class="card-text my-0"><a href="artist">Aimer</a></div>
                                 </figcaption>
                             </div>
                             <div class="col-lg-1 vertical-dropdown">
                                 <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-1"></div>
             </div>

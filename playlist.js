@@ -1,4 +1,3 @@
-require('dotenv').config();
 const express = require("express");
 const database = require("./database.js");
 const connection = database.connection;
@@ -119,6 +118,7 @@ playlist_api_route.get("/user_follow/:UserID", function(req, res){
 playlist_api_route.put("/add_music", function(req, res){
     let music_id = req.body.MusicID; // int
     let playlist_id = req.body.PlaylistID; // int
+
     let record = {MusicID: music_id, PlaylistID: playlist_id};
     connection.query("INSERT INTO MusicInPlaylist SET ?;", record, function(error, results, fields){
         if(error) res.status(500).send({error: true, playlists: null, message: error.toString()});
@@ -140,6 +140,24 @@ playlist_api_route.get("/search_by_userid/:UserID", function(req, res){
     connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, TimeCreated FROM Playlist WHERE PlaylistCreator = ? AND IsDeleted = false;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), playlists: null});
         else res.send({error: false, message: "getting playlists success", playlists: results});
+    });
+});
+
+playlist_api_route.get("/search_by_playlistid", function(req, res){
+    // /search_by_playlistid?PlaylistID=%d
+    const playlist_id = req.query.PlaylistID;
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, p.TimeCreated, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE PlaylistID = ? AND p.IsDeleted = false;", playlist_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), playlist: null});
+        else if(!results.length) res.send({error: false, message: "playlist not found", playlist: {}});
+        else res.send({error: false, message: "getting playlists success", playlist: results[0]});
+    });
+});
+
+playlist_api_route.get("/musics_in_playlist", function(req, res){
+    const playlist_id = req.query.PlaylistID;
+    connection.query("SELECT m.MusicID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserID, u.UserName  FROM MusicInPlaylist mip INNER JOIN Music m ON mip.MusicID = m.MusicID INNER JOIN User u ON m.UserID = u.UserID WHERE PlaylistID = ? AND m.IsDeleted = false;", playlist_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), playlist: null});
+        else res.send({error: false, message: "getting music success", musics: results});
     });
 });
 

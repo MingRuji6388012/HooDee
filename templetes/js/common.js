@@ -98,7 +98,11 @@ export function create_half_horizontal_card(top_text, bottom_text, img_url, href
     anchor.append(card_div);
     return anchor;
 }
+<<<<<<< HEAD
 const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "/public/ProfilePic/DefaultProfilePic.png", "music")
+=======
+const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "public/minecraft-volume-alpha.jpg", "/music?music_id=1")
+>>>>>>> 708ef746d30c0b7a29152985dec5f7e9fd2ec0f6
 export function empty_half_horizontal_card(){
     return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
 }
