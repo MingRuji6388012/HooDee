@@ -32,6 +32,7 @@ user_api_route.post("/registeration", function(req, res) {
         "message" : "register complete"
     }
     */
+    console.log(req.body.User);
     console.log("registering");
     let password = req.body.User.Password;
     let salt = crypto.randomBytes(20).toString("hex");
