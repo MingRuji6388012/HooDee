@@ -1,6 +1,4 @@
 const express = require("express");
-const path = require("path");
-
 const main_route = require("./main_page.js");
 const user_api = require("./user.js");
 const music_api = require("./music.js");
