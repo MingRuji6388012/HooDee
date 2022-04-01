@@ -14,6 +14,9 @@ const connection = mysql.createConnection({
 connection.connect();
 
 // connection.query(`
+// DROP TABLE IF EXISTS MusicInPlaylist;
+// `);
+// connection.query(`
 // DROP TABLE IF EXISTS LoginLog;
 // `);
 // connection.query(`
@@ -179,5 +182,6 @@ connection.query("SELECT * FROM Music m INNER JOIN MusicInPlaylist mip ON m.Musi
     console.log("MusicInPlaylist with Music: ");
     console.log(results);
 });
+
 
 connection.end();

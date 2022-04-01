@@ -24,8 +24,11 @@
 
     <!-- this page's css -->
     <link rel="stylesheet" href="artist.css" />
-
-    <title>Aimer - HooDee</title>
+    
+    <!-- this page's js -->
+    <script type="module" src="user.js"></script> 
+    <script src="home.js"></script>
+    <title>HooDee</title>
 </head>
 <body>
     <header class="navbar">
@@ -47,11 +50,11 @@
         </a>
     </header>
 
-    <div class="artist-info py-4">
-        <div class="h1 artist-name-header">Aimer</div>
+    <div class="artist-info py-4" id="user-title-append" >
+        <!-- <div class="h1 artist-name-header">Aimer</div>
         <div class="h5 artist-follower-header">20M FOLLOWERS</div>
         <br>    
-        <div><button class="btn follow-button">Follow</button></div>
+        <div><button class="btn follow-button">Follow</button></div> -->
     </div>
 
     <div class="music-section my-3">
@@ -59,7 +62,7 @@
             <div class="row">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-9 music-title">Musics</div>
-                <div class="col-lg-1 showall"><a href="">Show all</a></div>
+                <div class="col-lg-1 showall"><div id="music-showall" onclick="on_showall('music-showall');">Show all</a></div>
                 <div class="col-lg-1"></div>
             </div>
         </div>
@@ -67,9 +70,9 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-1"></div>
-                <div class="col-lg-10">
+                <div class="col-lg-10" id="music-own-append">
                     <!-- music-card-horizontal -->
-                    <div class="card music-card p-1 my-2">
+                    <!-- <div class="card music-card p-1 my-2">
                         <div class="row no-gutters">
                             <div class="col-lg-1"><img class="img-fluid rounded-start card-img-top" src="public/Aimer.jpg" alt=""></div>
                             <div class="col-lg-10 card-description">
@@ -168,7 +171,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-1"></div>
             </div>
@@ -180,12 +183,14 @@
             <div class="row">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-9 music-title">Playlist</div>
-                <div class="col-lg-1 showall"><a href="">Show all</a></div>
+                <div class="col-lg-1 showall" >
+                    <div id="playlist-showall" onclick="on_showall('playlist-showall')">Show all</div>
+                </div>
                 <div class="col-lg-1"></div>
             </div>
         </div>
-        <div class="container music-container">
-            <div class="row music-row my-3">
+        <div class="container music-container" id="playlist-own-append">
+            <!-- <div class="row music-row my-3">
                 <div class="col-lg-1"></div>
 
                 <div class="col-lg-2">
@@ -307,7 +312,7 @@
                 </div>
 
                 <div class="col-lg-1"></div>
-            </div>
+            </div> -->
         </div>
     </div>
 

@@ -31,7 +31,8 @@ music_api_route.post("/add", function(req, res){
     let music = req.body.Music;
     let transaction = {
         UserID: music.UserID, 
-        MusicID: music.MusicID, 
+        MusicIMG: music.MusicIMG, 
+        MusicFile: music.MusicFile, 
         MusicName: music.MusicName,
         TimeCreated: new Date().toISOString().slice(0, 19).replace('T', ' '),
         IsDeleted: false,
@@ -57,7 +58,7 @@ music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
      */
     let music_name = req.params.MusicName;
     let music_name_query = "%" + music_name + "%";
-    connection.query("SELECT * FROM Music WHERE MusicName LIKE ? AND IsDeleted = False;", music_name_query, function(error, results, fields){
+    connection.query("SELECT MusicID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserID, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE MusicName LIKE ? AND m.IsDeleted = False;", music_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, musics: null, message: error.toString()});
         else res.send({error: false, musics: results, message: "search successful"});
     });
@@ -120,5 +121,14 @@ music_api_route.get("/search_by_authorname/:name", function(req, res){
         else res.send({error: false, message: "Musics found", musics: results});
     });
 });
+
+music_api_route.get("/search_by_authorid/:id", function(req, res){
+    let user_id = req.params.id;
+    connection.query("SELECT MusicID, UserID, MusicName, MusicIMG, MusicFile, TimeCreated FROM Music WHERE IsDeleted = False AND UserID = ?;", user_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), musics: null});
+        else res.send({error: false, message: "querying music success", musics: results});
+    });
+});
+
 
 module.exports.music_api_route = music_api_route;
