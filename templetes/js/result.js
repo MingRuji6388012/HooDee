@@ -64,7 +64,7 @@ function playlist_handler(data){
                 author_name = playlists[c].UserName;
                 playlist_name = playlists[c].PlaylistName;
                 playlist_img = playlists[c].PlaylistIMG;
-                playlist_href = "playlist"; // TODO: tbd
+                playlist_href = `/playlist?playlist_id=${playlists[c].PlaylistID}`;
                 playlist_div = create_vertical_card(playlist_name, author_name, playlist_img, playlist_href);
             }
             else{ // default
@@ -91,7 +91,7 @@ function user_handler(data){
             if(c < users.length) {
                 top_text = users[c].UserName;
                 img_url = users[c].UserProfileIMG;
-                href = "artist"; // TODO: tbd
+                href = `/user?user_id=${users[c].UserID}`; // TODO: tbd
                 verti_card_div = create_vertical_card(top_text, "User", img_url, href);
             }
             else{ // default

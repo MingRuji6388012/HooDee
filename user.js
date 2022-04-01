@@ -206,7 +206,7 @@ user_api_route.get("/search_by_username", function(req, res){
     let username = req.query.UserName;
     if (username == null) {res.status(400).send({error: true, users: null, message: "UserName can't be null"}); return;}
     let username_query = "%" + username + "%";
-    connection.query("SELECT UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ?;", username_query, function(error, results, fields){
+    connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ?;", username_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, users: null, messsage: error.toString()});
         else res.send({error: false, users: results, message: "returning found users"});
     });
