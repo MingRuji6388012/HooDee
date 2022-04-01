@@ -49,7 +49,7 @@ export function create_vertical_card(top_text, bottom_text, img_url, href){
 }
 
 export const EACH_ROW = 5;
-const EMPTY_PLAYLIST_CARD = create_vertical_card("top text", "bottom text", "https://www.memecreator.org/static/images/memes/4100601.jpg", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+const EMPTY_PLAYLIST_CARD = create_vertical_card("top text", "bottom text", "/public/ProfilePic/DefaultProfilePic.png", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
 const BORDER = document.createElement("div");
 BORDER.classList.add("col-lg-1");
 
@@ -98,7 +98,7 @@ export function create_half_horizontal_card(top_text, bottom_text, img_url, href
     anchor.append(card_div);
     return anchor;
 }
-const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "public/minecraft-volume-alpha.jpg", "music")
+const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "/public/ProfilePic/DefaultProfilePic.png", "music")
 export function empty_half_horizontal_card(){
     return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
 }
