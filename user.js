@@ -33,15 +33,22 @@ user_api_route.post("/registeration", function(req, res) {
     }
     */
     console.log("registering");
-    let user = req.body.User;
-    let password = user.Password;
+    let password = req.body.User.Password;
     let salt = crypto.randomBytes(20).toString("hex");
     let hashed_password = crypto.createHash('sha256').update(password + salt).digest('hex');
-    user.salt = salt;
-    user.Password = hashed_password;
-    user.Role = 0; // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
-    user.TimeCreated = new Date().toISOString().slice(0, 19).replace('T', ' ');
-    user.IsDeleted = false;
+    let user = {
+        UserName : req.body.User.UserName,
+        FirstName : req.body.User.FirstName,
+        LastName : req.body.User.LastName,
+        UserProfileIMG : req.body.User.UserProfileIMG,
+        Email : req.body.User.Email,
+        DOB : req.body.User.DOB,
+        Password : hashed_password,
+        salt : salt,
+        Role : 0, // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
+        TimeCreated : new Date().toISOString().slice(0, 19).replace('T', ' '),
+        IsDeleted : false
+    };
     connection.query("INSERT INTO User SET ?;", user, function(error, result, fields) {
         if (error) res.status(500).send({ error: true, message: error.toString()});
         // res.status(400).send({ authenticate: false, message: "SQL SUCKS" });
@@ -142,10 +149,12 @@ user_api_route.put("/edit", function(req, res){
     console.log("editing");
     let user = req.body.User
     let user_id = user.UserID;
-    if(user.UserName == null){ delete user.UserName; }
-    if(user.FirstName == null){ delete user.FirstName; }
-    if(user.LastName == null){ delete user.LastName; }
-    if(user.DOB == null){ delete user.DOB; }
+    if(user.Password !== undefined){ delete user.password; } // strictly cant change
+    if(user.Email !== undefined){ delete user.Email; }   // strictly cant change
+    if(user.UserName === null){ delete user.UserName; }
+    if(user.FirstName === null){ delete user.FirstName; }
+    if(user.LastName === null){ delete user.LastName; }
+    if(user.DOB === null){ delete user.DOB; }
     connection.query("UPDATE User SET ? WHERE UserID = ?;", [user, user_id], function (error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "edit user profile complete"});
@@ -230,9 +239,9 @@ user_api_route.delete("/follow", function(req, res){
 
 user_api_route.get("/search_by_id/:id", function(req, res){
     let user_id = req.params.id;
-    connection.query("SELECT * FROM User WHERE UserID = ?;", user_id, function(error, results, fields){
+    connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, TimeCreated FROM User WHERE UserID = ? AND IsDeleted = False;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), user: null});
-        else if (results.length && !results[0].IsDeleted) res.send({error: false, message: "User found", user: results[0]});
+        else if (results.length) res.send({error: false, message: "User found", user: results[0]});
         else res.send({error: false, message: "User is deleted or no user use that id", user: null});
     });
 });

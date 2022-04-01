@@ -26,6 +26,8 @@
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
 
+
+    <script type="module" src="result.js"></script>
     <title>Result</title>
 
 </head>
@@ -45,7 +47,7 @@
       </header>
 
     <div class="bar container px-0 my-5">
-        <form action="./result.html" >
+        <form action="/result" method="GET">
             <!-- search bar (text input)  -->
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -53,7 +55,7 @@
                         <img src="public/button/magnifier_white.png" height="34"/>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar">
+                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar" name="query_text">
                 <div class="input-group-append">
                     <span class="search_bar input-group-text" onclick="on_click_cross('search-bar');">
                         <img src="public/button/cross.png" height="34"/>
@@ -65,23 +67,19 @@
             <div class="row my-3 search-mode-radio-button">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="all-radio-button" value="all" checked>
+                    <input class="form-check-input" type="radio" name="quantifier" id="all-radio-button" value="all" checked>
                     <label class="form-check-label" for="inlineRadio1">All</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inlines mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="user-radio-button" value="user">
+                    <input class="form-check-input" type="radio" name="quantifier" id="user-radio-button" value="user">
                     <label class="form-check-label" for="inlineRadio2">User</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="music-radio-button" value="music">
+                    <input class="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music">
                     <label class="form-check-label" for="inlineRadio2">Music</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="artist-radio-button" value="artist">
-                    <label class="form-check-label" for="inlineRadio2">Artist</label>
-                </div>
-                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="playlist-artist-button" value="playlist">
+                    <input class="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist">
                     <label class="form-check-label" for="inlineRadio2">Playlist</label>
                 </div>
                 <div class="col-lg-5 done-button mx-0 px-4">
@@ -94,7 +92,7 @@
     </div>
 
     <div class="container music-container">
-        <div id="top-music">
+        <div id="top-music" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Top result</div>
@@ -105,7 +103,8 @@
             
             <div class="row my-3">
                 <div class="col-lg-1"></div>
-                <div class="col-lg-4">
+                <div class="col-lg-4" id="top-music-append">
+                    <!-- 
                     <a href="artist.html">
                         <div class="card music-card top-card">
                             <div class="row no-gutters fluid">
@@ -120,16 +119,16 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </a> -->
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" id="music-append">
                     <!-- horizontal non-top card -->
-                    <div class="card music-card p-1 m-1">
+                    <!-- <div class="card music-card p-1 m-1">
                         <div class="row no-gutters">
                             <div class="col-lg-1">
                                 <img src="public/song1.jpg" class="img-fluid rounded-start card-img-top" alt="...">
                             </div>
-                            <div class="col-lg-auto">                                
+                            <div class="col-lg-auto">
                                 <div class="card-body p-0">
                                     <figcaption class="card-title non-top-result-name m-0">One and last</figcaption>
                                     <figcaption class="card-text non-top-result-type"><a href="artist.html">Aimer</a></figcaption>
@@ -176,13 +175,13 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     
                 </div>
                 <div class="col-lg-1"></div>
             </div>
         </div>
-        <div id="playlist">
+        <div id="playlist" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Playlist</div>
@@ -191,8 +190,8 @@
                 <div class="col-lg-1"></div>
             </div>
 
-            <div class="row my-3 history-row">
-                <div class="col-lg-1"></div>
+            <div class="row my-3 history-row" id="playlist-append">
+                <!-- <div class="col-lg-1"></div>
                 
                 <div class="col-lg-2">
                     <a href="playlist.html">
@@ -252,10 +251,10 @@
                     </a>
                 </div>
                 
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1"></div> -->
             </div>
         </div>
-        <div id="artist">
+        <div id="artist" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Artist</div>
@@ -264,8 +263,8 @@
                 <div class="col-lg-1"></div>
             </div>
 
-            <div class="row my-3 history-row">
-                <div class="col-lg-1"></div>
+            <div class="row my-3 history-row" id="user-append">
+                <!-- <div class="col-lg-1"></div>
                 
                 <div class="col-lg-2">
                     <a href="artist.html">
@@ -325,7 +324,7 @@
                     </a>
                 </div>
                 
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1"></div> -->
             </div>
         </div>
     </div>

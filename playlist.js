@@ -67,7 +67,7 @@ playlist_api_route.get("/search_by_playlistname/:PlaylistName", function(req, re
     let playlist_name = req.params.PlaylistName; // str
     if(playlist_name === null) {res.status(400).send({error: true, message: "playlist name can't be null"}); return;}
     let playlist_name_query = "%" + playlist_name + "%";
-    connection.query("SELECT * FROM Playlist WHERE PlaylistName LIKE ? AND IsDeleted = False;", playlist_name_query, function(error, results, fields){
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, p.TimeCreated, PlaylistCreator, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID  WHERE PlaylistName LIKE ? AND p.IsDeleted = False;", playlist_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, playlists:results, message: "playlist(s) found"});
     });
@@ -132,6 +132,14 @@ playlist_api_route.delete("/add_music", function(req, res){
     connection.query("DELETE FROM MusicInPlaylist WHERE MusicID = ? AND PlaylistID = ?;", [music_id, playlist_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "remove music from playlist complete"});
+    });
+});
+
+playlist_api_route.get("/search_by_userid/:UserID", function(req, res){
+    let user_id = req.params.UserID;
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, TimeCreated FROM Playlist WHERE PlaylistCreator = ? AND IsDeleted = false;", user_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), playlists: null});
+        else res.send({error: false, message: "getting playlists success", playlists: results});
     });
 });
 

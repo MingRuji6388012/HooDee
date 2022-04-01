@@ -21,6 +21,8 @@
 
     <!-- search bar related -->
     <script src="search_bar.js"></script>
+    <script type="module" src="search.js"></script>
+    <script src="search_bar.js"></script>
     <link rel="stylesheet" href="search_bar.css">
     
     <!-- common css  -->
@@ -45,7 +47,7 @@
     </header>
 
     <div class="bar container px-0 my-5">
-        <form onsubmit="on_search();">
+        <form action="/result" method="GET">
             <!-- search bar (text input)  -->
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -77,10 +79,6 @@
                     <label class="form-check-label" for="inlineRadio2">Music</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="quantifier" id="artist-radio-button" value="artist">
-                    <label class="form-check-label" for="inlineRadio2">Artist</label>
-                </div>
-                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
                     <input class="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist">
                     <label class="form-check-label" for="inlineRadio2">Playlist</label>
                 </div>
@@ -100,8 +98,8 @@
             <div class="col-lg-1"></div>
         </div>
         
-        <div class="row history-row">
-            <div class="col-lg-1"></div>
+        <div class="row history-row" id="search-history-append" hidden>
+            <!-- <div class="col-lg-1"></div>
             
             <div class="col-lg-2">
                 <div class="card music-card">
@@ -156,7 +154,7 @@
                 </div>
             </div>
             
-            <div class="col-lg-1"></div>
+            <div class="col-lg-1"></div> -->
         </div>
 
     </div>
