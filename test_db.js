@@ -51,7 +51,7 @@ connection.connect();
 //     UserProfileIMG	varchar(256),
 //     TimeCreated		datetime,
 //     Role			int,
-//     Email			varchar(100),
+//     Email			varchar(100) UNIQUE,
 //     Password		varchar(64),
 //     Salt			varchar(40),
 //     IsDeleted       boolean
@@ -103,7 +103,6 @@ connection.connect();
 //     FolloweeID			int,
 //     FollowerID			int,
 //     FollowTime			datetime,
-//     IsUnFollow          boolean,
 
 //     CONSTRAINT fk_FolloweeID FOREIGN KEY (FolloweeID)
 //     REFERENCES User(UserID),
@@ -118,7 +117,6 @@ connection.connect();
 //     UserID			int,
 //     PlaylistID		int,
 //     FollowTime		datetime,
-//     IsUnfollow      boolean,
     
 //     CONSTRAINT fk_UserID4 FOREIGN KEY (UserID)
 //     REFERENCES User(UserID),
