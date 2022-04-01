@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 
-//Create data to "user" table in Database
+// // Create data to "user" table in Database
 
 // fetch("http://localhost:3000/api/user/registeration",
 //     {
@@ -163,7 +163,7 @@ const fetch = require("node-fetch");
 //         body: JSON.stringify({
 //             "User" : {
 //                 "UserName" : "PreeToa",
-//                 "UserProfileIMG" : "https://scontent.fkdt1-1.fna.fbcdn.net/v/t1.6435-9/128634617_106766231291717_397301443636698130_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=V-oy-2qYCCIAX_UG-lH&_nc_ht=scontent.fkdt1-1.fna&oh=00_AT85VhB0QgXz9rqOJ4ZJV1aVTDw_BR1vVotkBrIJnTFuaA&oe=626BBF67"
+//                 "UserProfileIMG" : "https://scontent.fkdt1-1.fna.fbcdn.net/v/t1.6435-9/128634617_106766231291717_397301443636698130_n.jpg?_nc_cat=111&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=V-oy-2qYCCIAX_UG-lH&_nc_ht=scontent.fkdt1-1.fna&oh=00_AT85VhB0QgXz9rqOJ4ZJV1aVTDw_BR1vVotkBrIJnTFuaA&oe=626BBF67",
 //                 "Email" : "ToaFullSilly@gmail.com",
 //                 "Password" : "ToaNarak"
 //             }})
@@ -198,7 +198,7 @@ const fetch = require("node-fetch");
 //     }
 // )
 
-//Create data to "music" table in Database
+// // Create data to "music" table in Database
 // fetch("http://localhost:3000/api/music/add",
 //     {
 //         method: "POST",
@@ -410,17 +410,78 @@ const fetch = require("node-fetch");
 // )
 
 
-// //Create data to "playlist" table in Database
-fetch("http://localhost:3000/api/playlist/create",
+// // //Create data to "playlist" table in Database
+// fetch("http://localhost:3000/api/playlist/create",
+//     {
+//         method: "POST",
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({ 
+//             "Playlist" : { 
+//                 "PlaylistCreator" : "1", 
+//                 "PlaylistName" : "The new of NMIXX",  
+//                 "PlaylistIMG" : "https://6.viki.io/image/a8f228c8f7934a078d5a25161c98ac49/dummy.jpeg?s=900x600&e=t"
+//             }})
+//     }
+// )
+
+// fetch("http://localhost:3000/api/playlist/create",
+//     {
+//         method: "POST",
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({ 
+//             "Playlist" : { 
+//                 "PlaylistCreator" : 11, 
+//                 "PlaylistName" : "I luv Twice",  
+//                 "PlaylistIMG" : "https://pbs.twimg.com/media/FLzvztFagAE3y4F.jpg:large"
+//             }})
+//     }
+// )
+
+// fetch("http://localhost:3000/api/playlist/create",
+//     {
+//         method: "POST",
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({ 
+//             "Playlist" : { 
+//                 "PlaylistCreator" : 21, 
+//                 "PlaylistName" : "What do you MEAN?",  
+//                 "PlaylistIMG" : "https://cms.thaiticketmajor.com/imgUpload/imgeditor/9K3Wd57MOIq5vEaSHnUb1U4TurYfYfzNrw7r-0yX4mq9uXB6G8XKVK7FdhAkZKtlPujucYncYrBaFB3OVcc3eoD8zqEMDZJTTqvj6eG6UA.jpg"
+//             }})
+//     }
+// )
+
+// fetch("http://localhost:3000/api/playlist/create",
+//     {
+//         method: "POST",
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({ 
+//             "Playlist" : { 
+//                 "PlaylistCreator" : 31, 
+//                 "PlaylistName" : "Red Velvet!!!",  
+//                 "PlaylistIMG" : "https://thestandom.com/wp-content/uploads/2019/08/20190605-red-velvet.jpg"
+//             }})
+//     }
+// )
+
+// fetch("http://localhost:3000/api/playlist/create",
+//     {
+//         method: "POST",
+//         headers: {'Content-Type': 'application/json'},
+//         body: JSON.stringify({ 
+//             "Playlist" : { 
+//                 "PlaylistCreator" : 41, 
+//                 "PlaylistName" : "Say yes, say yes!",  
+//                 "PlaylistIMG" : "https://musicnook.co/wp-content/uploads/2020/05/Punch-Say-Hello.jpg"
+//             }})
+//     }
+// )
+
+fetch("http://localhost:3000/api/user_follow",
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({ 
-            "Playlist" : { 
-                "PlaylistCreator" : 1, 
-                "playlistName" : "https://www.youtube.com/watch?v=3GWscde8rM8",  
-                "playlistName" : "", 
-                "MusicIMG" : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSgMeT77YM7d5CMJrZIZDn2xseq0qGvB9a8zg&usqp=CAU"
-            }})
+        body: JSON.stringify({
+            ""
+        })
     }
 )
