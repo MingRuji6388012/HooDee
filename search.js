@@ -16,11 +16,13 @@ search_api_route.get("/", function (req, res) {
 
 
 search_api_route.get("/result", function (req, res) {
+
     /**
      * 
      */
     
     // res.sendFile(path.join(__dirname, "templetes", "html", "result.html")); 
+
 });
 
 
