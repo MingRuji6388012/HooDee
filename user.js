@@ -1,6 +1,4 @@
-require('dotenv').config();
 const express = require("express");
-// const path = require("path");
 const crypto = require("crypto");
 const database = require("./database.js");
 const connection = database.connection;
@@ -32,6 +30,7 @@ user_api_route.post("/registeration", function(req, res) {
         "message" : "register complete"
     }
     */
+    console.log(req.body.User);
     console.log("registering");
     let password = req.body.User.Password;
     let salt = crypto.randomBytes(20).toString("hex");
@@ -205,7 +204,7 @@ user_api_route.get("/search_by_username", function(req, res){
     let username = req.query.UserName;
     if (username == null) {res.status(400).send({error: true, users: null, message: "UserName can't be null"}); return;}
     let username_query = "%" + username + "%";
-    connection.query("SELECT UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ?;", username_query, function(error, results, fields){
+    connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ?;", username_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, users: null, messsage: error.toString()});
         else res.send({error: false, users: results, message: "returning found users"});
     });
@@ -241,7 +240,13 @@ user_api_route.get("/search_by_id/:id", function(req, res){
     let user_id = req.params.id;
     connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, TimeCreated FROM User WHERE UserID = ? AND IsDeleted = False;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), user: null});
-        else if (results.length) res.send({error: false, message: "User found", user: results[0]});
+        else if (results.length) {
+            let user = results[0];
+            connection.query("SELECT COUNT(FollowerID) AS Follower FROM UserFollowUser INNER JOIN User ON UserFollowUser.FolloweeID = User.UserID WHERE FolloweeID = ? AND IsDeleted = False;", user_id, function(error, results, fields){
+                user["Follower"] = results[0]["Follower"];
+                res.send({error: false, message: "User found", user: user});
+            });
+        }
         else res.send({error: false, message: "User is deleted or no user use that id", user: null});
     });
 });
