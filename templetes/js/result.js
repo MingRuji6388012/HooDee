@@ -64,7 +64,7 @@ function playlist_handler(data){
                 author_name = playlists[c].UserName;
                 playlist_name = playlists[c].PlaylistName;
                 playlist_img = playlists[c].PlaylistIMG;
-                playlist_href = "playlist.html"; // TODO: tbd
+                playlist_href = "playlist"; // TODO: tbd
                 playlist_div = create_vertical_card(playlist_name, author_name, playlist_img, playlist_href);
             }
             else{ // default

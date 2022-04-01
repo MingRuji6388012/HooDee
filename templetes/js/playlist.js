@@ -60,7 +60,7 @@ function music_append(musics_in_playlist){
         <div class="col-lg-10 card-description">
             <figcaption class="card-body py-0">
                 <div class="card-title my-0">One and last</div>
-                <div class="card-text my-0"><a href="artist.html">Aimer</a></div>
+                <div class="card-text my-0"><a href="artist">Aimer</a></div>
             </figcaption>
         </div>
         <div class="col-lg-1 vertical-dropdown">
