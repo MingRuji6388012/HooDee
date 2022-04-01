@@ -59,7 +59,7 @@ user_api_route.post("/authentication", function (req, res) {
     /*
     expected to get
     {
-        "user" : {
+        "User" : {
             "Email" : value,       necessary
             "Password" : value     necessary
         } 
@@ -90,36 +90,37 @@ user_api_route.post("/authentication", function (req, res) {
     */
     // get info from form, {login, password}
     console.log("authenticating");
+
     let user = req.body.User
     let email = user.Email;
     let password = user.Password;
     // maybe hash them
     // check email and hashed_password with db
-    connection.query('SELECT * FROM User WHERE email = ? WHERE IsDelete = false;', email, function(error, results, fields) {
+    connection.query('SELECT * FROM User WHERE email = ? AND IsDeleted = false;', email, function(error, results, fields) {
         if(error) res.status(500).send({error: true, message: error.toString()});
-
-        let found_user = results[0];
-        let salt = found_user.Salt;
-        let hashed_password = crypto.createHash('sha256').update(password+salt).digest('hex');
-        if(hashed_password == found_user.Password){
-            const login_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
-            const values = {
-                UserID : found_user.UserID,
-                LoginTime : login_time
-            }
-            connection.query("INSERT INTO LoginLog SET ?;", values, function (error, results, fields) {
-                if(error) throw error;
-                console.log("login logged: " + login_time);
-            });
-            
-            delete found_user.UserID;
-            delete found_user.Password;
-            delete found_user.Salt;
-            delete found_user.TimeCreated;
-            res.send({error: false, authenticate: true, user: found_user, message: "Autenticate complete"});
-        }
         else{
-            res.send({error: false, authenticate: false, user: null, message: "Autenticate fail"});
+            let found_user = results[0];
+            let salt = found_user.Salt;
+            let hashed_password = crypto.createHash('sha256').update(password+salt).digest('hex');
+            if(hashed_password == found_user.Password){
+                const login_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+                const values = {
+                    UserID : found_user.UserID,
+                    LoginTime : login_time
+                }
+                connection.query("INSERT INTO LoginLog SET ?;", values, function (error, results, fields) {
+                    if(error) throw error;
+                    console.log("login logged: " + login_time);
+                });
+                
+                delete found_user.Password;
+                delete found_user.Salt;
+                res.send({error: false, authenticate: true, user: found_user, message: "Autenticate complete"});
+            }
+            else{
+                res.send({error: false, authenticate: false, user: null, message: "Autenticate fail"});
+            }
+
         }
     });
 });

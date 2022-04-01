@@ -19,6 +19,7 @@
 
     <!-- css/js for this page -->
     <link rel="stylesheet" href="login.css" />
+    <script src="login.js"></script>
 
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
@@ -42,7 +43,7 @@
         <div class="logo-form">
             <img class="figure-img" src="public/logo/Logo.png" alt="logo" href="#" height="120" />
         </div>
-        <form action="./home">
+        <form>
             <!-- email label and text field -->
             <div class="row input-fields">
                 <div class="email-label">
@@ -67,7 +68,7 @@
             </div>
             <!-- login button -->
             <div class="login-button-block">
-                <input type="submit" class="btn login-button-submit" value="Log in" />
+                <input type="button" class="btn login-button-submit" value="Log in" onclick="on_login();" />
             </div>
         </form>
     </section>
