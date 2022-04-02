@@ -1,31 +1,18 @@
 
 {/*
-Example of vertical card 
-<div class="col-lg-2">
-    <a href="${href}">
-        <div class="card music-card">
-            <img class="card-img-top" src="${img_url}" alt="song2 img">
-            <div class="card-body">
-                <figcaption class="card-title">${top_text}</figcaption>
-                <figcaption class="card-text">${bottom_text}</figcaption>
-            </div>
-        </div>
-    </a>
-</div> 
-
 <div class="col-lg-2">
     <div class="card music-card">
         <img class="card-img-top" src="public/2021.jpg" alt="2021" />
         <div class="dropdown">
             <select name="selectoption" class="dropimg" >
                 <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
-                <option class="opt" value="Gotoartist">Go to artist</option>
-                <option class="opt" value="Share">Share</option>
+                <option class="opt" value="redirectToUser:${UserID}">Go to artist</option>
+                <option class="opt" value="share:">Share</option>
+                <option class="opt" value="followUser:${FolloweeID},${FollowerID}">Follow this user</option>
+                <option class="opt" value="followPlaylist:${MusicID},${PlaylistID}">Follow this playlist</option>
                 <optgroup class="opt" label="Add to playlist : ">
-                <option class="opt" value="Playlist1">Playlist 1</option>
-                <option class="opt" value="Playlist2">Playlist 2</option>
-                <option class="opt" value="Playlist3">Playlist 3</option>
-                <option class="opt" value="Playlist4">Playlist 4</option>
+                <option class="opt" value="addToPlaylist:${MusicID},${PlaylistID}">Playlist Name 1</option>
+                ...
             </select>
         </div>
         <div class="card-body">
@@ -199,11 +186,12 @@ function ondropdown_change(){
             console.log(`${command}: ${user_id}`);
             window.location.replace(`/user?user_id=${user_id}`);
             break;
-        case ACTION_IN_SELECT[3]: // share
+        case ACTION_IN_SELECT[3]: // share:
             console.log(`${command}: `);
             alert("TBD");
+            // noop
             break;
-        case ACTION_IN_SELECT[4]: // followUser:UserID,UserID
+        case ACTION_IN_SELECT[4]: // followUser:FolloweeID,FollowerID
             [user_id, follower_id] = params.split(",");
             console.log(`${command}: ${user_id} ${follower_id}`);
             fetch("/api/user/follow", {
