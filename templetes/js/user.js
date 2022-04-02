@@ -52,22 +52,20 @@ async function show_user_title(datas){
 
     let follower = document.createElement("div");
     follower.classList.add("h5", "artist-follower-header");
-    follower.append(`XXX FOLLOWERS (tobe filled)`);
+    follower.append(`${datas.user.user.Follower} FOLLOWERS`);
 
     let new_line = document.createElement("br");
 
     let button = document.createElement("button");
     button.classList.add("btn", "follow-button");
     button.append("Follow");
-    button.setAttribute("onclick", "follow_handler();");
+    button.onclick = follow_handler;
 
     let button_div = document.createElement("div");
     button_div.append(button)
 
     parent_node.append(title, follower, new_line, button_div);
     // parent_node.hidden = false;
-
-
 }
 
 async function show_playlist_own(datas){
@@ -84,7 +82,6 @@ async function show_playlist_own(datas){
         playlist_row.append(padding_border());
         for(let j = 0; j < EACH_ROW; j++){
             idx = i * EACH_ROW + j;
-            console.log(idx);
             if(idx < playlists.length){
                 playlist = playlists[idx];
                 top_text = playlist.PlaylistName;
@@ -123,3 +120,32 @@ async function show_music_own(datas){
     }
 }
 
+function follow_handler(){
+    const $_GET = get_parameter();
+    let current_page_user_id = $_GET["user_id"];
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if(user){
+        fetch("/api/user/follow", {
+            method: "post",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                FolloweeID: user.UserID,
+                FollowerID: current_page_user_id
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.error){
+                console.log(res.message);
+                alert("you may already follow this user");
+                return;
+            }
+            alert("Follow Complete!");
+        });
+    }
+    else{
+        alert("You must login before follow anyone!");
+    }
+}

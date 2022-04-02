@@ -357,7 +357,6 @@ export function empty_half_horizontal_card(){
     return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
 }
 
-
 export function top_card(top_text, bottom_text, img_url, href, type, extra_info){
     /* 
     Templete of top card
@@ -417,7 +416,6 @@ export function top_card(top_text, bottom_text, img_url, href, type, extra_info)
     return card_div;
 }
 
-
 export function get_parameter(){
     const url = window.location.href;
     let url_split = url.split("?");
@@ -462,24 +460,37 @@ export function on_showall(id){
     }
 }
 
-const PLAYLIST_ROW = document.createElement("div")
-PLAYLIST_ROW.classList.add("row", "playlist-row", "my-3");
-const PLAYLIST_ROW_HIDDEN = PLAYLIST_ROW.cloneNode(true);
-PLAYLIST_ROW_HIDDEN.classList.add("default-hidden");
-PLAYLIST_ROW_HIDDEN.hidden = true;
+
+function construct_row(type){
+    const PLAYLIST_ROW = document.createElement("div")
+    PLAYLIST_ROW.classList.add("row", `${type}-row`, "my-3");
+    const PLAYLIST_ROW_HIDDEN = PLAYLIST_ROW.cloneNode(true);
+    PLAYLIST_ROW_HIDDEN.classList.add("default-hidden");
+    PLAYLIST_ROW_HIDDEN.hidden = true;
+    return [PLAYLIST_ROW, PLAYLIST_ROW_HIDDEN];
+}
+
+const [PLAYLIST_ROW, PLAYLIST_ROW_HIDDEN] = construct_row("playlist");
+const [MUSIC_ROW, MUSIC_ROW_HIDDEN] = construct_row("music");
+
 export function create_playlist_row(hidden){
+    /* 
+    templete of row of vertical card
+    <div class="row playlist-row my-3">
+        <div class="col-lg-1"></div>
+            vertical card1
+            vertical card2
+            vertical card3
+            vertical card4
+            vertical card5
+        <div class="col-lg-1"></div>
+    </div>
+    */
     if(hidden){
         return PLAYLIST_ROW_HIDDEN.cloneNode(true);
     }
     return PLAYLIST_ROW.cloneNode(true);
 }
-
-
-const MUSIC_ROW = document.createElement("div")
-MUSIC_ROW.classList.add("row", "music-row", "my-3");
-const MUSIC_ROW_HIDDEN = MUSIC_ROW.cloneNode(true);
-MUSIC_ROW_HIDDEN.classList.add("default-hidden");
-MUSIC_ROW_HIDDEN.hidden = true;
 export function create_music_row(hidden){
     /* 
     templete of row of vertical card
@@ -494,9 +505,9 @@ export function create_music_row(hidden){
     </div>
     */
     if(hidden){
-        return PLAYLIST_ROW_HIDDEN.cloneNode(true)
+        return MUSIC_ROW_HIDDEN.cloneNode(true)
     }
-    return PLAYLIST_ROW.cloneNode(true);
+    return MUSIC_ROW.cloneNode(true);
 }
 
 
@@ -565,11 +576,21 @@ export function horizontal_card(top_text, bottom_text, img_url, href, hidden, ty
 }
 
 export function change_login_to_profile(){
+    
     let user_info = JSON.parse(sessionStorage.getItem("user"));
-    let login_CTA = document.querySelector(".login")
-    login_CTA.style.display = "none";
+    if(user_info !== null){
+        let login_CTA = document.querySelector(".login")
+        login_CTA.style.display = "none";
 
-    let nav = document.querySelector(".CTA");
+        let nav = document.querySelector(".CTA");
+        let logout_button = document.createElement("button");
+        logout_button.classList.add("btn","logout");
+        logout_button.append("Log out")
+        logout_button.onclick = on_logout;
+
+        nav.append(logout_button);
+    }
+    
     // let user_img = user_info.UserProfileIMG ? user_info.UserProfileIMG : "public\ProfilePic\DefaultProfilePic.png"
 
     // let ele_user_img = document.createElement("img");
@@ -580,10 +601,17 @@ export function change_login_to_profile(){
     // ele_user_img.style.height = "3rem";
     // ele_user_img.style.borderRadius = "50%";
     // ele_user_img.style.marginRight = "2rem";
+    
+ }
 
-    let logout_button = document.createElement("button");
-    logout_button.classList.add("btn","logout");
-    // logout_button.classList.setAttribute("")
+function on_logout(){
 
-    nav.append(logout_button);
+    sessionStorage.clear();
+    window.location.replace(`/`); //redirect to home
+    alert("You already logged out!");
+    document.querySelector('.btn.logout').style.display = "none";
+    // document.querySelector('.login').style.display = "block";
+    // logout_button.style.display = "none";
+    // login_CTA.style.display = "block";
+
 }

@@ -19,7 +19,8 @@
 
     <!-- personal script/css -->
     <link rel="stylesheet" href="home.css" />
-    <script src="home.js"></script>
+    <script type="module" src="home.js"></script>
+    <script src="showall.js"></script>
 
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
@@ -28,7 +29,7 @@
 
 <body>
     <header class="navbar">
-        <a class="home" href="/"><img class="logo" src="../public/logo/Logo.png" alt="logo" /></a>
+        <a class="home" href="/"><img class="logo" src="public/logo/Logo.png" alt="logo" /></a>
         <nav>
             <ul class="nav_links">
                 <li class="nav_items"><a href="search">Search</a></li>
@@ -43,7 +44,7 @@
     </header>
 
     <!-- Music Section  -->
-    <section class="container music-container">
+    <section class="container music-container"  id="home-music-history-append">
         <div class="row my-3">
             <div class="col-lg-1"></div>
             <div class="col-lg-2">
@@ -59,8 +60,7 @@
             </div>
             <div class="col-lg-1"></div>
         </div>
-
-        <div class="row music-row my-3">
+        <!-- <div class="row music-row my-3">
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
@@ -285,13 +285,13 @@
                 </div>
             </div>
 
-            <div class="col-lg-1"></div>
-        </div>
-        <!-- <div class="showall">Show all</div> -->
+            <div class="col-lg-1"></div
+        </div>  
+        <div class="showall">Show all</div> -->
     </section>
 
     <!-- Playlist Section  -->
-    <section class="container music-container">
+    <section class="container music-container"  id="home-playlist-history-append">
         <div class="row my-3">
             <div class="col-lg-1"></div>
             <div class="col-lg-2">
@@ -307,7 +307,7 @@
             </div>
             <div class="col-lg-1"></div>
         </div>
-
+        <!-- 
         <div class="row playlist-row my-3">
             <div class="col-lg-1"></div>
 
@@ -330,7 +330,7 @@
                     <a href="playlist">
                         <div class="card-body">
                             <figcaption class="card-title">Hot Hits</figcaption>
-                            <figcaption class="card-text"><img class="listentimes" src="../public/button/earphone.png" alt="Listen: "> 189.4M</figcaption>
+                            <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 189.4M</figcaption>
                         </div>
                     </a>
                     </div>
@@ -434,7 +434,7 @@
             <div class="col-lg-1"></div>
         </div>
 
-        <div class="row playlist-row default-hidden my-3" hidden>
+        <div class="row playlist-row default-hidden my-3" id="home-playlist-history-append" hidden>
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
@@ -556,8 +556,8 @@
                 </a>
             </div>
 
-            <div class="col-lg-1"></div>
-        </div>
+            <div class="col-lg-1"></div> 
+        </div> -->
     </section>
 
 
