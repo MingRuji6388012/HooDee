@@ -1,6 +1,3 @@
-
-
-
 const SHOW_ALL_SHOW_LESS_STATES = ["Show all", "Show less"];
 function on_showall(id){
     // add more card elements, or vice versa
@@ -33,3 +30,5 @@ function on_showall(id){
     }
 
 }
+
+// window.onload = async function(){

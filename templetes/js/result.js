@@ -6,10 +6,13 @@ import {
     create_half_horizontal_card, 
     empty_half_horizontal_card, 
     top_card,
-    get_parameter
+    get_parameter,
+    change_login_to_profile
 } from "./common.js"
 
 window.onload = async function() {
+
+    const change_login = change_login_to_profile();
     const $_GET = get_parameter();
     console.log($_GET);
     let query_text = $_GET["query_text"];

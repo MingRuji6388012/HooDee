@@ -1,9 +1,12 @@
 import {  
     horizontal_card, 
-    get_parameter
+    get_parameter,
+    change_login_to_profile
 } from "./common.js"
 
 window.onload = async function(){
+
+    const change_login = change_login_to_profile();
     const $_GET = get_parameter();
     let playlist_id = $_GET["playlist_id"]
 

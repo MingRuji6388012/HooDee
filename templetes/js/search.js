@@ -3,12 +3,14 @@ import {
     create_vertical_card, 
     padding_border, 
     empty_vertical_card, 
+    change_login_to_profile
     // create_half_horizontal_card, 
     // empty_half_horizontal_card, 
     // top_card 
 } from "./common.js"
 
 window.onload = async function() {
+    const change_login = change_login_to_profile();
     // will change to search history later
     
     // i believe %25 is wide card for searching

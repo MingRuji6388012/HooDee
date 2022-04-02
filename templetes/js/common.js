@@ -312,3 +312,24 @@ export function horizontal_card(top_text, bottom_text, img_url, href, hidden){
     anchor.append(whole_card);
     return anchor;
 }
+
+export function change_login_to_profile(){
+    let user_info = JSON.parse(sessionStorage.getItem("user"));
+    let login_CTA = document.querySelector(".login")
+    login_CTA.style.display = "none";
+
+    let nav = document.querySelector(".CTA");
+    let user_img = user_info.UserProfileIMG ? user_info.UserProfileIMG : "public\ProfilePic\DefaultProfilePic.png"
+    console.log(user_img)
+
+    let ele_user_img = document.createElement("img");
+    ele_user_img.classList.add("user-profile-button");
+    ele_user_img.setAttribute("src", user_img);
+    ele_user_img.setAttribute("alt", "user image");
+    ele_user_img.style.width = "3rem";
+    ele_user_img.style.height = "3rem";
+    ele_user_img.style.borderRadius = "50%";
+    ele_user_img.style.marginRight = "2rem";
+
+    nav.append(ele_user_img);
+}
