@@ -11,9 +11,11 @@ playlist_api_route.post("/create", function(req, res){
     /**
      * expected to get 
      * {
-     *      "PlaylistCreator" : value (FK to User),
-     *      "PlaylistName" : value, 
-     *      "PlaylistImg" : value or none
+     *      "Playlist": {
+                "PlaylistCreator" : value (FK to User),
+                "PlaylistName" : value, 
+                "PlaylistImg" : value or none
+            }
      * }
      * in request body
      * 

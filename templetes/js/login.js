@@ -15,10 +15,22 @@ function on_login(){
     .then(res => {
         console.log(res);
         if(!res.error && res.authenticate){
-            sessionStorage.setItem("user", JSON.stringify(res.user));
-            console.log(sessionStorage.getItem("user"));
+            let user = res.user;
+            fetch(`/api/playlist/search_by_userid/${user.UserID}`)
+            .then(res => res.json())
+            .then(res => {
+                if(!res.error){
+                    user["playlists"] = res.playlists;
+                }
+                else{
+                    console.log("error fetching playlist: ");
+                    console.log(res.message);
+                    user["playlists"] = [];
+                }
+                sessionStorage.setItem("user", JSON.stringify(user));
+                window.location.replace("/");
+            });
             // then we can just check for login session by `sessionStorage.getItem("user") !== null`
-            window.location.replace("/");
         }
     });
 }

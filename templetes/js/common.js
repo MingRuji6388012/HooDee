@@ -12,24 +12,96 @@ Example of vertical card
         </div>
     </a>
 </div> 
+
+<div class="col-lg-2">
+    <div class="card music-card">
+        <img class="card-img-top" src="public/2021.jpg" alt="2021" />
+        <div class="dropdown">
+            <select name="selectoption" class="dropimg" >
+                <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                <option class="opt" value="Gotoartist">Go to artist</option>
+                <option class="opt" value="Share">Share</option>
+                <optgroup class="opt" label="Add to playlist : ">
+                <option class="opt" value="Playlist1">Playlist 1</option>
+                <option class="opt" value="Playlist2">Playlist 2</option>
+                <option class="opt" value="Playlist3">Playlist 3</option>
+                <option class="opt" value="Playlist4">Playlist 4</option>
+            </select>
+        </div>
+        <div class="card-body">
+            <figcaption class="card-title">2021</figcaption>
+            <figcaption class="card-text">Artist: <a href="artist">Lauv</a></figcaption>
+        </div>
+    </div>  
+</div>
 */}
 export function create_vertical_card(top_text, bottom_text, img_url, href){
     let user_name_div = document.createElement("figcaption");
     user_name_div.classList.add("card-text");
-    user_name_div.appendChild(document.createTextNode(bottom_text));
+    user_name_div.append(bottom_text);
 
     let playlist_name_div = document.createElement("figcaption");
     playlist_name_div.classList.add("card-title");
-    playlist_name_div.appendChild(document.createTextNode(top_text));
+    playlist_name_div.append(top_text);
     
     let card_body = document.createElement("div");
     card_body.classList.add("card-body");
-    card_body.appendChild(playlist_name_div);
-    card_body.appendChild(user_name_div);
+    card_body.append(playlist_name_div, user_name_div);
 
     let anchor_playlist = document.createElement("a");
     anchor_playlist.setAttribute("href", href); 
     anchor_playlist.appendChild(card_body);
+
+    let dropdown_img = document.createElement("img");
+    dropdown_img.classList.add("dropimg");
+    dropdown_img.setAttribute("src", "public/button/dropdown.png");
+    dropdown_img.setAttribute("width", "1");
+
+    let dropdown_option_default = document.createElement("option");
+    dropdown_option_default.setAttribute("value", "");
+    dropdown_option_default.selected = true;
+    dropdown_option_default.hidden = true;
+    dropdown_option_default.disabled = true;
+    dropdown_option_default.append(dropdown_img);
+
+    let dropdown_go_user = document.createElement("option");
+    dropdown_go_user.setAttribute("value", "Gotoartist")
+    dropdown_go_user.classList.add("opt");
+    dropdown_go_user.append("Go to artist");
+
+    let dropdown_search = document.createElement("option");
+    dropdown_search.setAttribute("value", "Share")
+    dropdown_search.classList.add("opt");
+    dropdown_search.append("Share");
+    
+    // sessionstoreage
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    let dropdown_playlist_options = [];
+    if(user){
+        let dropdown_optgroup = document.createElement("optgroup");
+        dropdown_optgroup.setAttribute("label", "Add to playlist : ")
+        dropdown_optgroup.classList.add("opt");
+
+        dropdown_playlist_options.push(dropdown_optgroup);
+
+        const playlists = user.playlists;
+        for(let idx = 0; idx < playlists.length; idx++){
+            let playlist_opt = document.createElement("option");
+            playlist_opt.classList.add("opt");
+            // playlist_opt.setAttribute("value", playlists[idx].PlaylistID);
+            playlist_opt.append(playlists[idx].PlaylistName);   
+            dropdown_playlist_options.push(playlist_opt);
+        }
+    }
+
+    let dropdown = document.createElement("select");
+    dropdown.setAttribute("name", "selectoption");
+    dropdown.classList.add("dropimg");
+    dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search, ...dropdown_playlist_options);
+
+    let dropdown_div = document.createElement("div");
+    dropdown_div.classList.add("dropdown");
+    dropdown_div.append(dropdown);
 
     let card_img = document.createElement("img");
     card_img.classList.add("card-img-top");
@@ -39,8 +111,7 @@ export function create_vertical_card(top_text, bottom_text, img_url, href){
     let card_div = document.createElement("div");
     card_div.classList.add("card");
     card_div.classList.add("music-card");
-    card_div.appendChild(card_img);
-    card_div.appendChild(anchor_playlist);
+    card_div.append(card_img, dropdown_div, anchor_playlist);
 
     let most_outer_div = document.createElement("div");
     most_outer_div.classList.add("col-lg-2");

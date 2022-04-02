@@ -109,7 +109,7 @@ user_api_route.post("/authentication", function (req, res) {
                     LoginTime : login_time
                 }
                 connection.query("INSERT INTO LoginLog SET ?;", values, function (error, results, fields) {
-                    if(error) throw error;
+                    if(error) res.status(500).send({error: true, message: error.toString()});
                     console.log("login logged: " + login_time);
                 });
                 
