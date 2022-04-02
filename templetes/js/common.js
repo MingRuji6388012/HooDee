@@ -1,31 +1,20 @@
 
-{/*
-<div class="col-lg-2">
-    <div class="card music-card">
-        <img class="card-img-top" src="public/2021.jpg" alt="2021" />
-        <div class="dropdown">
-            <select name="selectoption" class="dropimg" >
-                <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
-                <option class="opt" value="redirectToUser:${UserID}">Go to artist</option>
-                <option class="opt" value="share:">Share</option>
-                <option class="opt" value="followUser:${FolloweeID},${FollowerID}">Follow this user</option>
-                <option class="opt" value="followPlaylist:${MusicID},${PlaylistID}">Follow this playlist</option>
-                <optgroup class="opt" label="Add to playlist : ">
-                <option class="opt" value="addToPlaylist:${MusicID},${PlaylistID}">Playlist Name 1</option>
-                ...
-            </select>
-        </div>
-        <div class="card-body">
-            <figcaption class="card-title">2021</figcaption>
-            <figcaption class="card-text">Artist: <a href="artist">Lauv</a></figcaption>
-        </div>
-    </div>  
-</div>
-*/}
+
 export function create_vertical_card(top_text, bottom_text, img_url, href, type="music", extra_info=null){
-    /**
-     * user in session -> more functionality at in the card depends on ${type}
-     */
+    /*
+    user in session -> more functionality at in the card depends on ${type}
+
+    <div class="col-lg-2">
+        <div class="card music-card">
+            <img class="card-img-top" src="public/2021.jpg" alt="2021" />
+            <DROPDOWN/>
+            <div class="card-body">
+                <figcaption class="card-title">2021</figcaption>
+                <figcaption class="card-text">Artist: <a href="artist">Lauv</a></figcaption>
+            </div>
+        </div>  
+    </div>
+    */
     type = type.toLowerCase();
 
     let user_name_div = document.createElement("figcaption");
@@ -44,9 +33,29 @@ export function create_vertical_card(top_text, bottom_text, img_url, href, type=
     anchor_playlist.setAttribute("href", href); 
     anchor_playlist.appendChild(card_body);
 
+    let dropdown_div = create_dropdown(type, extra_info);
+
+    let card_img = document.createElement("img");
+    card_img.classList.add("card-img-top");
+    card_img.setAttribute("src", img_url);
+    card_img.setAttribute("alt", "playlist img");
+
+    let card_div = document.createElement("div");
+    card_div.classList.add("card");
+    card_div.classList.add("music-card");
+    card_div.append(card_img, dropdown_div, anchor_playlist);
+
+    let most_outer_div = document.createElement("div");
+    most_outer_div.classList.add("col-lg-2");
+    most_outer_div.appendChild(card_div);
+    return most_outer_div;
+}
+
+const DROWDOWN_IMG_URL = "public/button/dropdown.png";
+function create_dropdown(type, extra_info){
     let dropdown_img = document.createElement("img");
     dropdown_img.classList.add("dropimg");
-    dropdown_img.setAttribute("src", "public/button/dropdown.png");
+    dropdown_img.setAttribute("src", DROWDOWN_IMG_URL);
     dropdown_img.setAttribute("width", "1");
 
     let dropdown_option_default = document.createElement("option");
@@ -65,10 +74,27 @@ export function create_vertical_card(top_text, bottom_text, img_url, href, type=
     dropdown_search.setAttribute("value", "share:"); // TBD
     dropdown_search.classList.add("opt");
     dropdown_search.append("Share");
-    
-    // session stuff
-    const user = JSON.parse(sessionStorage.getItem("user"));
+
+    let dropdown_sessioned_options = create_dropdown_session_related_options(type, extra_info);
+
+    let dropdown = document.createElement("select");
+    dropdown.setAttribute("name", "selectoption");
+    dropdown.classList.add("dropimg");
+    dropdown.onchange = ondropdown_change;
+    dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search);
+    dropdown.append(...dropdown_sessioned_options);
+
+    let dropdown_div = document.createElement("div");
+    dropdown_div.classList.add("dropdown");
+    dropdown_div.append(dropdown);
+
+    return dropdown_div
+}
+
+function create_dropdown_session_related_options(type, extra_info){
     let dropdown_sessioned_options = [];
+    const user = JSON.parse(sessionStorage.getItem("user"));
+
     if(user && type === "music" && extra_info){ // assume extra_info is Music
         let dropdown_optgroup = document.createElement("optgroup");
         dropdown_optgroup.setAttribute("label", "Add to playlist : ")
@@ -101,33 +127,7 @@ export function create_vertical_card(top_text, bottom_text, img_url, href, type=
     else{
         console.log("misuse of vertical card function");
     }
-
-    let dropdown = document.createElement("select");
-    dropdown.setAttribute("name", "selectoption");
-    dropdown.classList.add("dropimg");
-    dropdown.onchange = ondropdown_change;
-    dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search);
-    
-    dropdown.append(...dropdown_sessioned_options);
-
-    let dropdown_div = document.createElement("div");
-    dropdown_div.classList.add("dropdown");
-    dropdown_div.append(dropdown);
-
-    let card_img = document.createElement("img");
-    card_img.classList.add("card-img-top");
-    card_img.setAttribute("src", img_url);
-    card_img.setAttribute("alt", "playlist img");
-
-    let card_div = document.createElement("div");
-    card_div.classList.add("card");
-    card_div.classList.add("music-card");
-    card_div.append(card_img, dropdown_div, anchor_playlist);
-
-    let most_outer_div = document.createElement("div");
-    most_outer_div.classList.add("col-lg-2");
-    most_outer_div.appendChild(card_div);
-    return most_outer_div;
+    return dropdown_sessioned_options;
 }
 
 const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser"];
@@ -238,7 +238,37 @@ export function empty_vertical_card(){
     return EMPTY_VERTICAL_CARD.cloneNode(true);
 }
 
-export function create_half_horizontal_card(top_text, bottom_text, img_url, href){
+
+{/* 
+<div class="card music-card p-1 m-1">
+    <div class="row no-gutters">
+        <div class="col-lg-1">
+            <img src="public/song1.jpg" class="img-fluid rounded-start card-img-top" alt="...">
+        </div>
+        <div class="col-lg-auto">
+            <div class="card-body p-0">
+                <figcaption class="card-title non-top-result-name m-0">One and last</figcaption>
+                <figcaption class="card-text non-top-result-type"><a href="artist">Aimer</a></figcaption>
+            </div>
+        </div>
+        <div class="col-lg-1 dropdown">
+            <select name="selectoption" class="dropimg" >
+                <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                <option class="opt" value="redirectToUser:${UserID}">Go to artist</option>
+                <option class="opt" value="share:">Share</option>
+                <option class="opt" value="followUser:${FolloweeID},${FollowerID}">Follow this user</option>
+                <option class="opt" value="followPlaylist:${MusicID},${PlaylistID}">Follow this playlist</option>
+                <optgroup class="opt" label="Add to playlist : ">
+                <option class="opt" value="addToPlaylist:${MusicID},${PlaylistID}">Playlist Name 1</option>
+                ...
+            </select>
+        </div> 
+    </div>
+</div>
+
+*/}
+
+export function create_half_horizontal_card(top_text, bottom_text, img_url, href, type, extra_info){
     let card_title = document.createElement("figcaption");
     card_title.classList.add("card-title");
     card_title.appendChild(document.createTextNode(top_text));
@@ -251,10 +281,11 @@ export function create_half_horizontal_card(top_text, bottom_text, img_url, href
     card_body_div.classList.add("card-body", "p-0");
     card_body_div.append(card_title, card_text);
     
-    let card_body_div_wrapper = document.createElement("div");
-    card_body_div_wrapper.classList.add("col-lg-auto");
-    card_body_div_wrapper.append(card_body_div);
-    
+    let card_body_div_anchor = document.createElement("a");
+    card_body_div_anchor.classList.add("col-lg-10");
+    card_body_div_anchor.setAttribute("href", href);
+    card_body_div_anchor.append(card_body_div);
+
     let card_img = document.createElement("img");
     card_img.setAttribute("src", img_url);
     card_img.classList.add("img-fluid", "rounded-start", "card-img-top");
@@ -263,26 +294,26 @@ export function create_half_horizontal_card(top_text, bottom_text, img_url, href
     card_img_div.append(card_img);
     card_img_div.classList.add("col-lg-1");
 
+    let dropdown_div = create_dropdown(type, extra_info);
+    dropdown_div.classList.add("col-lg-1");
+
     let inner_card_div = document.createElement("div");
     inner_card_div.classList.add("row", "no-gutters");
-    inner_card_div.append(card_img_div, card_body_div_wrapper);
+    inner_card_div.append(card_img_div, card_body_div_anchor, dropdown_div);
 
     let card_div = document.createElement("div");
     card_div.classList.add("card", "music-card", "p-1", "m-1");
     card_div.append(inner_card_div);
 
-    let anchor = document.createElement("a");
-    anchor.setAttribute("href", href);
-    anchor.append(card_div);
-    return anchor;
+    return card_div;
 }
-const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "public/minecraft-volume-alpha.jpg", "/music?music_id=1")
+const EMPTY_HALF_HORIZONTAL_CARD = create_half_horizontal_card("Alpha", "C418", "public/minecraft-volume-alpha.jpg", "/music?music_id=1", "music", {UserID: 1}) // mock up
 export function empty_half_horizontal_card(){
     return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
 }
 
 
-export function top_card(top_text, bottom_text, img_url, href){
+export function top_card(top_text, bottom_text, img_url, href, type, extra_info){
     /* 
     Templete of top card
     <a href="${href}">
@@ -291,12 +322,13 @@ export function top_card(top_text, bottom_text, img_url, href){
                 <div class="col-md-6">
                     <img src="${img_url}" class="img-fluid rounded-start card-img-top">
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-5">
                     <div class="card-body">
                         <figcaption class="card-title h6">${top_text}</figcaption>
                         <figcaption class="card-text">${bottom_text}</figcaption>
                     </div>
                 </div>
+                <dropdrown/>
             </div>
         </div>
     </a> 
@@ -313,8 +345,9 @@ export function top_card(top_text, bottom_text, img_url, href){
     card_body.classList.add("card-body");
     card_body.append(card_title, card_text);
 
-    let card_body_div_wrapper = document.createElement("div");
-    card_body_div_wrapper.classList.add("col-md-6");
+    let card_body_div_wrapper = document.createElement("a");
+    card_body_div_wrapper.classList.add("col-md-5");
+    card_body_div_wrapper.setAttribute("href", href);
     card_body_div_wrapper.append(card_body);
 
     let img = document.createElement("img");
@@ -325,18 +358,18 @@ export function top_card(top_text, bottom_text, img_url, href){
     img_div.classList.add("col-md-6");
     img_div.append(img);
 
+    let dropdown_div = create_dropdown(type, extra_info);
+    dropdown_div.classList.add("col-lg-1");
+
     let inner_card_div = document.createElement("div");
     inner_card_div.classList.add("row", "no-gutters", "fluid");
-    inner_card_div.append(img_div, card_body_div_wrapper);
+    inner_card_div.append(img_div, card_body_div_wrapper, dropdown_div);
 
     let card_div = document.createElement("div");
     card_div.classList.add("card", "music-card", "top-card");
     card_div.append(inner_card_div);
 
-    let anchor = document.createElement("a");
-    anchor.setAttribute("href", href);
-    anchor.append(card_div);
-    return anchor;
+    return card_div;
 }
 
 

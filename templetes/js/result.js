@@ -123,10 +123,11 @@ function music_handler(data){
                 
                 href = music.MusicFile; // TODO: tbd
                 if(c === 0){// bring the first to the topcard
-                    document.querySelector("#top-music-append").appendChild(top_card(top_text, bottom_text, img, href));
+                    document.querySelector("#top-music-append").appendChild(top_card(top_text, bottom_text, img, href, "music", music));
                     continue;
                 }
-                half_hori_card_div = create_half_horizontal_card(top_text, bottom_text, img, href);
+                console.log(music);
+                half_hori_card_div = create_half_horizontal_card(top_text, bottom_text, img, href, "music", music);
             }
             else{ // default
                 half_hori_card_div = empty_half_horizontal_card(); 
