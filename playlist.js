@@ -151,10 +151,13 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
         else {
             let playlist = results[0];
             connection.query("SELECT COUNT(UserFollowPlaylist.UserID) AS Follower FROM UserFollowPlaylist INNER JOIN User ON UserFollowPlaylist.UserID = User.UserID WHERE PlaylistID = ? AND IsDeleted = False;", playlist_id, function(error, results, fields){
-                playlist["Follower"] = results[0]["Follower"];
-                res.send({error: false, message: "getting playlists success", playlist: playlist});
+                if(error) res.status(500).send({error: true, message: error.toString(), playlist: playlist});
+                else{
+                    playlist["Follower"] = results[0]["Follower"];
+                    res.send({error: false, message: "getting playlists success", playlist: playlist});
+                }
             })
-            }
+        }
     });
 });
 
