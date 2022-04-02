@@ -233,7 +233,7 @@ function ondropdown_change(){
 }
 
 export const EACH_ROW = 5;
-const EMPTY_VERTICAL_CARD = create_vertical_card("top text", "bottom text", "https://www.memecreator.org/static/images/memes/4100601.jpg", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "music", {"UserID" : 1});
+const EMPTY_VERTICAL_CARD = create_vertical_card("top text", "bottom text", "/public/ProfilePic/DefaultProfilePic.png", "https://www.youtube.com/watch?v=dQw4w9WgXcQ",  "music", {"UserID" : 1});
 const BORDER = document.createElement("div");
 BORDER.classList.add("col-lg-1");
 
