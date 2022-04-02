@@ -422,24 +422,37 @@ export function on_showall(id){
     }
 }
 
-const PLAYLIST_ROW = document.createElement("div")
-PLAYLIST_ROW.classList.add("row", "playlist-row", "my-3");
-const PLAYLIST_ROW_HIDDEN = PLAYLIST_ROW.cloneNode(true);
-PLAYLIST_ROW_HIDDEN.classList.add("default-hidden");
-PLAYLIST_ROW_HIDDEN.hidden = true;
+
+function construct_row(type){
+    const PLAYLIST_ROW = document.createElement("div")
+    PLAYLIST_ROW.classList.add("row", `${type}-row`, "my-3");
+    const PLAYLIST_ROW_HIDDEN = PLAYLIST_ROW.cloneNode(true);
+    PLAYLIST_ROW_HIDDEN.classList.add("default-hidden");
+    PLAYLIST_ROW_HIDDEN.hidden = true;
+    return [PLAYLIST_ROW, PLAYLIST_ROW_HIDDEN];
+}
+
+const [PLAYLIST_ROW, PLAYLIST_ROW_HIDDEN] = construct_row("playlist");
+const [MUSIC_ROW, MUSIC_ROW_HIDDEN] = construct_row("music");
+
 export function create_playlist_row(hidden){
+    /* 
+    templete of row of vertical card
+    <div class="row playlist-row my-3">
+        <div class="col-lg-1"></div>
+            vertical card1
+            vertical card2
+            vertical card3
+            vertical card4
+            vertical card5
+        <div class="col-lg-1"></div>
+    </div>
+    */
     if(hidden){
         return PLAYLIST_ROW_HIDDEN.cloneNode(true);
     }
     return PLAYLIST_ROW.cloneNode(true);
 }
-
-
-const MUSIC_ROW = document.createElement("div")
-MUSIC_ROW.classList.add("row", "music-row", "my-3");
-const MUSIC_ROW_HIDDEN = MUSIC_ROW.cloneNode(true);
-MUSIC_ROW_HIDDEN.classList.add("default-hidden");
-MUSIC_ROW_HIDDEN.hidden = true;
 export function create_music_row(hidden){
     /* 
     templete of row of vertical card
@@ -454,9 +467,9 @@ export function create_music_row(hidden){
     </div>
     */
     if(hidden){
-        return PLAYLIST_ROW_HIDDEN.cloneNode(true)
+        return MUSIC_ROW_HIDDEN.cloneNode(true)
     }
-    return PLAYLIST_ROW.cloneNode(true);
+    return MUSIC_ROW.cloneNode(true);
 }
 
 
