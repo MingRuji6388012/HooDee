@@ -47,7 +47,7 @@ function music_append(musics_in_playlist){
             bottom_text = music.UserName;
             img_url = music.MusicIMG;
             href = music.MusicFile;
-            parent_node.append(horizontal_card(top_text, bottom_text, img_url, href, false));
+            parent_node.append(horizontal_card(top_text, bottom_text, img_url, href, false, "music", music));
         }    
     }
 }

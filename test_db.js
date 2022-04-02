@@ -100,10 +100,11 @@ connection.connect();
 
 // connection.query(`
 // CREATE TABLE UserFollowUser (
-//     FolloweeID			int     UNIQUE,
-//     FollowerID			int     UNIQUE,
+//     FolloweeID			int,
+//     FollowerID			int,
 //     FollowTime			datetime,
 
+//     CONSTRAINT UserFollowPlaylist_PK PRIMARY KEY (FolloweeID, FollowerID),    
 //     CONSTRAINT fk_FolloweeID FOREIGN KEY (FolloweeID)
 //     REFERENCES User(UserID),
 //     CONSTRAINT fk_FollowerID FOREIGN KEY (FollowerID)
@@ -114,10 +115,11 @@ connection.connect();
 // connection.query(  // add isunfollow? 
 // `
 // CREATE TABLE UserFollowPlaylist (
-//     UserID			int     UNIQUE,
-//     PlaylistID		int     UNIQUE,
+//     UserID			int,
+//     PlaylistID		int,
 //     FollowTime		datetime,
-    
+
+//     CONSTRAINT UserFollowPlaylist_PK PRIMARY KEY (UserID, PlaylistID),
 //     CONSTRAINT fk_UserID4 FOREIGN KEY (UserID)
 //     REFERENCES User(UserID),
 //     CONSTRAINT fk_PlaylistID FOREIGN KEY (PlaylistID)

@@ -174,8 +174,14 @@ function ondropdown_change(){
             })
             .then(res => res.json())
             .then(res => {
-                if(res.error){
+                if(res.error && res.message.includes("Duplicate entry")){
                     console.log(res.message);
+                    alert("You already follow this playlist");
+                    return;
+                }
+                else if(res.error){
+                    console.log(res.message);
+                    alert("internal error");
                     return;
                 }
                 alert("Follow Playlist complete!");
@@ -237,7 +243,6 @@ export function padding_border(){
 export function empty_vertical_card(){
     return EMPTY_VERTICAL_CARD.cloneNode(true);
 }
-
 
 {/* 
 <div class="card music-card p-1 m-1">
@@ -417,8 +422,6 @@ export function on_showall(id){
     }
 }
 
-
-
 const PLAYLIST_ROW = document.createElement("div")
 PLAYLIST_ROW.classList.add("row", "playlist-row", "my-3");
 const PLAYLIST_ROW_HIDDEN = PLAYLIST_ROW.cloneNode(true);
@@ -457,7 +460,7 @@ export function create_music_row(hidden){
 }
 
 
-export function horizontal_card(top_text, bottom_text, img_url, href, hidden){
+export function horizontal_card(top_text, bottom_text, img_url, href, hidden, type, extra_info){
     /*
     <a href=${href}>
         <div class="card music-card p-1 my-2">
@@ -496,15 +499,13 @@ export function horizontal_card(top_text, bottom_text, img_url, href, hidden){
     img_div.classList.add("col-lg-1");
     img_div.append(img);
 
-    let card_body_wrapper = document.createElement("div");
+    let card_body_wrapper = document.createElement("a");
     card_body_wrapper.classList.add("card-description", "col-lg-10");
+    card_body_wrapper.setAttribute("href", href);
     card_body_wrapper.append(card_body);
 
-    // tobe dropdown here
-
-    let dropdown_div = document.createElement("div");
+    let dropdown_div = create_dropdown(type, extra_info);
     dropdown_div.classList.add("col-lg-1", "vertical-dropdown");
-    // to append dropdown here
 
     let row = document.createElement("div");
     row.classList.add("row", "no-gutters");
@@ -514,12 +515,11 @@ export function horizontal_card(top_text, bottom_text, img_url, href, hidden){
     whole_card.classList.add("card", "music-card", "p-1", "my-2");
     whole_card.append(row);
     
-    let anchor = document.createElement("a");
+    let hidden_wrapper = document.createElement("div");
     if (hidden){
-        anchor.classList.add("music-row", "default-hidden");
-        anchor.hidden = true;
+        hidden_wrapper.classList.add("music-row", "default-hidden");
+        hidden_wrapper.hidden = true;
     }
-    anchor.setAttribute("href", href);
-    anchor.append(whole_card);
-    return anchor;
+    hidden_wrapper.append(whole_card);
+    return hidden_wrapper;
 }

@@ -73,7 +73,7 @@ async function show_user_title(datas){
 async function show_playlist_own(datas){
     let parent_node = document.querySelector("#playlist-own-append");
     const playlists = datas.playlists.playlists;
-    let idx, top_text, bottom_text, href, img_url, playlist_card, playlist_row, default_hidden = false;
+    let idx, top_text, bottom_text, href, img_url, playlist_card, playlist_row, default_hidden = false, playlist;
     // scale so badly, but anyways...
     for(let i = 0; i < playlists.length/EACH_ROW; i++){
         if(i > 0) {
@@ -86,12 +86,13 @@ async function show_playlist_own(datas){
             idx = i * EACH_ROW + j;
             console.log(idx);
             if(idx < playlists.length){
-                top_text = playlists[idx].PlaylistName;
+                playlist = playlists[idx];
+                top_text = playlist.PlaylistName;
                 bottom_text = datas.user.user.UserName; // a bit cheat, but fine for now
-                img_url = playlists[idx].PlaylistIMG;
-                href = `/playlist?playlist_id=${playlists[idx].PlaylistID}`;
+                img_url = playlist.PlaylistIMG;
+                href = `/playlist?playlist_id=${playlist.PlaylistID}`;
                 console.log(top_text);
-                playlist_card = create_vertical_card(top_text, bottom_text, img_url, href);
+                playlist_card = create_vertical_card(top_text, bottom_text, img_url, href, "playlist", playlist);
             }
             else{
                 playlist_card = empty_vertical_card();
@@ -107,16 +108,17 @@ async function show_playlist_own(datas){
 async function show_music_own(datas){
     let parent_node = document.querySelector("#music-own-append");
     const musics = datas.musics.musics;
-    let idx, top_text, bottom_text, href, img_url, music_card, default_hidden = false;
+    let idx, top_text, bottom_text, href, img_url, music_card, default_hidden = false, music;
     for(idx = 0; idx < musics.length; idx++){
         if (idx >= EACH_ROW){ // maybe change number later
             default_hidden = true;
         }
-        top_text = musics[idx].MusicName;
+        music = musics[idx]
+        top_text = music.MusicName;
         bottom_text = datas.user.user.UserName;
-        href = musics[idx].MusicFile;
-        img_url = musics[idx].MusicIMG;
-        music_card = horizontal_card(top_text, bottom_text, img_url, href, default_hidden);
+        href = music.MusicFile;
+        img_url = music.MusicIMG;
+        music_card = horizontal_card(top_text, bottom_text, img_url, href, default_hidden, "music", music);
         parent_node.append(music_card);
     }
 }
