@@ -100,8 +100,8 @@ connection.connect();
 
 // connection.query(`
 // CREATE TABLE UserFollowUser (
-//     FolloweeID			int,
-//     FollowerID			int,
+//     FolloweeID			int     UNIQUE,
+//     FollowerID			int     UNIQUE,
 //     FollowTime			datetime,
 
 //     CONSTRAINT fk_FolloweeID FOREIGN KEY (FolloweeID)
@@ -114,8 +114,8 @@ connection.connect();
 // connection.query(  // add isunfollow? 
 // `
 // CREATE TABLE UserFollowPlaylist (
-//     UserID			int,
-//     PlaylistID		int,
+//     UserID			int     UNIQUE,
+//     PlaylistID		int     UNIQUE,
 //     FollowTime		datetime,
     
 //     CONSTRAINT fk_UserID4 FOREIGN KEY (UserID)
@@ -175,7 +175,7 @@ connection.query("SELECT * FROM UserFollowPlaylist;",  function(error, results, 
     console.log(results);
 });
 
-connection.query("SELECT * FROM Music m INNER JOIN MusicInPlaylist mip ON m.MusicID = mip.MusicID;",  function(error, results, fields){
+connection.query("SELECT * FROM MusicInPlaylist mip INNER JOIN Music m ON m.MusicID = mip.MusicID INNER JOIN Playlist p ON mip.PlaylistID = p.PlaylistID;",  function(error, results, fields){
     if(error) throw error;
     console.log("MusicInPlaylist with Music: ");
     console.log(results);
