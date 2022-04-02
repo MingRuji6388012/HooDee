@@ -61,6 +61,10 @@ body {
     text-align: right;
 }
 
+.showall:hover{
+    text-decoration: underline;
+}
+
 .showall a {
     font-size: 13px;
     color: rgb(166, 146, 187) !important;
