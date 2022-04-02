@@ -116,6 +116,14 @@ function create_dropdown_session_related_options(type, extra_info){
         user_opt.append("Follow this user");
         user_opt.setAttribute("value", `followUser:${user.UserID},${extra_info.UserID}`);
         dropdown_sessioned_options.push(user_opt);
+
+        if(user.role === 1){
+            let delete_opt = document.createElement("option");
+            delete_opt.classList.add("opt");
+            delete_opt.append("Delele this user");
+            delete_opt.setAttribute("value", `removeUser:${extra_info.UserID}`);
+            dropdown_sessioned_options.append(delete_opt);
+        }
     }
     else if(user && type === "playlist" && extra_info) { // assume extra_info is Playlist
         let playlist_opt = document.createElement("option");
