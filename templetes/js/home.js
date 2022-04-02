@@ -71,30 +71,36 @@ function home_music_history_appender(musics){
     }
 }
 
-function home_playlist_history_appender(data){
-    if(!data.error){
+function home_playlist_history_appender(playlists){
+    if(!playlists.error){
         let parent_node = document.querySelector("#home-playlist-history-append");
-        let top_text, bottom_text, img, href, card_tobe_append;
-        let d;
-        var bottom_img = new Image(2, 2);
-        bottom_img.src = 'public/button/earphone.png';
+        let top_text, bottom_text, img_url, href, card_tobe_append, playlist, i, j, idx, row, default_hidden = false;
+        playlists = playlists["playlists"];
+        for(i = 0; i < playlists.length/EACH_ROW; i+=1){
+            if(i > 0){
+                default_hidden = true;
+            }
+            row = create_playlist_row(default_hidden);
 
-        parent_node.hidden = false;
-        parent_node.append(padding_border());
-        for(let i = 0; i < EACH_ROW; i++){
-            if(i < data["playlists"].length){
-                d = data["playlists"][i];
-                top_text = d.PlaylistName
-                bottom_text = d.bottom_img; //document.body.appendchild(bottom_img)
-                img = d.PlaylistIMG ? d.PlaylistIMG : "public/today's hits.jpg"; // default value
-                href = d.MusicFile; // TODO: tbd
-                card_tobe_append = create_vertical_card(top_text, bottom_text, img, href);
+            row.append(padding_border());
+            for(j = 0; j < EACH_ROW; j++){
+                idx = EACH_ROW * i + j;
+                if(idx < playlists.length){
+                    playlist = playlists[idx];
+                    top_text = playlist.PlaylistName
+                    bottom_text = playlist.UserName;
+                    img_url = playlist.PlaylistIMG ? playlist.PlaylistIMG : "public/butter.jpg"; // default value
+                    href = `/playlist?playlist_id=${playlist.PlaylistID}`; // TODO: tbd
+                    card_tobe_append = create_vertical_card(top_text, bottom_text, img_url, href, "playlist", playlist);
+                }
+                else{ // default
+                    card_tobe_append = empty_vertical_card();
+                }
+                row.append(card_tobe_append);
             }
-            else{ // default
-                card_tobe_append = empty_vertical_card();
-            }
-            parent_node.append(card_tobe_append);
+            row.append(padding_border());
+            parent_node.append(row);
         }
-        parent_node.append(padding_border());
+        parent_node.hidden = false;
     }
 }
