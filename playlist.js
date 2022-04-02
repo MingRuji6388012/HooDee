@@ -121,8 +121,9 @@ playlist_api_route.put("/add_music", function(req, res){
     let playlist_id = req.body.PlaylistID; // int
 
     let record = {MusicID: music_id, PlaylistID: playlist_id};
+    console.log(`add music into playlist with this settings: ${record}`);
     connection.query("INSERT INTO MusicInPlaylist SET ?;", record, function(error, results, fields){
-        if(error) res.status(500).send({error: true, playlists: null, message: error.toString()});
+        if(error || results.changedRows == 0) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "add music from playlist complete"});
     });
 });

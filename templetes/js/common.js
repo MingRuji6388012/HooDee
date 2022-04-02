@@ -35,7 +35,12 @@ Example of vertical card
     </div>  
 </div>
 */}
-export function create_vertical_card(top_text, bottom_text, img_url, href){
+export function create_vertical_card(top_text, bottom_text, img_url, href, type="music", extra_info=null){
+    /**
+     * user in session -> more functionality at in the card depends on ${type}
+     */
+    type = type.toLowerCase();
+
     let user_name_div = document.createElement("figcaption");
     user_name_div.classList.add("card-text");
     user_name_div.append(bottom_text);
@@ -65,39 +70,58 @@ export function create_vertical_card(top_text, bottom_text, img_url, href){
     dropdown_option_default.append(dropdown_img);
 
     let dropdown_go_user = document.createElement("option");
-    dropdown_go_user.setAttribute("value", "Gotoartist")
+    dropdown_go_user.setAttribute("value", `redirectToUser:${extra_info.UserID ? extra_info.UserID : extra_info.PlaylistCreator}`);
     dropdown_go_user.classList.add("opt");
     dropdown_go_user.append("Go to artist");
 
     let dropdown_search = document.createElement("option");
-    dropdown_search.setAttribute("value", "Share")
+    dropdown_search.setAttribute("value", "share:"); // TBD
     dropdown_search.classList.add("opt");
     dropdown_search.append("Share");
     
-    // sessionstoreage
+    // session stuff
     const user = JSON.parse(sessionStorage.getItem("user"));
-    let dropdown_playlist_options = [];
-    if(user){
+    let dropdown_sessioned_options = [];
+    if(user && type === "music" && extra_info){ // assume extra_info is Music
         let dropdown_optgroup = document.createElement("optgroup");
         dropdown_optgroup.setAttribute("label", "Add to playlist : ")
         dropdown_optgroup.classList.add("opt");
-
-        dropdown_playlist_options.push(dropdown_optgroup);
+        dropdown_sessioned_options.push(dropdown_optgroup);
 
         const playlists = user.playlists;
         for(let idx = 0; idx < playlists.length; idx++){
-            let playlist_opt = document.createElement("option");
-            playlist_opt.classList.add("opt");
-            // playlist_opt.setAttribute("value", playlists[idx].PlaylistID);
-            playlist_opt.append(playlists[idx].PlaylistName);   
-            dropdown_playlist_options.push(playlist_opt);
+            let add_to_playlist_opt = document.createElement("option");
+            add_to_playlist_opt.classList.add("opt");
+            add_to_playlist_opt.setAttribute("value", `addToPlaylist:${extra_info.MusicID},${playlists[idx].PlaylistID}`);
+            add_to_playlist_opt.append(playlists[idx].PlaylistName);   
+            dropdown_sessioned_options.push(add_to_playlist_opt);
         }
+    }
+    else if(user && type === "user" && extra_info) { // assume extra_info is User (usually other than the one in the session)
+        let user_opt = document.createElement("option");
+        user_opt.classList.add("opt");
+        user_opt.append("Follow this user");
+        user_opt.setAttribute("value", `followUser:${user.UserID},${extra_info.UserID}`);
+        dropdown_sessioned_options.push(user_opt);
+    }
+    else if(user && type === "playlist" && extra_info) { // assume extra_info is Playlist
+        let playlist_opt = document.createElement("option");
+        playlist_opt.classList.add("opt");
+        playlist_opt.append("Follow this playlist");
+        playlist_opt.setAttribute("value", `followPlaylist:${user.UserID},${extra_info.PlaylistID}`);
+        dropdown_sessioned_options.push(playlist_opt);   
+    }
+    else{
+        console.log("misuse of vertical card function");
     }
 
     let dropdown = document.createElement("select");
     dropdown.setAttribute("name", "selectoption");
     dropdown.classList.add("dropimg");
-    dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search, ...dropdown_playlist_options);
+    dropdown.onchange = ondropdown_change;
+    dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search);
+    
+    dropdown.append(...dropdown_sessioned_options);
 
     let dropdown_div = document.createElement("div");
     dropdown_div.classList.add("dropdown");
@@ -119,8 +143,103 @@ export function create_vertical_card(top_text, bottom_text, img_url, href){
     return most_outer_div;
 }
 
+const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser"];
+function ondropdown_change(){
+    // https://stackoverflow.com/questions/647282/is-there-an-onselect-event-or-equivalent-for-html-select
+    const selected_action = this.value;
+    const [command, params] = selected_action.split(":");
+    let music_id, playlist_id, user_id, follower_id;
+    switch (command) {
+        case ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
+            [music_id, playlist_id] = params.split(",");
+            console.log(`${command}: ${music_id} ${playlist_id}`);
+            fetch("/api/playlist/add_music",  {
+                method: "put",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    MusicID: music_id,
+                    PlaylistID: playlist_id
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    return;
+                }
+                alert("add music into playlist success!");
+            });
+            break;
+        case ACTION_IN_SELECT[1]: // followPlaylist:UserID,PlaylistID
+            [user_id, playlist_id] = params.split(",");
+            console.log(`${command}: ${user_id} ${playlist_id}`);
+            fetch("/api/playlist/user_follow",  {
+                method: "post",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    UserID: user_id,
+                    PlaylistID: playlist_id
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    return;
+                }
+                alert("Follow Playlist complete!");
+            });
+            break;
+        case ACTION_IN_SELECT[2]: // redirectToUser:UserID
+            user_id = params;
+            console.log(`${command}: ${user_id}`);
+            window.location.replace(`/user?user_id=${user_id}`);
+            break;
+        case ACTION_IN_SELECT[3]: // share
+            console.log(`${command}: `);
+            alert("TBD");
+            break;
+        case ACTION_IN_SELECT[4]: // followUser:UserID,UserID
+            [user_id, follower_id] = params.split(",");
+            console.log(`${command}: ${user_id} ${follower_id}`);
+            fetch("/api/user/follow", {
+                    method: "post",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({
+                        FolloweeID : user_id,
+                        FollowerID : follower_id
+                    })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.error && res.message.includes("Duplicate entry")){
+                        console.log(res.message);
+                        alert("You are already follow this dude");
+                        return;
+                    }
+                    else if (res.error){
+                        console.log(res.message);
+                        alert("internal error");
+                        return;
+                    }
+                    alert("Following complete");
+                }
+            );
+            break;
+        default:
+            console.log(`Command ${selected_action} invalid: misuse of ondropdown_change function`);
+            break;
+    }
+}
+
 export const EACH_ROW = 5;
-const EMPTY_PLAYLIST_CARD = create_vertical_card("top text", "bottom text", "https://www.memecreator.org/static/images/memes/4100601.jpg", "https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+const EMPTY_VERTICAL_CARD = create_vertical_card("top text", "bottom text", "https://www.memecreator.org/static/images/memes/4100601.jpg", "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "music", {"UserID" : 1});
 const BORDER = document.createElement("div");
 BORDER.classList.add("col-lg-1");
 
@@ -128,7 +247,7 @@ export function padding_border(){
     return BORDER.cloneNode(true);
 }
 export function empty_vertical_card(){
-    return EMPTY_PLAYLIST_CARD.cloneNode(true);
+    return EMPTY_VERTICAL_CARD.cloneNode(true);
 }
 
 export function create_half_horizontal_card(top_text, bottom_text, img_url, href){
