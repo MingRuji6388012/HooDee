@@ -333,11 +333,29 @@ function ondropdown_change(){
             });
             break;
         case ACTION_IN_SELECT[7]: // removePlaylist:PlaylistID
+            playlist_id = params;
+            fetch("/api/playlist/delete", {
+                method: "delete",
+                body: JSON.stringify({PlaylistID: playlist_id}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("can't remove this playlist");
+                    return;
+                }
+                alert("Remove playlist complete!");
+            });
             break;
         default:
             console.log(`Command ${selected_action} invalid: misuse of ondropdown_change function`);
             break;
     }
+    location.reload();
 }
 
 export const EACH_ROW = 5;
