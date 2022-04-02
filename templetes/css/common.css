@@ -92,7 +92,7 @@ body {
 }
 
 button,
-.btn.login-button-submit {
+.btn.login-button-submit{
     font-size: 21px !important;
     font-weight: 500 !important;
     padding: 5px 30px !important;
@@ -105,6 +105,22 @@ button,
 button:hover,
 .btn.login-button-submit:hover {
     background-color: #62569C !important;
+    transition: all 0.25s ease 0s !important;
+}
+
+.btn.logout{
+    font-size: 21px !important;
+    font-weight: 500 !important;
+    padding: 5px 30px !important;
+    background-color: #A13B35;
+    border: none !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+}
+
+
+.btn.logout:hover {
+    background-color: #CA2906 !important;
     transition: all 0.25s ease 0s !important;
 }
 
