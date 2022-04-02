@@ -148,7 +148,13 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
     connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, p.TimeCreated, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE PlaylistID = ? AND p.IsDeleted = false;", playlist_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), playlist: null});
         else if(!results.length) res.send({error: false, message: "playlist not found", playlist: {}});
-        else res.send({error: false, message: "getting playlists success", playlist: results[0]});
+        else {
+            let playlist = results[0];
+            connection.query("SELECT COUNT(UserFollowPlaylist.UserID) AS Follower FROM UserFollowPlaylist INNER JOIN User ON UserFollowPlaylist.UserID = User.UserID WHERE PlaylistID = ? AND IsDeleted = False;", playlist_id, function(error, results, fields){
+                playlist["Follower"] = results[0]["Follower"];
+                res.send({error: false, message: "getting playlists success", playlist: playlist});
+            })
+            }
     });
 });
 

@@ -32,8 +32,6 @@
     display: block;
 }
 
-/* .dropdownoption a:active {background-color: #342C5F;} */
-
 .dropdown:hover .dropdownoption {
     display: block;
     cursor:pointer;

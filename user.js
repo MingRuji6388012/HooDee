@@ -240,7 +240,13 @@ user_api_route.get("/search_by_id/:id", function(req, res){
     let user_id = req.params.id;
     connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, TimeCreated FROM User WHERE UserID = ? AND IsDeleted = False;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), user: null});
-        else if (results.length) res.send({error: false, message: "User found", user: results[0]});
+        else if (results.length) {
+            let user = results[0];
+            connection.query("SELECT COUNT(FollowerID) AS Follower FROM UserFollowUser INNER JOIN User ON UserFollowUser.FolloweeID = User.UserID WHERE FolloweeID = ? AND IsDeleted = False;", user_id, function(error, results, fields){
+                user["Follower"] = results[0]["Follower"];
+                res.send({error: false, message: "User found", user: user});
+            });
+        }
         else res.send({error: false, message: "User is deleted or no user use that id", user: null});
     });
 });
