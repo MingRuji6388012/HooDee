@@ -317,7 +317,6 @@ export function empty_half_horizontal_card(){
     return EMPTY_HALF_HORIZONTAL_CARD.cloneNode(true);
 }
 
-
 export function top_card(top_text, bottom_text, img_url, href, type, extra_info){
     /* 
     Templete of top card
@@ -376,7 +375,6 @@ export function top_card(top_text, bottom_text, img_url, href, type, extra_info)
 
     return card_div;
 }
-
 
 export function get_parameter(){
     const url = window.location.href;
