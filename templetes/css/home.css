@@ -31,19 +31,3 @@
     text-decoration: none;
     display: block;
 }
-
-.dropdown:hover .dropdownoption {
-    display: block;
-    cursor:pointer;
-}
-
-select {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    background: none;
-    background-image:url("public/button/dropdown.png");
-    background-size: 8px 24px;
-    width: 20px;
-    border: none;
-}
