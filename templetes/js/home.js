@@ -14,7 +14,6 @@ window.onload = async function() {
             method: "GET",
         }).then(res => res.json());
 
-
     //Playlist
     let playlists = fetch(`/api/playlist/search_by_playlistname/%25`, { 
             method: "GET",  
@@ -81,7 +80,7 @@ function home_playlist_history_appender(playlists){
                 default_hidden = true;
             }
             row = create_playlist_row(default_hidden);
-
+            
             row.append(padding_border());
             for(j = 0; j < EACH_ROW; j++){
                 idx = EACH_ROW * i + j;
@@ -104,3 +103,4 @@ function home_playlist_history_appender(playlists){
         parent_node.hidden = false;
     }
 }
+
