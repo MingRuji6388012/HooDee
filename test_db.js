@@ -104,6 +104,7 @@ connection.connect();
 //     FollowerID			int,
 //     FollowTime			datetime,
 
+//     CONSTRAINT UserFollowPlaylist_PK PRIMARY KEY (FolloweeID, FollowerID),    
 //     CONSTRAINT fk_FolloweeID FOREIGN KEY (FolloweeID)
 //     REFERENCES User(UserID),
 //     CONSTRAINT fk_FollowerID FOREIGN KEY (FollowerID)
@@ -117,7 +118,8 @@ connection.connect();
 //     UserID			int,
 //     PlaylistID		int,
 //     FollowTime		datetime,
-    
+
+//     CONSTRAINT UserFollowPlaylist_PK PRIMARY KEY (UserID, PlaylistID),
 //     CONSTRAINT fk_UserID4 FOREIGN KEY (UserID)
 //     REFERENCES User(UserID),
 //     CONSTRAINT fk_PlaylistID FOREIGN KEY (PlaylistID)
@@ -175,7 +177,7 @@ connection.query("SELECT * FROM UserFollowPlaylist;",  function(error, results, 
     console.log(results);
 });
 
-connection.query("SELECT * FROM Music m INNER JOIN MusicInPlaylist mip ON m.MusicID = mip.MusicID;",  function(error, results, fields){
+connection.query("SELECT * FROM MusicInPlaylist mip INNER JOIN Music m ON m.MusicID = mip.MusicID INNER JOIN Playlist p ON mip.PlaylistID = p.PlaylistID;",  function(error, results, fields){
     if(error) throw error;
     console.log("MusicInPlaylist with Music: ");
     console.log(results);

@@ -11,9 +11,11 @@ playlist_api_route.post("/create", function(req, res){
     /**
      * expected to get 
      * {
-     *      "PlaylistCreator" : value (FK to User),
-     *      "PlaylistName" : value, 
-     *      "PlaylistImg" : value or none
+     *      "Playlist": {
+                "PlaylistCreator" : value (FK to User),
+                "PlaylistName" : value, 
+                "PlaylistImg" : value or none
+            }
      * }
      * in request body
      * 
@@ -119,8 +121,9 @@ playlist_api_route.put("/add_music", function(req, res){
     let playlist_id = req.body.PlaylistID; // int
 
     let record = {MusicID: music_id, PlaylistID: playlist_id};
+    console.log(`add music into playlist with this settings: ${record}`);
     connection.query("INSERT INTO MusicInPlaylist SET ?;", record, function(error, results, fields){
-        if(error) res.status(500).send({error: true, playlists: null, message: error.toString()});
+        if(error || results.changedRows == 0) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "add music from playlist complete"});
     });
 });
@@ -148,7 +151,16 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
     connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, p.TimeCreated, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE PlaylistID = ? AND p.IsDeleted = false;", playlist_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), playlist: null});
         else if(!results.length) res.send({error: false, message: "playlist not found", playlist: {}});
-        else res.send({error: false, message: "getting playlists success", playlist: results[0]});
+        else {
+            let playlist = results[0];
+            connection.query("SELECT COUNT(UserFollowPlaylist.UserID) AS Follower FROM UserFollowPlaylist INNER JOIN User ON UserFollowPlaylist.UserID = User.UserID WHERE PlaylistID = ? AND IsDeleted = False;", playlist_id, function(error, results, fields){
+                if(error) res.status(500).send({error: true, message: error.toString(), playlist: playlist});
+                else{
+                    playlist["Follower"] = results[0]["Follower"];
+                    res.send({error: false, message: "getting playlists success", playlist: playlist});
+                }
+            })
+        }
     });
 });
 

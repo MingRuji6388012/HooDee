@@ -92,7 +92,7 @@ body {
 }
 
 button,
-.btn.login-button-submit {
+.btn.login-button-submit{
     font-size: 21px !important;
     font-weight: 500 !important;
     padding: 5px 30px !important;
@@ -108,10 +108,75 @@ button:hover,
     transition: all 0.25s ease 0s !important;
 }
 
+.btn.logout{
+    font-size: 21px !important;
+    font-weight: 500 !important;
+    padding: 5px 30px !important;
+    background-color: #EF5534;
+    border: none !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+}
+
+
+.btn.logout:hover {
+    background-color: #CA2906 !important;
+    transition: all 0.25s ease 0s !important;
+}
+
 a {
     text-decoration: none !important;
 }
 
 a:hover {
     text-decoration: underline !important;
+}
+
+/* dropdown option */
+.dropdown:hover .dropdownoption {
+    display: block;
+    cursor:pointer;
+}
+
+
+.opt {
+    background-color: #342C5F;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropimg {
+    border: none;
+}
+.dropdownoption {
+    display: none;
+    position: absolute;
+    background-color: #342C5F;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdownoption a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdownoption {
+    display: block;
+    cursor:pointer;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    background-image:url("public/button/dropdown.png");
+    background-size: 8px 24px;
+    width: 20px;
+    border: none;
 }

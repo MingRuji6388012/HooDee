@@ -1,10 +1,10 @@
-import {
-    change_login_to_profile
-} from "./common.js"
+// import {
+//     change_login_to_profile
+// } from "./common.js"
 
-window.onload = async function(){
-    const change_login = change_login_to_profile();
-}
+// window.onload = async function(){
+//     const change_login = change_login_to_profile();
+// }
 
 
 // used in every where that has search bar

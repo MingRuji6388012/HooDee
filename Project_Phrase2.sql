@@ -51,8 +51,8 @@ CREATE TABLE LoginLog (
 );
 
 CREATE TABLE UserFollowUser (
-    FolloweeID			int,
-    FollowerID			int,
+    FolloweeID			int     UNIQUE,
+    FollowerID			int     UNIQUE,
     FollowTime			datetime,
 
     CONSTRAINT fk_FolloweeID FOREIGN KEY (FolloweeID)

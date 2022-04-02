@@ -59,16 +59,17 @@ function playlist_handler(data){
         document.querySelector("#playlist").hidden = false;
         let parent_node = document.querySelector("#playlist-append"); 
         let playlists = data.playlist.playlists;
-        let author_name, playlist_name, playlist_img, playlist_href;
+        let author_name, playlist_name, playlist_img, playlist_href, playlist;
         parent_node.appendChild(padding_border());
         for(let c = 0; c < EACH_ROW; c++){
             let playlist_div = null; 
             if(c < playlists.length) {
-                author_name = playlists[c].UserName;
-                playlist_name = playlists[c].PlaylistName;
-                playlist_img = playlists[c].PlaylistIMG;
+                playlist = playlists[c];
+                author_name = playlist.UserName;
+                playlist_name = playlist.PlaylistName;
+                playlist_img = playlist.PlaylistIMG;
                 playlist_href = `/playlist?playlist_id=${playlists[c].PlaylistID}`;
-                playlist_div = create_vertical_card(playlist_name, author_name, playlist_img, playlist_href);
+                playlist_div = create_vertical_card(playlist_name, author_name, playlist_img, playlist_href, "playlist", playlist);
             }
             else{ // default
                 playlist_div = empty_vertical_card(); 
@@ -87,15 +88,16 @@ function user_handler(data){
         document.querySelector("#artist").hidden = false; // its called artist for backward compatibility reason
         let parent_node = document.querySelector("#user-append"); 
         let users = data.user.users;
-        let top_text, img_url, href;
+        let top_text, img_url, href, user;
         parent_node.appendChild(padding_border());
         for(let c = 0; c < EACH_ROW; c++){
             let verti_card_div = null; 
             if(c < users.length) {
-                top_text = users[c].UserName;
-                img_url = users[c].UserProfileIMG;
-                href = `/user?user_id=${users[c].UserID}`; // TODO: tbd
-                verti_card_div = create_vertical_card(top_text, "User", img_url, href);
+                user = users[c];
+                top_text = user.UserName;
+                img_url = user.UserProfileIMG;
+                href = `/user?user_id=${user.UserID}`; // TODO: tbd
+                verti_card_div = create_vertical_card(top_text, "User", img_url, href, "user", user);
             }
             else{ // default
                 verti_card_div = empty_vertical_card(); 
@@ -124,10 +126,11 @@ function music_handler(data){
                 
                 href = music.MusicFile; // TODO: tbd
                 if(c === 0){// bring the first to the topcard
-                    document.querySelector("#top-music-append").appendChild(top_card(top_text, bottom_text, img, href));
+                    document.querySelector("#top-music-append").appendChild(top_card(top_text, bottom_text, img, href, "music", music));
                     continue;
                 }
-                half_hori_card_div = create_half_horizontal_card(top_text, bottom_text, img, href);
+                console.log(music);
+                half_hori_card_div = create_half_horizontal_card(top_text, bottom_text, img, href, "music", music);
             }
             else{ // default
                 half_hori_card_div = empty_half_horizontal_card(); 

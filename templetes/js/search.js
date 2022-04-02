@@ -24,19 +24,18 @@ window.onload = async function() {
 function search_history_appender(data){
     if(!data.error){
         let parent_node = document.querySelector("#search-history-append");
-        let top_text, bottom_text, img, href, card_tobe_append;
-        let d;
+        let top_text, bottom_text, img, href, card_tobe_append, music;
         
         parent_node.hidden = false;
         parent_node.append(padding_border());
         for(let i = 0; i < EACH_ROW; i++){
             if(i < data["musics"].length){
-                d = data["musics"][i];
-                top_text = d.MusicName
-                bottom_text = d.UserName;
-                img = d.MusicIMG ? d.MusicIMG : "public/what is love.jpg"; // default value
-                href = d.MusicFile; // TODO: tbd
-                card_tobe_append = create_vertical_card(top_text, bottom_text, img, href);
+                music = data["musics"][i];
+                top_text = music.MusicName
+                bottom_text = music.UserName;
+                img = music.MusicIMG ? music.MusicIMG : "public/what is love.jpg"; // default value
+                href = music.MusicFile; // TODO: tbd
+                card_tobe_append = create_vertical_card(top_text, bottom_text, img, href, "music", music);
             }
             else{ // default
                 card_tobe_append = empty_vertical_card();
