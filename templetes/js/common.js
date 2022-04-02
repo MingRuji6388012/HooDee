@@ -156,12 +156,12 @@ function create_dropdown_session_related_options(type, extra_info){
         user_opt.setAttribute("value", `followUser:${user.UserID},${extra_info.UserID}`);
         dropdown_sessioned_options.push(user_opt);
 
-        if(user.role === 1){
+        if(user.Role === 1){
             let delete_opt = document.createElement("option");
             delete_opt.classList.add("opt");
             delete_opt.append("Delele this user");
             delete_opt.setAttribute("value", `removeUser:${extra_info.UserID}`);
-            dropdown_sessioned_options.append(delete_opt);
+            dropdown_sessioned_options.push(delete_opt);
         }
     }
     else if(user && type === "playlist" && extra_info) { // assume extra_info is Playlist
@@ -177,7 +177,7 @@ function create_dropdown_session_related_options(type, extra_info){
     return dropdown_sessioned_options;
 }
 
-const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser"];
+const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser", "removeUser", "removeMusic", "removePlaylist"];
 function ondropdown_change(){
     // https://stackoverflow.com/questions/647282/is-there-an-onselect-event-or-equivalent-for-html-select
     const selected_action = this.value;
@@ -273,6 +273,31 @@ function ondropdown_change(){
                     alert("Following complete");
                 }
             );
+            break;
+        case ACTION_IN_SELECT[5]: // removeUser:UserID
+            user_id = params;
+            fetch("/api/user/remove", {
+                    method: "delete",
+                    headers: {
+                        "Content-Type" : "application/json"
+                    },
+                    body: JSON.stringify({
+                        UserID: user_id
+                    })
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("can't remove user");
+                        return
+                    }
+                    alert("remove user complete");
+                });
+            break;
+        case ACTION_IN_SELECT[6]: // removeMusic:MusicID
+            break;
+        case ACTION_IN_SELECT[7]: // removePlaylist:PlaylistID
             break;
         default:
             console.log(`Command ${selected_action} invalid: misuse of ondropdown_change function`);
