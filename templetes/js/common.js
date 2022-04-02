@@ -135,6 +135,14 @@ function create_dropdown_session_related_options(type, extra_info){
     const user = JSON.parse(sessionStorage.getItem("user"));
 
     if(user && type === "music" && extra_info){ // assume extra_info is Music
+        if(user.Role === 1){
+            let delete_opt = document.createElement("option");
+            delete_opt.classList.add("opt");
+            delete_opt.append("Delele this music");
+            delete_opt.setAttribute("value", `removeMusic:${extra_info.MusicID}`);
+            dropdown_sessioned_options.push(delete_opt);
+        }
+
         let dropdown_optgroup = document.createElement("optgroup");
         dropdown_optgroup.setAttribute("label", "Add to playlist : ")
         dropdown_optgroup.classList.add("opt");
@@ -170,6 +178,14 @@ function create_dropdown_session_related_options(type, extra_info){
         playlist_opt.append("Follow this playlist");
         playlist_opt.setAttribute("value", `followPlaylist:${user.UserID},${extra_info.PlaylistID}`);
         dropdown_sessioned_options.push(playlist_opt);   
+
+        if(user.Role === 1){
+            let delete_opt = document.createElement("option");
+            delete_opt.classList.add("opt");
+            delete_opt.append("Delele this playlist");
+            delete_opt.setAttribute("value", `removePlaylist:${extra_info.PlaylistID}`);
+            dropdown_sessioned_options.push(delete_opt);
+        }
     }
     else{
         console.log("misuse of vertical card function");
@@ -181,6 +197,7 @@ const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "
 function ondropdown_change(){
     // https://stackoverflow.com/questions/647282/is-there-an-onselect-event-or-equivalent-for-html-select
     const selected_action = this.value;
+    console.log(selected_action);
     const [command, params] = selected_action.split(":");
     let music_id, playlist_id, user_id, follower_id;
     switch (command) {
@@ -277,25 +294,43 @@ function ondropdown_change(){
         case ACTION_IN_SELECT[5]: // removeUser:UserID
             user_id = params;
             fetch("/api/user/remove", {
-                    method: "delete",
-                    headers: {
-                        "Content-Type" : "application/json"
-                    },
-                    body: JSON.stringify({
-                        UserID: user_id
-                    })
+                method: "delete",
+                headers: {
+                    "Content-Type" : "application/json"
+                },
+                body: JSON.stringify({
+                    UserID: user_id
                 })
-                .then(res => res.json())
-                .then(res => {
-                    if(res.error){
-                        console.log(res.message);
-                        alert("can't remove user");
-                        return
-                    }
-                    alert("remove user complete");
-                });
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("can't remove user");
+                    return;
+                }
+                alert("remove user complete");
+            });
             break;
         case ACTION_IN_SELECT[6]: // removeMusic:MusicID
+            music_id = params;
+            fetch("/api/music/remove", {
+                method: "delete",
+                body: JSON.stringify({MusicID: music_id}),
+                headers: {
+                    "Content-Type": "application/json"
+                }
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("can't remove this song");
+                    return;
+                }
+                alert("Remove song complete!");
+
+            });
             break;
         case ACTION_IN_SELECT[7]: // removePlaylist:PlaylistID
             break;
