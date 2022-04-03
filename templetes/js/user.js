@@ -25,6 +25,7 @@ window.onload = async function() {
         playlists: await playlists
     };
     console.log(datas);
+    await change_login;
 
     set_title(datas);
     show_user_title(datas);
@@ -53,9 +54,9 @@ async function show_user_title(datas){
     title.classList.add("h1", "artist-name-header");
     title.append(username);
 
-    let follower = document.createElement("div");
-    follower.classList.add("h5", "artist-follower-header");
-    follower.append(`${datas.user.user.Follower} FOLLOWERS`);
+    let follower_div = document.createElement("div");
+    follower_div.classList.add("h5", "artist-follower-header");
+    follower_div.append(`${datas.user.user.Followers.length} FOLLOWERS`);
 
     let new_line = document.createElement("br");
 
@@ -67,7 +68,7 @@ async function show_user_title(datas){
     let button_div = document.createElement("div");
     button_div.append(button)
 
-    parent_node.append(title, follower, new_line, button_div);
+    parent_node.append(title, follower_div, new_line, button_div);
     // parent_node.hidden = false;
 }
 

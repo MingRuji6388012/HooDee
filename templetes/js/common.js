@@ -141,6 +141,17 @@ function is_playlist_followed(playlist_id, playlists_followed){
     return followed;
 }
 
+function is_user_followed(user_id, users_followee){
+    let followed = false;
+    for(let idx = 0; idx < users_followee.length; idx++){
+        if(users_followee[idx].FolloweeID === user_id){
+            followed = true;
+            break;
+        }
+    }
+    return followed;
+}
+
 function create_dropdown_session_related_options(type, extra_info){
     let dropdown_sessioned_options = [];
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -169,10 +180,20 @@ function create_dropdown_session_related_options(type, extra_info){
         }
     }
     else if(user && type === "user" && extra_info) { // assume extra_info is User (usually other than the one in the session)
+        let text, seleted_value;
+        let followed = is_user_followed(extra_info.UserID, user.Followees)
+        if(!followed){
+            text = "Follow this user";
+            seleted_value = `followUser:${user.UserID},${extra_info.UserID}`;
+        }
+        else{
+            text = "Unfollow this user";
+            seleted_value = `unfollowUser:${user.UserID},${extra_info.UserID}`;
+        }
         let user_opt = document.createElement("option");
         user_opt.classList.add("opt");
-        user_opt.append("Follow this user");
-        user_opt.setAttribute("value", `followUser:${user.UserID},${extra_info.UserID}`);
+        user_opt.append(text);
+        user_opt.setAttribute("value", seleted_value);
         dropdown_sessioned_options.push(user_opt);
 
         if(user.Role === 1){
@@ -219,7 +240,7 @@ function ondropdown_change(){
     const selected_action = this.value;
     console.log(selected_action);
     const [command, params] = selected_action.split(":");
-    let music_id, playlist_id, user_id, follower_id;
+    let music_id, playlist_id, user_id, followee_id;
     switch (command) {
         case ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
             [music_id, playlist_id] = params.split(",");
@@ -284,17 +305,17 @@ function ondropdown_change(){
             alert("TBD");
             // noop
             break;
-        case ACTION_IN_SELECT[4]: // followUser:FolloweeID,FollowerID
-            [user_id, follower_id] = params.split(",");
-            console.log(`${command}: ${user_id} ${follower_id}`);
+        case ACTION_IN_SELECT[4]: // followUser:FollowerID,FolloweeID
+            [user_id, followee_id] = params.split(",");
+            console.log(`${command}: ${user_id} ${followee_id}`);
             fetch("/api/user/follow", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    FolloweeID : user_id,
-                    FollowerID : follower_id
+                    FolloweeID : followee_id,
+                    FollowerID : user_id
                 })
             })
             .then(res => res.json())
@@ -395,6 +416,29 @@ function ondropdown_change(){
                     return;
                 }
                 alert("Unfollow playlist complete!");
+                location.reload();
+            });
+            break;
+        case ACTION_IN_SELECT[9]: // unfollowUser:FollowerID,FolloweeID
+            [user_id, followee_id] = params.split(",");
+            fetch(`/api/user/follow`, {
+                method: "delete",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "FollowerID" : user_id,
+                    "FolloweeID" : followee_id
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("Can't unfollow user");
+                    return;
+                }
+                alert("Unfollow user complete");
                 location.reload();
             });
             break;
@@ -731,7 +775,7 @@ export async function change_login_to_profile(){
             .then(res => res.json());
         
         let playlists_follow = fetch(`/api/playlist/user_follow/${user_info.UserID}`)
-            .then(res => res.json());            
+            .then(res => res.json());
 
         refetch_user_info = await refetch_user_info;
         playlists_own = await playlists_own;
@@ -743,6 +787,7 @@ export async function change_login_to_profile(){
             sessionStorage.setItem("user", JSON.stringify(user_info));
         }
         else{
+            console.log("refetch has some problem");
             console.log(JSON.stringify(refetch_user_info));
             console.log(JSON.stringify(playlists_own ));
             console.log(JSON.stringify(playlists_follow ));

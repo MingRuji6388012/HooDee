@@ -24,7 +24,7 @@ window.onload = async function(){
 
     console.log(playlist_info);
     console.log(musics_in_playlist);
-
+    await change_login;
     playlist_info_append(playlist_info);
     music_append(musics_in_playlist);
 }
@@ -34,7 +34,7 @@ function playlist_info_append(playlist_info){
         document.querySelector("title").textContent = `${playlist_info.playlist.PlaylistName} - HooDee`;
         document.querySelector("#playlist-name").textContent = playlist_info.playlist.PlaylistName;
         document.querySelector("#playlist-creator").textContent = playlist_info.playlist.UserName;
-        document.querySelector("#playlist-follows").textContent = `${playlist_info.playlist.Follower} FOLLOWERS`;
+        document.querySelector("#playlist-follows").textContent = `${playlist_info.playlist.Followers.length} FOLLOWERS`;
     }
 }
 

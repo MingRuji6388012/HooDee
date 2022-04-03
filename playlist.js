@@ -154,10 +154,10 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
         else if(!results.length) res.send({error: false, message: "playlist not found", playlist: {}});
         else {
             let playlist = results[0];
-            connection.query("SELECT COUNT(*) AS Follower FROM UserFollowPlaylist WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
+            connection.query("SELECT UserID FROM UserFollowPlaylist WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
                 if(error) res.status(500).send({error: true, message: error.toString(), playlist: playlist});
                 else{
-                    playlist["Follower"] = results[0]["Follower"];
+                    playlist["Follower"] = results;
                     res.send({error: false, message: "getting playlists success", playlist: playlist});
                 }
             })
