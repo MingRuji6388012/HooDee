@@ -91,45 +91,6 @@ function create_dropdown(type, extra_info){
     return dropdown_div
 }
 
-
-// export function change_login_to_profile(){
-//     let user_info = JSON.parse(sessionStorage.getItem("user"));
-//     let login_CTA = document.querySelector(".login")
-//     login_CTA.style.display = "none";
-
-//     let profile_CTA = document.querySelector(".CTA");
-//     let user_img = user_info.UserProfileIMG ? user_info.UserProfileIMG : "public\ProfilePic\DefaultProfilePic.png"
-//     console.log(user_img)
-
-//     let ele_user_img = document.createElement("img");
-//     ele_user_img.classList.add("user-profile-button");
-//     ele_user_img.setAttribute("src", user_img);
-//     ele_user_img.setAttribute("alt", "user image");
-//     ele_user_img.style.width = "3rem";
-//     ele_user_img.style.height = "3rem";
-//     ele_user_img.style.borderRadius = "50%";
-//     ele_user_img.style.marginRight = "2rem";
-//     profile_CTA.append(ele_user_img);
-
-//     // let dropdown_option_logout = document.createElement("option");
-//     // dropdown_option_logout.setAttribute("value", "");
-//     // dropdown_option_logout.selected = true;
-//     // dropdown_option_logout.hidden = true;
-//     // dropdown_option_logout.disabled = true;
-//     // dropdown_option_logout.append(dropdown_img);
-
-//     // let dropdown = document.createElement("select");
-//     // dropdown.setAttribute("name", "selectoption");
-//     // dropdown.classList.add("dropimg");
-//     // dropdown.onchange = ondropdown_change;
-//     // dropdown.append(dropdown_option_default, dropdown_go_user, dropdown_search);
-//     // dropdown.append(...dropdown_sessioned_options);
-
-//     // let dropdown_div = document.createElement("div");
-//     // dropdown_div.classList.add("dropdown-profile");
-//     // dropdown_div.append(dropdown);
-// }
-
 export function is_playlist_followed(playlist_id, playlists_followed){
     let followed = false;
     for(let idx = 0; idx < playlists_followed.length; idx++){
