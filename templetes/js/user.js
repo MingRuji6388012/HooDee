@@ -6,7 +6,8 @@ import {
     padding_border,
     create_playlist_row,
     horizontal_card,
-    change_login_to_profile
+    change_login_to_profile,
+    is_user_followed
 } from "./common.js"
 
 window.onload = async function() {
@@ -47,6 +48,7 @@ async function show_user_title(datas){
         <div><button class="btn follow-button">Follow</button></div> 
     </div> 
     */}
+    const user_session = JSON.parse(sessionStorage.getItem("user"));
     const username = datas.user.user.UserName;
     let parent_node = document.querySelector("#user-title-append");
 
@@ -60,10 +62,16 @@ async function show_user_title(datas){
 
     let new_line = document.createElement("br");
 
+    let text = "Follow", onclick_handler = follow_handler;
     let button = document.createElement("button");
     button.classList.add("btn", "follow-button");
-    button.append("Follow");
-    button.onclick = follow_handler;
+
+    if(user_session && is_user_followed(datas.user.user.UserID, user_session.Followees)){
+        text = "Unfollow";
+        onclick_handler = unfollow_handler;
+    }
+    button.append(text);
+    button.onclick = onclick_handler;
 
     let button_div = document.createElement("div");
     button_div.append(button)
@@ -135,8 +143,8 @@ function follow_handler(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                FolloweeID: user.UserID,
-                FollowerID: current_page_user_id
+                FolloweeID: current_page_user_id,
+                FollowerID: user.UserID
             })
         })
         .then(res => res.json())
@@ -147,9 +155,38 @@ function follow_handler(){
                 return;
             }
             alert("Follow Complete!");
+            location.reload();
         });
     }
     else{
         alert("You must login before follow anyone!");
+    }
+}
+
+function unfollow_handler(){
+    const $_GET = get_parameter();
+    let current_page_user_id = $_GET["user_id"];
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if(user){
+        fetch("/api/user/follow", {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                FolloweeID: current_page_user_id,
+                FollowerID: user.UserID
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.error){
+                console.log(res.message);
+                alert("didn't follow in the first place?");
+                return;
+            }
+            alert("Unfollow Complete!");
+            location.reload();
+        });
     }
 }

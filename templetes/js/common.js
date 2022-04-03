@@ -130,7 +130,7 @@ function create_dropdown(type, extra_info){
 //     // dropdown_div.append(dropdown);
 // }
 
-function is_playlist_followed(playlist_id, playlists_followed){
+export function is_playlist_followed(playlist_id, playlists_followed){
     let followed = false;
     for(let idx = 0; idx < playlists_followed.length; idx++){
         if(playlists_followed[idx].PlaylistID === playlist_id){
@@ -141,7 +141,7 @@ function is_playlist_followed(playlist_id, playlists_followed){
     return followed;
 }
 
-function is_user_followed(user_id, users_followee){
+export function is_user_followed(user_id, users_followee){
     let followed = false;
     for(let idx = 0; idx < users_followee.length; idx++){
         if(users_followee[idx].FolloweeID === user_id){

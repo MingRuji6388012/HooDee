@@ -157,7 +157,7 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
             connection.query("SELECT UserID FROM UserFollowPlaylist WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
                 if(error) res.status(500).send({error: true, message: error.toString(), playlist: playlist});
                 else{
-                    playlist["Follower"] = results;
+                    playlist["Followers"] = results;
                     res.send({error: false, message: "getting playlists success", playlist: playlist});
                 }
             })
