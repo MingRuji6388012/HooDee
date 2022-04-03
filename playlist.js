@@ -102,8 +102,9 @@ playlist_api_route.post("/user_follow", function(req, res){
 playlist_api_route.delete("/user_follow", function(req, res){
     let user_id = req.body.UserID; // int
     let playlist_id = req.body.PlaylistID; // int
-    connection.query("DELETE FROM UserFollowPlaylist UserID = ? and PlaylistID = ?;", [user_id, playlist_id], function(error, results, fields){
+    connection.query("DELETE FROM UserFollowPlaylist WHERE UserID = ? and PlaylistID = ?;", [user_id, playlist_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
+        else if(!results.affectedRows) res.send({error: true, message: "maybe already unfollow"})
         else res.send({error: false, message: "unfollow playlist success"});
     });
 });
