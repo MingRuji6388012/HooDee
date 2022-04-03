@@ -91,6 +91,28 @@ function create_dropdown(type, extra_info){
     return dropdown_div
 }
 
+export function is_playlist_followed(playlist_id, playlists_followed){
+    let followed = false;
+    for(let idx = 0; idx < playlists_followed.length; idx++){
+        if(playlists_followed[idx].PlaylistID === playlist_id){
+            followed = true;
+            break;
+        }
+    }
+    return followed;
+}
+
+export function is_user_followed(user_id, users_followee){
+    let followed = false;
+    for(let idx = 0; idx < users_followee.length; idx++){
+        if(users_followee[idx].FolloweeID === user_id){
+            followed = true;
+            break;
+        }
+    }
+    return followed;
+}
+
 function create_dropdown_session_related_options(type, extra_info){
     let dropdown_sessioned_options = [];
     const user = JSON.parse(sessionStorage.getItem("user"));
@@ -119,10 +141,20 @@ function create_dropdown_session_related_options(type, extra_info){
         }
     }
     else if(user && type === "user" && extra_info) { // assume extra_info is User (usually other than the one in the session)
+        let text, seleted_value;
+        let followed = is_user_followed(extra_info.UserID, user.Followees)
+        if(!followed){
+            text = "Follow this user";
+            seleted_value = `followUser:${user.UserID},${extra_info.UserID}`;
+        }
+        else{
+            text = "Unfollow this user";
+            seleted_value = `unfollowUser:${user.UserID},${extra_info.UserID}`;
+        }
         let user_opt = document.createElement("option");
         user_opt.classList.add("opt");
-        user_opt.append("Follow this user");
-        user_opt.setAttribute("value", `followUser:${user.UserID},${extra_info.UserID}`);
+        user_opt.append(text);
+        user_opt.setAttribute("value", seleted_value);
         dropdown_sessioned_options.push(user_opt);
 
         if(user.Role === 1){
@@ -134,11 +166,20 @@ function create_dropdown_session_related_options(type, extra_info){
         }
     }
     else if(user && type === "playlist" && extra_info) { // assume extra_info is Playlist
-        let playlist_opt = document.createElement("option");
-        playlist_opt.classList.add("opt");
-        playlist_opt.append("Follow this playlist");
-        playlist_opt.setAttribute("value", `followPlaylist:${user.UserID},${extra_info.PlaylistID}`);
-        dropdown_sessioned_options.push(playlist_opt);   
+        let followed = is_playlist_followed(extra_info.PlaylistID, user.PlaylistsFollow), text, select_value;
+        if(!followed){
+            text = "Follow this playlist";
+            select_value = `followPlaylist:${user.UserID},${extra_info.PlaylistID}`;
+        }
+        else{
+            text = "Unfollow this playlist";
+            select_value = `unfollowPlaylist:${user.UserID},${extra_info.PlaylistID}`;
+        }
+        let follow_playlist_opt = document.createElement("option");
+        follow_playlist_opt.classList.add("opt");
+        follow_playlist_opt.append(text);
+        follow_playlist_opt.setAttribute("value", select_value);
+        dropdown_sessioned_options.push(follow_playlist_opt);
 
         if(user.Role === 1){
             let delete_opt = document.createElement("option");
@@ -154,13 +195,13 @@ function create_dropdown_session_related_options(type, extra_info){
     return dropdown_sessioned_options;
 }
 
-const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser", "removeUser", "removeMusic", "removePlaylist"];
+const ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser", "removeUser", "removeMusic", "removePlaylist", "unfollowPlaylist", "unfollowUser"];
 function ondropdown_change(){
     // https://stackoverflow.com/questions/647282/is-there-an-onselect-event-or-equivalent-for-html-select
     const selected_action = this.value;
     console.log(selected_action);
     const [command, params] = selected_action.split(":");
-    let music_id, playlist_id, user_id, follower_id;
+    let music_id, playlist_id, user_id, followee_id;
     switch (command) {
         case ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
             [music_id, playlist_id] = params.split(",");
@@ -225,17 +266,17 @@ function ondropdown_change(){
             alert("TBD");
             // noop
             break;
-        case ACTION_IN_SELECT[4]: // followUser:FolloweeID,FollowerID
-            [user_id, follower_id] = params.split(",");
-            console.log(`${command}: ${user_id} ${follower_id}`);
+        case ACTION_IN_SELECT[4]: // followUser:FollowerID,FolloweeID
+            [user_id, followee_id] = params.split(",");
+            console.log(`${command}: ${user_id} ${followee_id}`);
             fetch("/api/user/follow", {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({
-                    FolloweeID : user_id,
-                    FollowerID : follower_id
+                    FolloweeID : followee_id,
+                    FollowerID : user_id
                 })
             })
             .then(res => res.json())
@@ -314,6 +355,52 @@ function ondropdown_change(){
                 }
                 location.reload();
                 alert("Remove playlist complete!");
+            });
+            break;
+        case ACTION_IN_SELECT[8]: // unfollowPlaylist:UserID,PlaylistID
+            [user_id, playlist_id] = params.split(",");
+            fetch(`/api/playlist/user_follow`, {
+                method: "delete",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    UserID: user_id,
+                    PlaylistID: playlist_id
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("can't Unfollow playlist");
+                    return;
+                }
+                alert("Unfollow playlist complete!");
+                location.reload();
+            });
+            break;
+        case ACTION_IN_SELECT[9]: // unfollowUser:FollowerID,FolloweeID
+            [user_id, followee_id] = params.split(",");
+            fetch(`/api/user/follow`, {
+                method: "delete",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    "FollowerID" : user_id,
+                    "FolloweeID" : followee_id
+                })
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error){
+                    console.log(res.message);
+                    alert("Can't unfollow user");
+                    return;
+                }
+                alert("Unfollow user complete");
+                location.reload();
             });
             break;
         default:
@@ -647,13 +734,24 @@ export async function change_login_to_profile(){
 
         let playlists_own = fetch(`/api/playlist/search_by_userid/${user_info.UserID}`)
             .then(res => res.json());
+        
+        let playlists_follow = fetch(`/api/playlist/user_follow/${user_info.UserID}`)
+            .then(res => res.json());
 
         refetch_user_info = await refetch_user_info;
         playlists_own = await playlists_own;
-        if(!refetch_user_info.error && !playlists_own.error){
+        playlists_follow = await playlists_follow;
+        if(!refetch_user_info.error && !playlists_own.error && !playlists_follow.error){
             user_info = refetch_user_info["user"];
             user_info["Playlists"] = playlists_own["playlists"];
+            user_info["PlaylistsFollow"] = playlists_follow["playlists"];
             sessionStorage.setItem("user", JSON.stringify(user_info));
+        }
+        else{
+            console.log("refetch has some problem");
+            console.log(JSON.stringify(refetch_user_info));
+            console.log(JSON.stringify(playlists_own ));
+            console.log(JSON.stringify(playlists_follow ));
         }
     }
     

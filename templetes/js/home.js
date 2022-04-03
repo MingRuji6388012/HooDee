@@ -26,6 +26,7 @@ window.onload = async function() {
     playlists = await playlists;
     console.log(musics);
     console.log(playlists);
+    await change_login;
     home_music_history_appender(musics);
     home_playlist_history_appender(playlists);
 };

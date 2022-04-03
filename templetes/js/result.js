@@ -39,6 +39,7 @@ window.onload = async function() {
         music: await music_list,
         playlist: await playlist_list
     };
+    await change_login;
     console.log(data);
 
     // push item in templete here *sigh*

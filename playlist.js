@@ -102,8 +102,9 @@ playlist_api_route.post("/user_follow", function(req, res){
 playlist_api_route.delete("/user_follow", function(req, res){
     let user_id = req.body.UserID; // int
     let playlist_id = req.body.PlaylistID; // int
-    connection.query("DELETE FROM UserFollowPlaylist UserID = ? and PlaylistID = ?;", [user_id, playlist_id], function(error, results, fields){
+    connection.query("DELETE FROM UserFollowPlaylist WHERE UserID = ? and PlaylistID = ?;", [user_id, playlist_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
+        else if(!results.affectedRows) res.send({error: true, message: "maybe already unfollow"})
         else res.send({error: false, message: "unfollow playlist success"});
     });
 });
@@ -153,10 +154,10 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
         else if(!results.length) res.send({error: false, message: "playlist not found", playlist: {}});
         else {
             let playlist = results[0];
-            connection.query("SELECT COUNT(*) AS Follower FROM UserFollowPlaylist WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
+            connection.query("SELECT UserID FROM UserFollowPlaylist WHERE PlaylistID = ?;", playlist_id, function(error, results, fields){
                 if(error) res.status(500).send({error: true, message: error.toString(), playlist: playlist});
                 else{
-                    playlist["Follower"] = results[0]["Follower"];
+                    playlist["Followers"] = results;
                     res.send({error: false, message: "getting playlists success", playlist: playlist});
                 }
             })

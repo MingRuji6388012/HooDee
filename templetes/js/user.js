@@ -6,7 +6,8 @@ import {
     padding_border,
     create_playlist_row,
     horizontal_card,
-    change_login_to_profile
+    change_login_to_profile,
+    is_user_followed
 } from "./common.js"
 
 window.onload = async function() {
@@ -25,6 +26,7 @@ window.onload = async function() {
         playlists: await playlists
     };
     console.log(datas);
+    await change_login;
 
     set_title(datas);
     show_user_title(datas);
@@ -46,6 +48,7 @@ async function show_user_title(datas){
         <div><button class="btn follow-button">Follow</button></div> 
     </div> 
     */}
+    const user_session = JSON.parse(sessionStorage.getItem("user"));
     const username = datas.user.user.UserName;
     let parent_node = document.querySelector("#user-title-append");
 
@@ -53,21 +56,27 @@ async function show_user_title(datas){
     title.classList.add("h1", "artist-name-header");
     title.append(username);
 
-    let follower = document.createElement("div");
-    follower.classList.add("h5", "artist-follower-header");
-    follower.append(`${datas.user.user.Follower} FOLLOWERS`);
+    let follower_div = document.createElement("div");
+    follower_div.classList.add("h5", "artist-follower-header");
+    follower_div.append(`${datas.user.user.Followers.length} FOLLOWERS`);
 
     let new_line = document.createElement("br");
 
+    let text = "Follow", onclick_handler = follow_handler;
     let button = document.createElement("button");
     button.classList.add("btn", "follow-button");
-    button.append("Follow");
-    button.onclick = follow_handler;
+
+    if(user_session && is_user_followed(datas.user.user.UserID, user_session.Followees)){
+        text = "Unfollow";
+        onclick_handler = unfollow_handler;
+    }
+    button.append(text);
+    button.onclick = onclick_handler;
 
     let button_div = document.createElement("div");
     button_div.append(button)
 
-    parent_node.append(title, follower, new_line, button_div);
+    parent_node.append(title, follower_div, new_line, button_div);
     // parent_node.hidden = false;
 }
 
@@ -134,8 +143,8 @@ function follow_handler(){
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                FolloweeID: user.UserID,
-                FollowerID: current_page_user_id
+                FolloweeID: current_page_user_id,
+                FollowerID: user.UserID
             })
         })
         .then(res => res.json())
@@ -146,9 +155,38 @@ function follow_handler(){
                 return;
             }
             alert("Follow Complete!");
+            location.reload();
         });
     }
     else{
         alert("You must login before follow anyone!");
+    }
+}
+
+function unfollow_handler(){
+    const $_GET = get_parameter();
+    let current_page_user_id = $_GET["user_id"];
+    const user = JSON.parse(sessionStorage.getItem("user"));
+    if(user){
+        fetch("/api/user/follow", {
+            method: "delete",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                FolloweeID: current_page_user_id,
+                FollowerID: user.UserID
+            })
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.error){
+                console.log(res.message);
+                alert("didn't follow in the first place?");
+                return;
+            }
+            alert("Unfollow Complete!");
+            location.reload();
+        });
     }
 }

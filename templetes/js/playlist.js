@@ -1,7 +1,8 @@
 import {  
     horizontal_card, 
     get_parameter,
-    change_login_to_profile
+    change_login_to_profile,
+    is_playlist_followed
 } from "./common.js"
 
 window.onload = async function(){
@@ -24,7 +25,7 @@ window.onload = async function(){
 
     console.log(playlist_info);
     console.log(musics_in_playlist);
-
+    await change_login;
     playlist_info_append(playlist_info);
     music_append(musics_in_playlist);
 }
@@ -34,7 +35,19 @@ function playlist_info_append(playlist_info){
         document.querySelector("title").textContent = `${playlist_info.playlist.PlaylistName} - HooDee`;
         document.querySelector("#playlist-name").textContent = playlist_info.playlist.PlaylistName;
         document.querySelector("#playlist-creator").textContent = playlist_info.playlist.UserName;
-        document.querySelector("#playlist-follows").textContent = `${playlist_info.playlist.Follower} FOLLOWERS`;
+        document.querySelector("#playlist-follows").textContent = `${playlist_info.playlist.Followers.length} FOLLOWERS`;
+        
+        const user_session = JSON.parse(sessionStorage.getItem("user"));
+        let text = "Follow", onclick_handler = follow_handler;
+        let follow_button = document.createElement("button");
+        follow_button.classList.add("btn", "follow-button");
+        if(user_session && is_playlist_followed(playlist_info.playlist.PlaylistID, user_session.PlaylistsFollow)){
+            text = "Unfollow";
+            onclick_handler = unfollow_handler;
+        }
+        follow_button.append(text);
+        follow_button.onclick = onclick_handler;
+        document.querySelector("#follow-button-append").append(follow_button);
     }
 }
 
@@ -72,4 +85,64 @@ function music_append(musics_in_playlist){
 </div> 
 */} 
 
+function follow_handler(){
+    const user_session = JSON.parse(sessionStorage.getItem("user"));
+    if(user_session){
+        const $_GET = get_parameter();
+        let playlist_id = $_GET["playlist_id"]
+        fetch("/api/playlist/user_follow", {
+            method: "post",
+            body: JSON.stringify({
+                UserID: user_session.UserID,
+                PlaylistID: playlist_id
+            }),
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.error){;
+                console.log(res.message)
+                alert("Can't follow");
+                return;
+            }
+            alert("Follow Complete");
+            location.reload();
+        });
+    }
+    else{
+        alert("You must login before follow playlist!");
+    }
+}
 
+function unfollow_handler(){
+    const user_session = JSON.parse(sessionStorage.getItem("user"));
+    if(user_session){
+        const $_GET = get_parameter();
+        let playlist_id = $_GET["playlist_id"]
+        fetch("/api/playlist/user_follow", {
+            method: "delete",
+            body: JSON.stringify({
+                UserID: user_session.UserID,
+                PlaylistID: playlist_id
+            }),
+            headers: {
+                "Content-Type" : "application/json"
+            }
+        })
+        .then(res => res.json())
+        .then(res => {
+            if(res.error){;
+                console.log(res.message)
+                alert("Can't Unfollow");
+                return;
+            }
+            alert("Unfollow Complete");
+            location.reload();
+        });
+    }
+    else{
+        alert("You must login before unfollow playlist!");
+    }
+}

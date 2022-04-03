@@ -18,6 +18,7 @@ window.onload = async function() {
         method: "GET",
     }).then(res => res.json());
     console.log(data);
+    await change_login;
     search_history_appender(data);
 };
 
