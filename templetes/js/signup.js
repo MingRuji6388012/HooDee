@@ -25,8 +25,12 @@ function on_signup(){
     .then(res => {
         console.log(res);
         if(!res.error){
-            console.log("to be redirect to 2fa");
-            window.location.replace(`/signup-2fa?qr=${res.qr}`); //Redirect to 2FA Page
+            console.log(res.qr);
+            console.log(res.email);
+            sessionStorage.setItem("qr", res.qr);
+            sessionStorage.setItem("email", res.email);
+
+            window.location.replace(`/signup-2fa`); //Redirect to 2FA Page
         }
         else{
             alert("Sign up failed");

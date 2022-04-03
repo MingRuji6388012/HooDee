@@ -77,6 +77,44 @@ user_api_route.post("/registeration", function(req, res) {
     });
 });
 
+user_api_route.post('/sign-up-2fa', (req, res) => {
+    if (!req.body.email) {
+      return res.redirect('/');
+    }
+    let email = req.body.email, code = req.body.code;
+  
+    verification_2fa(email, code, req, res);
+});
+
+function verification_2fa(email, code, req, res){
+    let token;
+    connection.query("SELECT * FROM User WHERE email = ?;", email, function(error, results, fields){
+        if(error)  res.status(500).send({error: true, message: error.toString(), token: null});
+        else if (results.length === 0 || !authenticator.check(code, results[0].Secret)) {
+            res.send({error: true, message: "authorize failed", token: null, authenticate: false, user: null});
+        }
+        else{
+            //correct, add jwt to session
+            const login_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
+            let found_user = results[0];
+            const values = {
+                UserID : found_user.UserID,
+                LoginTime : login_time
+            };
+            delete found_user.Password;
+            delete found_user.Salt;
+            delete found_user.Secret;
+            token = jwt.sign(email, 'supersecret');
+            connection.query("INSERT INTO LoginLog SET ?;", values, function (error, results, fields) {
+                if(error) res.status(500).send({error: true, message: error.toString()});
+                console.log("login logged: " + login_time);
+                res.send({error: false, message: "authorized", token: token, authenticate: true, user: found_user});
+            });
+        }
+    });
+}
+
+
 // const express = require("express");
 // const crypto = require("crypto");
 // const database = require("./database.js");
@@ -173,6 +211,7 @@ user_api_route.post("/authentication", function (req, res) {
     let user = req.body.User
     let email = user.Email;
     let password = user.Password;
+    let code = req.body.Code;
     // maybe hash them
     // check email and hashed_password with db
     connection.query('SELECT * FROM User WHERE email = ? AND IsDeleted = false;', email, function(error, results, fields) {
@@ -183,19 +222,8 @@ user_api_route.post("/authentication", function (req, res) {
             let salt = found_user.Salt;
             let hashed_password = crypto.createHash('sha256').update(password+salt).digest('hex');
             if(hashed_password == found_user.Password){
-                const login_time = new Date().toISOString().slice(0, 19).replace('T', ' ');
-                const values = {
-                    UserID : found_user.UserID,
-                    LoginTime : login_time
-                }
-                connection.query("INSERT INTO LoginLog SET ?;", values, function (error, results, fields) {
-                    if(error) res.status(500).send({error: true, message: error.toString()});
-                    console.log("login logged: " + login_time);
-                });
-                
-                delete found_user.Password;
-                delete found_user.Salt;
-                res.send({error: false, authenticate: true, user: found_user, message: "Autenticate complete"});
+                // res.send({error: false, authenticate: true, user: found_user, message: "Autenticate complete"});
+                verification_2fa(email, code, req, res)
             }
             else{
                 res.send({error: false, authenticate: false, user: null, message: "Autenticate fail"});
