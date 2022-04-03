@@ -7,6 +7,8 @@ require('dotenv').config();
 
 const main_route = express.Router();
 
+
+
 main_route.use(express.json());
 main_route.use(express.urlencoded({ extended: true }));
 
@@ -43,9 +45,10 @@ main_route.get("/about_us", function (req, res) {
     res.sendFile(path.join(__dirname, "templetes", "html", "about_us.html"));
 });
 
-// main_route.get("/register", function(req, res) {
-//     res.sendFile(path.join(__dirname, "templetes", "register.html"));
-// });
+main_route.get("/signup", function(req, res) {
+    res.render(path.join(__dirname, "views", "signup.ejs"));
+});
+
 
 module.exports.main_route = main_route;
 

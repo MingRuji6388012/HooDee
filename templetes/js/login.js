@@ -1,4 +1,3 @@
-
 window.onload = function(){
     if(sessionStorage.getItem("user")){
         window.location.replace(`/`); //redirect to home page
@@ -8,7 +7,8 @@ window.onload = function(){
 function on_login(){
     const email = document.querySelector("#email-input").value;
     const password = document.querySelector("#password-input").value;
-    const auth = { "User": {"Email": email,"Password": password} };
+    const fa_2 = document.querySelector("2FA-input").value;
+    const auth = { "User": {"Email": email,"Password": password,"2FA": fa_2} };
     fetch("/api/user/authentication", {
         headers: {
             'Content-Type' : 'application/json'
@@ -44,6 +44,7 @@ function on_login(){
         }
     });
 }
+
 
 
 
