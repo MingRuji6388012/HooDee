@@ -29,7 +29,7 @@ function on_login(){
                 let user_info = JSON.parse(sessionStorage.getItem("user"));
                 let user_img = user_info.UserProfileIMG
                 console.log(user_img)
-                window.location.replace("/");
+                window.location.replace("/"); //Redirect to HOME -> Redirect to 2FA Page
                 // then we can just check for login session by `sessionStorage.getItem("user") !== null`
             });
         }

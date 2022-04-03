@@ -66,11 +66,24 @@
                     </div>
                 </div>
             </div>
+            <div class="row input-fields">
+                <div class="2FA-label">
+                    <label for="2FA-input">2FA</label>
+                </div>
+                <div class="2FA-input">
+                    <div class="input-group mb-3">
+                        <input type="code" class="form-control input-field" id="2FA-input" placeholder="Your 6 digits 2FA code" aria-label="code" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
             <!-- login button -->
             <div class="login-button-block">
                 <input type="button" class="btn login-button-submit" value="Log in" onclick="on_login();" />
             </div>
         </form>
+        <p class="mt-lg-4 go-to-login">
+            Don't have an account? <a class="sign-up" href="../signup.html">Sign Up</a>
+        </p>
     </section>
 
 </body>
