@@ -50,7 +50,9 @@ main_route.get("/signup", function(req, res) {
 });
 
 main_route.get("/signup-2fa", function(req, res) {
-    res.render(path.join(__dirname, "views", "signup-2fa.ejs"), { qr: req.session.qr });
+    let qr = req.query.qr;
+    // res.render(path.join(__dirname, "views", "signup-2fa.ejs"), { qr: req.session.qr });
+    res.render(path.join(__dirname, "views", "signup-2fa.ejs"), { qr: qr });
 });
 
 module.exports.main_route = main_route;

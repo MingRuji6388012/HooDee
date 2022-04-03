@@ -1,5 +1,8 @@
-.btn-primary {
-    background-color: hsl(270, 94%, 72%) !important;
+.signup-button-submit {
+    background-color: #B775FB !important;
+    border-radius: 15px !important;
+    width: 200px !important;
+    height: 52px !important;
 }
 .signup-button-block {
     margin-left: auto;

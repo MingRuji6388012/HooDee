@@ -14,12 +14,13 @@
     <h1>Sign Up - Set 2FA</h1>
     <form action="/sign-up-2fa" method="POST">
       <p>Scan the QR Code in the Authenticator app then enter the code that you see in the app in the text field and click Submit.</p>
+      <div class = "QR-show"></div>
       <img src="<%= qr %>" class="img-fluid" />
       <div class="mb-3">
         <label for="code" class="form-label">2FA Code</label>
         <input type="text" class="form-control" id="code" name="code">
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <input type="button" class="btn signup-button-submit" value="Sign up" onclick="on_signup_2fa();" />
     </form>
   </div>
 </body>

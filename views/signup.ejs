@@ -19,8 +19,9 @@
   <!-- css/js for this page -->
   <link rel="stylesheet" href="signup.css" />
   <!-- <script src="login.js"></script> -->
+  <script src="signup.js"></script>
 
-  <!-- common css -->
+  <!-- common css/js -->
   <link rel="stylesheet" href="common.css" />
   <title>HooDee Login</title>
   
@@ -44,7 +45,7 @@
   <div class="container mx-auto mt-4">
     <h1>Sign Up</h1>
     
-    <form action="/sign-up" method="POST">
+    <form >
       <div class="mb-3">
         <label for="email" class="form-label">Email</label>
         <input type="email" class="form-control" id="email" name="email">
@@ -65,8 +66,9 @@
         <label for="Password" class="form-label">Password</label>
         <input type="password" class = "form-control" id="Password" name="Password">
       </div>
+      <!-- sign up button -->
       <div class="signup-button-block">
-        <button type="submit" class="btn btn-primary">Sign Up</button>
+        <input type="button" class="btn signup-button-submit" value="Sign up" onclick="on_signup();" />
       </div>
     </form>
     <div class="go_login">
