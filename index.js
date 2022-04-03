@@ -38,7 +38,7 @@ app.get('/', (req, res) => {
 //POST to handle registration
 app.post('/sign-up', (req, res) => {
     const email = req.body.email, //retrieve the email from body
-    secret = authenticator.generateSecret() //generates base32 encoded HEX -> Same as Google Authenticator App
+    secret = authenticator.generateSecret() //generate qr and put it in session
   
     const db = new sqlite3.Database('db.sqlite') //Connect to DB
     db.serialize(() => {

@@ -1,5 +1,12 @@
+//import all dependencies
 const express = require("express");
 const crypto = require("crypto");
+const session = require('express-session')
+const { authenticator } = require('otplib')
+const QRCode = require('qrcode')
+const jwt = require('jsonwebtoken')
+const expressJWT = require('express-jwt')
+const bodyParser = require('body-parser')
 const database = require("./database.js");
 const connection = database.connection;
 
@@ -7,6 +14,10 @@ const user_api_route = express.Router();
 
 user_api_route.use(express.json());
 user_api_route.use(express.urlencoded({ extended: true }));
+
+user_api_route.use(session({
+    secret: 'supersecret', //Make supersecret session
+  }))
 
 
 user_api_route.post("/registeration", function(req, res) {
@@ -32,6 +43,7 @@ user_api_route.post("/registeration", function(req, res) {
     */
     console.log(req.body.User);
     console.log("registering");
+    secret = authenticator.generateSecret()
     let password = req.body.User.Password;
     let salt = crypto.randomBytes(20).toString("hex");
     let hashed_password = crypto.createHash('sha256').update(password + salt).digest('hex');
@@ -46,12 +58,21 @@ user_api_route.post("/registeration", function(req, res) {
         salt : salt,
         Role : 0, // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
         TimeCreated : new Date().toISOString().slice(0, 19).replace('T', ' '),
-        IsDeleted : false
+        IsDeleted : false,
+        Secret : secret
     };
     connection.query("INSERT INTO User SET ?;", user, function(error, result, fields) {
         if (error) res.status(500).send({ error: true, message: error.toString()});
         // res.status(400).send({ authenticate: false, message: "SQL SUCKS" });
-        else res.send({ error: false, message: "registeration complete" });
+        else{
+            QRCode.toDataURL(authenticator.keyuri(email, 'HooDee', secret), (err, url) => {
+                if (err) {throw err}
+                req.session.qr = url
+                req.session.email = email
+                res.redirect('/signup-2fa') //Redirect to 2FA Page
+            });
+            res.send({ error: false, message: "registeration complete" });
+        }
     });
 });
 
