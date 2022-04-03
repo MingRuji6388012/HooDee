@@ -14,7 +14,8 @@ CREATE TABLE User (
     Email			varchar(100) UNIQUE,
     Password		varchar(64),
     Salt			varchar(40),
-    IsDeleted       boolean
+    IsDeleted       boolean,
+    Secret          varchar(255)
 );
 
 CREATE TABLE Music (
