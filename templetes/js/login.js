@@ -21,6 +21,7 @@ function on_login(){
         console.log(JSON.stringify(res));
         if(!res.error && res.authenticate){
             let user = res.user, token = res.token;
+            user.Playlists = [];
             sessionStorage.clear();
             sessionStorage.setItem("user", JSON.stringify(user));
             sessionStorage.setItem("token", token);

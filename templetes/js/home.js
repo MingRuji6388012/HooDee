@@ -10,7 +10,7 @@ import {
 
 
 window.onload = async function() {
-
+    console.log("test");
     const change_login = change_login_to_profile();
     //Music
     let musics = fetch(`/api/music/search_by_musicname/%25`, { 
