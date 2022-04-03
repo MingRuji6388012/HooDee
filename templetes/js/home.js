@@ -4,11 +4,14 @@ import {
     padding_border, 
     empty_vertical_card, 
     create_music_row,
-    create_playlist_row
+    create_playlist_row,
+    change_login_to_profile
 } from "./common.js"
 
 
 window.onload = async function() {
+
+    const change_login = change_login_to_profile();
     //Music
     let musics = fetch(`/api/music/search_by_musicname/%25`, { 
             method: "GET",

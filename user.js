@@ -98,6 +98,7 @@ user_api_route.post("/authentication", function (req, res) {
     // check email and hashed_password with db
     connection.query('SELECT * FROM User WHERE email = ? AND IsDeleted = false;', email, function(error, results, fields) {
         if(error) res.status(500).send({error: true, message: error.toString()});
+        else if(results.length === 0) res.send({error: false, authenticate: false, user: null, message: "Email not found"});
         else{
             let found_user = results[0];
             let salt = found_user.Salt;

@@ -148,7 +148,7 @@ function create_dropdown_session_related_options(type, extra_info){
         dropdown_optgroup.classList.add("opt");
         dropdown_sessioned_options.push(dropdown_optgroup);
 
-        const playlists = user.playlists;
+        const playlists = user.Playlists;
         for(let idx = 0; idx < playlists.length; idx++){
             let add_to_playlist_opt = document.createElement("option");
             add_to_playlist_opt.classList.add("opt");
@@ -221,6 +221,7 @@ function ondropdown_change(){
                     alert("Error! ")
                     return;
                 }
+                location.reload();
                 alert("add music into playlist success!");
             });
             break;
@@ -249,6 +250,7 @@ function ondropdown_change(){
                     alert("internal error");
                     return;
                 }
+                location.reload();
                 alert("Follow Playlist complete!");
             });
             break;
@@ -266,30 +268,30 @@ function ondropdown_change(){
             [user_id, follower_id] = params.split(",");
             console.log(`${command}: ${user_id} ${follower_id}`);
             fetch("/api/user/follow", {
-                    method: "post",
-                    headers: {
-                        "Content-Type": "application/json"
-                    },
-                    body: JSON.stringify({
-                        FolloweeID : user_id,
-                        FollowerID : follower_id
-                    })
+                method: "post",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    FolloweeID : user_id,
+                    FollowerID : follower_id
                 })
-                .then(res => res.json())
-                .then(res => {
-                    if(res.error && res.message.includes("Duplicate entry")){
-                        console.log(res.message);
-                        alert("You are already follow this dude");
-                        return;
-                    }
-                    else if (res.error){
-                        console.log(res.message);
-                        alert("internal error");
-                        return;
-                    }
-                    alert("Following complete");
+            })
+            .then(res => res.json())
+            .then(res => {
+                if(res.error && res.message.includes("Duplicate entry")){
+                    console.log(res.message);
+                    alert("You are already follow this dude");
+                    return;
                 }
-            );
+                else if (res.error){
+                    console.log(res.message);
+                    alert("internal error");
+                    return;
+                }
+                location.reload();
+                alert("Following complete");
+            });
             break;
         case ACTION_IN_SELECT[5]: // removeUser:UserID
             user_id = params;
@@ -309,6 +311,7 @@ function ondropdown_change(){
                     alert("can't remove user");
                     return;
                 }
+                location.reload();
                 alert("remove user complete");
             });
             break;
@@ -328,8 +331,8 @@ function ondropdown_change(){
                     alert("can't remove this song");
                     return;
                 }
+                location.reload();
                 alert("Remove song complete!");
-
             });
             break;
         case ACTION_IN_SELECT[7]: // removePlaylist:PlaylistID
@@ -348,6 +351,7 @@ function ondropdown_change(){
                     alert("can't remove this playlist");
                     return;
                 }
+                location.reload();
                 alert("Remove playlist complete!");
             });
             break;
@@ -355,7 +359,7 @@ function ondropdown_change(){
             console.log(`Command ${selected_action} invalid: misuse of ondropdown_change function`);
             break;
     }
-    location.reload();
+    
 }
 
 export const EACH_ROW = 5;
@@ -661,12 +665,10 @@ export function horizontal_card(top_text, bottom_text, img_url, href, hidden, ty
     return hidden_wrapper;
 }
 
-export function change_login_to_profile(){
+export async function change_login_to_profile(){
     
     let user_info = JSON.parse(sessionStorage.getItem("user"));
     if(user_info !== null){
-        // user_info = refetch here
-
         let login_CTA = document.querySelector(".login")
         login_CTA.style.display = "none";
 
@@ -677,6 +679,21 @@ export function change_login_to_profile(){
         logout_button.onclick = on_logout;
 
         nav.append(logout_button);
+
+        // refetch user's information
+        let refetch_user_info = fetch(`/api/user/search_by_id/${user_info.UserID}`)
+            .then(res => res.json())
+
+        let playlists_own = fetch(`/api/playlist/search_by_userid/${user_info.UserID}`)
+            .then(res => res.json());
+
+        refetch_user_info = await refetch_user_info;
+        playlists_own = await playlists_own;
+        if(!refetch_user_info.error && !playlists_own.error){
+            user_info = refetch_user_info["user"];
+            user_info["Playlists"] = playlists_own["playlists"];
+            sessionStorage.setItem("user", JSON.stringify(user_info));
+        }
     }
     
     // let user_img = user_info.UserProfileIMG ? user_info.UserProfileIMG : "public\ProfilePic\DefaultProfilePic.png"

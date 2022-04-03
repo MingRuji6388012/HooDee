@@ -5,10 +5,13 @@ import {
     EACH_ROW,
     padding_border,
     create_playlist_row,
-    horizontal_card
+    horizontal_card,
+    change_login_to_profile
 } from "./common.js"
 
 window.onload = async function() {
+
+    const change_login = change_login_to_profile();
     const $_GET = get_parameter();
     let user_id = $_GET["user_id"];
 

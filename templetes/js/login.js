@@ -1,4 +1,10 @@
 
+window.onload = function(){
+    if(sessionStorage.getItem("user")){
+        window.location.replace(`/`); //redirect to home page
+    }
+};
+
 function on_login(){
     const email = document.querySelector("#email-input").value;
     const password = document.querySelector("#password-input").value;
@@ -18,12 +24,12 @@ function on_login(){
             .then(res => res.json())
             .then(res => {
                 if(!res.error){
-                    user["playlists"] = res.playlists;
+                    user["Playlists"] = res.playlists;
                 }
                 else{
                     console.log("error fetching playlist: ");
                     console.log(res.message);
-                    user["playlists"] = [];
+                    user["Playlists"] = [];
                 }
                 sessionStorage.setItem("user", JSON.stringify(user));
                 let user_info = JSON.parse(sessionStorage.getItem("user"));
@@ -32,6 +38,9 @@ function on_login(){
                 window.location.replace("/");
                 // then we can just check for login session by `sessionStorage.getItem("user") !== null`
             });
+        }
+        else{
+            alert("Login failed");
         }
     });
 }
