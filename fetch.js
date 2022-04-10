@@ -2,7 +2,9 @@ const fetch = require("node-fetch");
 
 // Create data to "user" table in Database
 
-fetch("http://localhost:3000/api/user/registeration",
+// const domain_name = "202.183.167.111:4102"
+const domain_name = "http://127.0.0.1:3000"
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -16,7 +18,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -30,7 +32,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -44,7 +46,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -58,7 +60,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -72,7 +74,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -86,7 +88,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -100,7 +102,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -114,7 +116,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -128,7 +130,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -142,7 +144,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -156,7 +158,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -170,7 +172,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -184,7 +186,7 @@ fetch("http://localhost:3000/api/user/registeration",
     }
 )
 
-fetch("http://localhost:3000/api/user/registeration",
+fetch(`${domain_name}/api/user/registeration`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -199,7 +201,7 @@ fetch("http://localhost:3000/api/user/registeration",
 )
 
 // Create data to "music" table in Database
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -213,7 +215,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -227,7 +229,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -241,7 +243,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -255,7 +257,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -269,7 +271,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -283,7 +285,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -297,7 +299,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -311,7 +313,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -325,7 +327,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -339,7 +341,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -353,7 +355,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -367,7 +369,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -381,7 +383,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -395,7 +397,7 @@ fetch("http://localhost:3000/api/music/add",
     }
 )
 
-fetch("http://localhost:3000/api/music/add",
+fetch(`${domain_name}/api/music/add`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -411,7 +413,7 @@ fetch("http://localhost:3000/api/music/add",
 
 
 // //Create data to "playlist" table in Database
-fetch("http://localhost:3000/api/playlist/create",
+fetch(`${domain_name}/api/playlist/create`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -424,7 +426,7 @@ fetch("http://localhost:3000/api/playlist/create",
     }
 )
 
-fetch("http://localhost:3000/api/playlist/create",
+fetch(`${domain_name}/api/playlist/create`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -437,7 +439,7 @@ fetch("http://localhost:3000/api/playlist/create",
     }
 )
 
-fetch("http://localhost:3000/api/playlist/create",
+fetch(`${domain_name}/api/playlist/create`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -450,7 +452,7 @@ fetch("http://localhost:3000/api/playlist/create",
     }
 )
 
-fetch("http://localhost:3000/api/playlist/create",
+fetch(`${domain_name}/api/playlist/create`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -463,7 +465,7 @@ fetch("http://localhost:3000/api/playlist/create",
     }
 )
 
-fetch("http://localhost:3000/api/playlist/create",
+fetch(`${domain_name}/api/playlist/create`,
     {
         method: "POST",
         headers: {'Content-Type': 'application/json'},
