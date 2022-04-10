@@ -19,7 +19,8 @@
 
     <!-- personal script/css -->
     <link rel="stylesheet" href="home.css" />
-    <script src="home.js"></script>
+    <script type="module" src="home.js"></script>
+    <script src="showall.js"></script>
 
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
@@ -28,18 +29,22 @@
 
 <body>
     <header class="navbar">
-        <a class="home" href="home.html"><img class="logo" src="public/logo/Logo.png" alt="logo" /></a>
+        <a class="home" href="/"><img class="logo" src="public/logo/Logo.png" alt="logo" /></a>
         <nav>
             <ul class="nav_links">
-                <li class="nav_items"><a href="search.html">Search</a></li>
-                <li class="nav_items"><a href="about_us.html">About Us</a></li>
+                <li class="nav_items"><a href="search">Search</a></li>
+                <li class="nav_items"><a href="about_us">About Us</a></li>
             </ul>
         </nav>
-        <a class="login" href="login.html"><button>Log in</button></a>
+        <div class = "CTA"> 
+            <a class="login" href="login">
+                <button>Log in</button>
+            </a>
+        </div>
     </header>
 
     <!-- Music Section  -->
-    <section class="container music-container">
+    <section class="container music-container"  id="home-music-history-append">
         <div class="row my-3">
             <div class="col-lg-1"></div>
             <div class="col-lg-2">
@@ -50,42 +55,74 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-2">
                 <div class="showall">
-                    <a href="#" id="music-showall" onclick="on_showall('music-showall')">Show all</a>
+                    <div id="music-showall" onclick="on_showall('music-showall')">Show all</div>
                 </div>
             </div>
             <div class="col-lg-1"></div>
         </div>
-
-        <div class="row music-row my-3">
+        <!-- <div class="row music-row my-3">
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/2021.jpg" alt="2021" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">2021</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">Lauv</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">Lauv</a></figcaption>
                     </div>
-                </div>
+                </div>  
             </div>
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/butter.jpg" alt="Butter" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Butter</figcaption>
-                        <figcaption class="card-text">Artists: <a href="artist.html">BTS</a></figcaption>
+                        <figcaption class="card-text">Artists: <a href="artist">BTS</a></figcaption>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/easy on me.jpg" alt="Easy on me" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Easy on me</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">Adele</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">Adele</a></figcaption>
                     </div>
                 </div>
             </div>
@@ -93,10 +130,21 @@
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/celebrity.jpg" alt="Celebrity" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Celebrity</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">IU</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">IU</a></figcaption>
                     </div>
                 </div>
             </div>
@@ -104,10 +152,21 @@
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/money.jpg" alt="Money" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Money</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">Lisa</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">Lisa</a></figcaption>
                     </div>
                 </div>
             </div>
@@ -121,30 +180,63 @@
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/riBBon.jpg" alt="riBBon" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">riBBon</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">BamBam</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">BamBam</a></figcaption>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/sudpang.jpg" alt="Sudpang" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Sudpang</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">Milli</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">Milli</a></figcaption>
                     </div>
                 </div>
             </div>
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/can't help.jpg" alt="Can't help" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Can't help</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">URBOYTJ</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">URBOYTJ</a></figcaption>
                     </div>
                 </div>
             </div>
@@ -152,10 +244,21 @@
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/positions.jpg" alt="Positions" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Positions</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">Ariana</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">Ariana</a></figcaption>
                     </div>
                 </div>
             </div>
@@ -163,21 +266,32 @@
             <div class="col-lg-2">
                 <div class="card music-card">
                     <img class="card-img-top" src="public/test me.jpg" alt="Test me" />
-                    <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                    <div class="dropdown">
+                        <select name="selectoption" class="dropimg" >
+                            <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                            <option class="opt" value="Gotoartist">Go to artist</option>
+                            <option class="opt" value="Share">Share</option>
+                            <optgroup class="opt" label="Add to playlist : ">
+                            <option class="opt" value="Playlist1">Playlist 1</option>
+                            <option class="opt" value="Playlist2">Playlist 2</option>
+                            <option class="opt" value="Playlist3">Playlist 3</option>
+                            <option class="opt" value="Playlist4">Playlist 4</option>
+                        </select>
+                    </div>
                     <div class="card-body">
                         <figcaption class="card-title">Test me</figcaption>
-                        <figcaption class="card-text">Artist: <a href="artist.html">4EVE</a></figcaption>
+                        <figcaption class="card-text">Artist: <a href="artist">4EVE</a></figcaption>
                     </div>
                 </div>
             </div>
 
-            <div class="col-lg-1"></div>
-        </div>
-        <!-- <div class="showall">Show all</div> -->
+            <div class="col-lg-1"></div
+        </div>  
+        <div class="showall">Show all</div> -->
     </section>
 
     <!-- Playlist Section  -->
-    <section class="container music-container">
+    <section class="container music-container"  id="home-playlist-history-append">
         <div class="row my-3">
             <div class="col-lg-1"></div>
             <div class="col-lg-2">
@@ -188,36 +302,56 @@
             <div class="col-lg-2"></div>
             <div class="col-lg-2">
                 <div class="showall">
-                    <a href="#" id="playlist-showall" onclick="on_showall('playlist-showall')">Show all</a>
+                    <div id="playlist-showall" onclick="on_showall('playlist-showall')">Show all</div>
                 </div>
             </div>
             <div class="col-lg-1"></div>
         </div>
-
+        <!-- 
         <div class="row playlist-row my-3">
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                
                     <div class="card music-card">
                         <img class="card-img-top" src="public/hot hits.jpg" alt="Hot Hits" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
+                    <a href="playlist">
                         <div class="card-body">
                             <figcaption class="card-title">Hot Hits</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 189.4M</figcaption>
                         </div>
+                    </a>
                     </div>
-                </a>
+                
             </div>
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/hits&viral.jpg" alt="Hits & Viral" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Hits & Viral</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 122.2M</figcaption>
@@ -226,12 +360,21 @@
                 </a>
             </div>
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/maroon5.jpg" alt="Maroon5" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Maroon5</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 70.9M</figcaption>
@@ -241,12 +384,21 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/top songs.jpg" alt="Top songs" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Top songs</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 114.6M</figcaption>
@@ -256,12 +408,21 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/blackpink.jpg" alt="Blackpink" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Blackpink</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 156M</figcaption>
@@ -273,16 +434,25 @@
             <div class="col-lg-1"></div>
         </div>
 
-        <div class="row playlist-row default-hidden my-3" hidden>
+        <div class="row playlist-row default-hidden my-3" id="home-playlist-history-append" hidden>
             <div class="col-lg-1"></div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/pop sauce.jpg" alt="Pop sauce" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Pop sauce</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 61.1M</figcaption>
@@ -292,12 +462,21 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/pop rising.jpg" alt="Pop rising" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Pop rising</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 62.3</figcaption>
@@ -307,12 +486,21 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/chill hits.jpg" alt="Chill hits" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Chill hits</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 91.8M</figcaption>
@@ -322,10 +510,20 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/today's hits.jpg" alt="Today's hits" />
-                        <div> <img class="showWhenHover" src="public/button/dropdown.png" alt="choices"></div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
                         <div class="card-body">
                             <figcaption class="card-title">Today's hits</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 80M</figcaption>
@@ -335,12 +533,21 @@
             </div>
 
             <div class="col-lg-2">
-                <a href="playlist.html">
+                <a href="playlist">
                     <div class="card music-card">
                         <img class="card-img-top" src="public/best music.jpg" alt="Best musics" />
-                        <div>
-                            <img class="showWhenHover" src="public/button/dropdown.png" alt="choices">
-                        </div>
+                            <div class="dropdown">
+                                <select name="selectoption" class="dropimg" >
+                                    <option value="" selected disabled hidden><img class="dropimg" src="public/button/dropdown.png" alt="choices" width="1"></option>
+                                    <option class="opt" value="Gotoartist">Go to artist</option>
+                                    <option class="opt" value="Share">Share</option>
+                                    <optgroup class="opt" label="Add to playlist : ">
+                                    <option class="opt" value="Playlist1">Playlist 1</option>
+                                    <option class="opt" value="Playlist2">Playlist 2</option>
+                                    <option class="opt" value="Playlist3">Playlist 3</option>
+                                    <option class="opt" value="Playlist4">Playlist 4</option>
+                                </select>
+                            </div>
                         <div class="card-body">
                             <figcaption class="card-title">Best musics</figcaption>
                             <figcaption class="card-text"><img class="listentimes" src="public/button/earphone.png" alt="Listen: "> 112.1</figcaption>
@@ -349,8 +556,8 @@
                 </a>
             </div>
 
-            <div class="col-lg-1"></div>
-        </div>
+            <div class="col-lg-1"></div> 
+        </div> -->
     </section>
 
 

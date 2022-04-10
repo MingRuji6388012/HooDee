@@ -19,6 +19,7 @@
 
     <!-- css/js for this page -->
     <link rel="stylesheet" href="login.css" />
+    <script src="login.js"></script>
 
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
@@ -28,21 +29,21 @@
 
 <body>
     <header class="navbar">
-        <a class="home" href="home.html"><img class="logo" src="public/logo/Logo.png" alt="logo" /></a>
+        <a class="home" href="/"><img class="logo" src="public/logo/Logo.png" alt="logo" /></a>
         <nav>
             <ul class="nav_links">
-                <li class="nav_items"><a href="search.html">Search</a></li>
-                <li class="nav_items"><a href="about_us.html">About Us</a></li>
+                <li class="nav_items"><a href="search">Search</a></li>
+                <li class="nav_items"><a href="about_us">About Us</a></li>
             </ul>
         </nav>
-        <a class="login" href="login.html"><button>Log in</button></a>
+        <a class="login" href="login"><button>Log in</button></a>
     </header>
 
     <section class="container">
         <div class="logo-form">
             <img class="figure-img" src="public/logo/Logo.png" alt="logo" href="#" height="120" />
         </div>
-        <form action="./home.html">
+        <form>
             <!-- email label and text field -->
             <div class="row input-fields">
                 <div class="email-label">
@@ -65,11 +66,25 @@
                     </div>
                 </div>
             </div>
+            <!-- 2FA label and number field -->
+            <div class="row input-fields">
+                <div class="2FA-label">
+                    <label for="2FA-input">2FA</label>
+                </div>
+                <div class="2FA-input">
+                    <div class="input-group mb-3">
+                        <input type="code" class="form-control input-field" id="TwoFA-input" placeholder="Your 6 digits 2FA code" aria-label="code" aria-describedby="basic-addon1">
+                    </div>
+                </div>
+            </div>
             <!-- login button -->
             <div class="login-button-block">
-                <input type="submit" class="btn login-button-submit" value="Log in" />
+                <input type="button" class="btn login-button-submit" value="Log in" onclick="on_login();" />
             </div>
         </form>
+        <p class="mt-lg-4 go_signup">
+            Don't have an account? <a class="sign-up" href="signup" onclick="on_signup();">Sign Up</a>
+        </p>
     </section>
 
 </body>

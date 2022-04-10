@@ -26,26 +26,32 @@
     <!-- common css -->
     <link rel="stylesheet" href="common.css" />
 
+
+    <script type="module" src="result.js"></script>
     <title>Result</title>
 
 </head>
 
 <body>
     <header class="navbar">
-        <a class="home" href="home.html"
+        <a class="home" href="/"
           ><img class="logo" src="public/logo/Logo.png" alt="logo"
         /></a>
         <nav>
           <ul class="nav_links">
-            <li class="nav_items"><a href="search.html">Search</a></li>
-            <li class="nav_items"><a href="about_us.html">About Us</a></li>
+            <li class="nav_items"><a href="search">Search</a></li>
+            <li class="nav_items"><a href="about_us">About Us</a></li>
           </ul>
         </nav>
-        <a class="login" href="login.html"><button>Log in</button></a>
+        <div class = "CTA"> 
+            <a class="login" href="login">
+                <button>Log in</button>
+            </a>
+        </div>
       </header>
 
     <div class="bar container px-0 my-5">
-        <form action="./result.html" >
+        <form action="/result" method="GET">
             <!-- search bar (text input)  -->
             <div class="input-group">
                 <div class="input-group-prepend">
@@ -53,7 +59,7 @@
                         <img src="public/button/magnifier_white.png" height="34"/>
                     </span>
                 </div>
-                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar">
+                <input type="text" class="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar" name="query_text">
                 <div class="input-group-append">
                     <span class="search_bar input-group-text" onclick="on_click_cross('search-bar');">
                         <img src="public/button/cross.png" height="34"/>
@@ -65,26 +71,22 @@
             <div class="row my-3 search-mode-radio-button">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="all-radio-button" value="all" checked>
+                    <input class="form-check-input" type="radio" name="quantifier" id="all-radio-button" value="all" checked>
                     <label class="form-check-label" for="inlineRadio1">All</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inlines mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="user-radio-button" value="user">
+                    <input class="form-check-input" type="radio" name="quantifier" id="user-radio-button" value="user">
                     <label class="form-check-label" for="inlineRadio2">User</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="music-radio-button" value="music">
+                    <input class="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music">
                     <label class="form-check-label" for="inlineRadio2">Music</label>
                 </div>
                 <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="artist-radio-button" value="artist">
-                    <label class="form-check-label" for="inlineRadio2">Artist</label>
-                </div>
-                <div class="col-lg-1 form-check form-check-inline mx-0 px-4">
-                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="playlist-artist-button" value="playlist">
+                    <input class="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist">
                     <label class="form-check-label" for="inlineRadio2">Playlist</label>
                 </div>
-                <div class="col-lg-5 done-button mx-0 px-4">
+                <div class="col-lg-6 done-button mx-0 px-4">
                     <input class="btn justify-content-end" type="submit" value="Done"/>
                 </div>
                 <div class="col-lg-1"></div>
@@ -94,7 +96,7 @@
     </div>
 
     <div class="container music-container">
-        <div id="top-music">
+        <div id="top-music" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Top result</div>
@@ -105,8 +107,9 @@
             
             <div class="row my-3">
                 <div class="col-lg-1"></div>
-                <div class="col-lg-4">
-                    <a href="artist.html">
+                <div class="col-lg-4" id="top-music-append">
+                    <!-- 
+                    <a href="artist">
                         <div class="card music-card top-card">
                             <div class="row no-gutters fluid">
                                 <div class="col-md-6">
@@ -120,19 +123,19 @@
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </a> -->
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" id="music-append">
                     <!-- horizontal non-top card -->
-                    <div class="card music-card p-1 m-1">
+                    <!-- <div class="card music-card p-1 m-1">
                         <div class="row no-gutters">
                             <div class="col-lg-1">
                                 <img src="public/song1.jpg" class="img-fluid rounded-start card-img-top" alt="...">
                             </div>
-                            <div class="col-lg-auto">                                
+                            <div class="col-lg-auto">
                                 <div class="card-body p-0">
                                     <figcaption class="card-title non-top-result-name m-0">One and last</figcaption>
-                                    <figcaption class="card-text non-top-result-type"><a href="artist.html">Aimer</a></figcaption>
+                                    <figcaption class="card-text non-top-result-type"><a href="artist">Aimer</a></figcaption>
                                 </div>
                             </div>
                         </div>
@@ -146,7 +149,7 @@
                             <div class="col-lg-auto">
                                 <div class="card-body p-0">
                                     <figcaption class="card-title non-top-result-name m-0">Run riot</figcaption>
-                                    <figcaption class="card-text non-top-result-type"><a href="artist.html">Aimer</a></figcaption>
+                                    <figcaption class="card-text non-top-result-type"><a href="artist">Aimer</a></figcaption>
                                 </div>
                             </div>
                         </div>
@@ -159,7 +162,7 @@
                             <div class="col-lg-auto">
                                 <div class="card-body p-0">
                                     <figcaption class="card-title non-top-result-name m-0">Even Elder Dragons Tremble - Nergigante</figcaption>
-                                    <figcaption class="card-text non-top-result-type"><a href="artist.html">YUKO KOMIYAMA</a></figcaption>
+                                    <figcaption class="card-text non-top-result-type"><a href="artist">YUKO KOMIYAMA</a></figcaption>
                                 </div>
                             </div>
                         </div>
@@ -172,30 +175,30 @@
                             <div class="col-lg-auto">
                                 <div class="card-body p-0">
                                     <figcaption class="card-title non-top-result-name m-0">Alpha</figcaption>
-                                    <figcaption class="card-text non-top-result-type"><a href="artist.html">C418</a></figcaption>
+                                    <figcaption class="card-text non-top-result-type"><a href="artist">C418</a></figcaption>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                     
                 </div>
                 <div class="col-lg-1"></div>
             </div>
         </div>
-        <div id="playlist">
+        <div id="playlist" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Playlist</div>
                 <div class="col-lg-4"></div>
-                <div class="col-lg-2 showall"><a href="playlist.html">Show all</a></div>
+                <div class="col-lg-2 showall"><a href="playlist">Show all</a></div>
                 <div class="col-lg-1"></div>
             </div>
 
-            <div class="row my-3 history-row">
-                <div class="col-lg-1"></div>
+            <div class="row my-3 history-row" id="playlist-append">
+                <!-- <div class="col-lg-1"></div>
                 
                 <div class="col-lg-2">
-                    <a href="playlist.html">
+                    <a href="playlist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/dont stop me now.webp" alt="song2 img">
                             <div class="card-body">
@@ -206,7 +209,7 @@
                     </a>
                 </div>
                 <div class="col-lg-2">
-                    <a href="playlist.html">
+                    <a href="playlist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/after rain.jpg" alt="song1 img">
                             <div class="card-body">
@@ -217,7 +220,7 @@
                     </a>
                 </div>
                 <div class="col-lg-2">
-                    <a href="playlist.html">
+                    <a href="playlist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/what is love.jpg" alt="song3 img">
                             <div class="card-body">
@@ -229,7 +232,7 @@
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="playlist.html">
+                    <a href="playlist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/eve.jpg" alt="song4 img">
                             <div class="card-body">
@@ -241,7 +244,7 @@
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="playlist.html">
+                    <a href="playlist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/walpurgis.webp" alt="song5 img">
                             <div class="card-body">
@@ -252,23 +255,23 @@
                     </a>
                 </div>
                 
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1"></div> -->
             </div>
         </div>
-        <div id="artist">
+        <div id="artist" hidden>
             <div class="row my-3">
                 <div class="col-lg-1"></div>
                 <div class="col-lg-4 music-title">Artist</div>
                 <div class="col-lg-4"></div>
-                <div class="col-lg-2 showall"><a href="artist.html">Show all</a></div>
+                <div class="col-lg-2 showall"><a href="artist">Show all</a></div>
                 <div class="col-lg-1"></div>
             </div>
 
-            <div class="row my-3 history-row">
-                <div class="col-lg-1"></div>
+            <div class="row my-3 history-row" id="user-append">
+                <!-- <div class="col-lg-1"></div>
                 
                 <div class="col-lg-2">
-                    <a href="artist.html">
+                    <a href="artist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/Yoo Jeong Yeon.jpg" alt="song1 img">
                             <div class="card-body">
@@ -279,7 +282,7 @@
                     </a>
                 </div>
                 <div class="col-lg-2">
-                    <a href="artist.html">
+                    <a href="artist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/Aimer.jpg" alt="song2 img">
                             <div class="card-body">
@@ -290,7 +293,7 @@
                     </a>
                 </div>
                 <div class="col-lg-2">
-                    <a href="artist.html">
+                    <a href="artist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/inori.png" alt="song3 img">
                             <div class="card-body">
@@ -302,7 +305,7 @@
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="artist.html">
+                    <a href="artist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/yoasobi.webp" alt="song4 img">
                             <div class="card-body">
@@ -314,7 +317,7 @@
                 </div>
                 
                 <div class="col-lg-2">
-                    <a href="artist.html">
+                    <a href="artist">
                         <div class="card music-card">
                             <img class="card-img-top" src="public/yuiko.jpg" alt="">
                             <div class="card-body">
@@ -325,7 +328,7 @@
                     </a>
                 </div>
                 
-                <div class="col-lg-1"></div>
+                <div class="col-lg-1"></div> -->
             </div>
         </div>
     </div>

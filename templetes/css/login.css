@@ -21,7 +21,6 @@
 .input-fields {
     width: 340px
 }
-
 .login-button-block {
     margin-top: 50px;
 }
@@ -33,4 +32,14 @@
     justify-content:center;
     align-items:center;
 }
+.go-to-login{
+    text-align: center;
+}
 
+.sign-up{
+    color: #B775FB !important;
+}
+.go_signup {
+    text-align: center;
+    margin-top: 20px;
+}
