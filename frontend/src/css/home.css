@@ -1,0 +1,7 @@
+.music-container, .playlist-container {
+    margin-top: 50px;
+}
+
+.listentimes {
+    max-width: 2ex;
+}

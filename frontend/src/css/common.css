@@ -1,0 +1,183 @@
+/* common css that every page has */
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+* {
+    color: #FAF8FC !important;
+    font-family: Poppins;
+    font-style: normal;
+}
+
+body {
+    background-color: #403672 !important;
+}
+
+.music-card {
+    background-color: rgba(196, 196, 196, 0.2);
+    padding: 1em;
+    border-radius: 10px;
+}
+
+.music-card:hover {
+    background-color: #B775FB !important;
+}
+
+
+/*When hover, the image("more vert" button) will show up*/
+
+.music-card:hover .dropimg {
+    margin-top: 10px;
+    max-width: 0.9ex;
+    float: right;
+}
+
+
+/*When not hover, the image("more vert" button) is hidden*/
+
+.music-card .dropimg {
+    max-width: 0ex;
+    float: right;
+}
+
+
+/* http://howtocenterincss.com/#contentType=text&horizontal=left&vertical=middle&browser.IE=11 */
+
+
+/* vertical centering */
+
+.card-description,
+.vertical-dropdown {
+    display: flex;
+    align-items: center;
+}
+
+.music-title {
+    font-style: normal;
+    font-weight: 600;
+    font-size: 22px !important;
+    text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.showall {
+    text-align: right;
+}
+
+.showall:hover{
+    text-decoration: underline;
+}
+
+.showall a {
+    font-size: 13px;
+    color: rgb(166, 146, 187) !important;
+}
+
+.follow-button {
+    background-color: #B775FB !important;
+    border-radius: 10px;
+}
+
+.card-body {
+    padding-left: 5px;
+    padding-bottom: 5px;
+}
+
+.card-title {
+    font-size: 17px !important;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.card-text {
+    font-size: 13px;
+    color: #CDCDCD!important;
+}
+
+button,
+.btn.login-button-submit{
+    font-size: 21px !important;
+    font-weight: 500 !important;
+    padding: 5px 30px !important;
+    background-color: #B775FB;
+    border: none !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+}
+
+button:hover,
+.btn.login-button-submit:hover {
+    background-color: #62569C !important;
+    transition: all 0.25s ease 0s !important;
+}
+
+.btn.logout{
+    font-size: 21px !important;
+    font-weight: 500 !important;
+    padding: 5px 30px !important;
+    background-color: #A13B35;
+    border: none !important;
+    border-radius: 15px !important;
+    cursor: pointer !important;
+}
+
+
+.btn.logout:hover {
+    background-color: #CA2906 !important;
+    transition: all 0.25s ease 0s !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+a:hover {
+    text-decoration: underline !important;
+}
+
+/* dropdown option */
+.dropdown:hover .dropdownoption {
+    display: block;
+    cursor:pointer;
+}
+
+
+.opt {
+    background-color: #342C5F;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropimg {
+    border: none;
+}
+.dropdownoption {
+    display: none;
+    position: absolute;
+    background-color: #342C5F;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdownoption a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+.dropdown:hover .dropdownoption {
+    display: block;
+    cursor:pointer;
+}
+
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: none;
+    /* background-image:url("//button/dropdown.png"); */
+    background-image:url("/public/button/dropdown.png");
+    background-size: 8px 24px;
+    width: 20px;
+    border: none;
+}

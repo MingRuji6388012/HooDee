@@ -1,0 +1,68 @@
+/* THIS FILE SHOULD ONLY RELATED TO CSS IN THE NAVBAR  */
+
+.navbar li,
+.navbar a,
+.navbar button {
+    font-weight: 500;
+    font-size: 21px;
+    color: #EDF0F1 !important;
+    text-decoration: none !important;
+}
+
+header {
+    background-color: #1D193F;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 1.5% !important;
+}
+
+.logo,
+.home {
+    cursor: pointer;
+    width: 160px !important;
+    height: 70px !important;
+    margin-right: auto !important;
+}
+
+.nav_links {
+    margin: 0 !important;
+    list-style: none !important;
+}
+
+.nav_links li {
+    text-decoration: none !important;
+    display: inline-block !important;
+    padding: 0px 4em 0px 0px !important;
+}
+
+.nav_links li a:hover {
+    color: #A692BB !important;
+    transition: all 0.15s ease 0s !important;
+}
+
+
+/* button {
+    padding: 5px 30px !important;
+    background-color: #B775FB;
+    border: none !important;
+    border-radius: 15px !important;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #62569C;
+    transition: all 0.25s ease 0s !important;
+} */
+
+@media only screen and (max-width: 768px) {
+    li,
+    a,
+    button {
+        font-size: 17px !important;
+    }
+    .logo {
+        width: 120px !important;
+        height: 50px !important;
+    }
+}
