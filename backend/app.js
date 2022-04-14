@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const main_route = require("./main_page.js");
 const user_api = require("./user.js");
 const music_api = require("./music.js");
@@ -6,6 +7,7 @@ const playlist_api = require("./playlist.js");
 require('dotenv').config();
 
 const app = express();
+app.use(cors());
 
 app.use("/", main_route.main_route);
 

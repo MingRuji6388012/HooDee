@@ -55,6 +55,7 @@ music_api_route.get("/search_by_musicname/:MusicName", function(req, res){
      *      "message" : str
      * }
      */
+    console.log("fetching musics by musicname");
     let music_name = req.params.MusicName;
     let music_name_query = "%" + music_name + "%";
     connection.query("SELECT MusicID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserID, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE MusicName LIKE ? AND m.IsDeleted = False;", music_name_query, function(error, results, fields){

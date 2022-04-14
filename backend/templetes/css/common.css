@@ -12,7 +12,7 @@ body {
 }
 
 .music-card {
-    background-color: rgba(196, 196, 196, 0.2);
+    background-color: rgba(196, 196, 196, 0.2) !important;
     padding: 1em;
     border-radius: 10px;
 }
