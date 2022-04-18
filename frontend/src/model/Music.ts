@@ -15,7 +15,7 @@ export interface MusicWithUserName extends Music{
 }
 
 export interface QueryManyMusics {
-    error:boolean;
-    musics:[MusicWithUserName] | null;
-    message:string;
+    error: boolean;
+    musics: MusicWithUserName[] | null;
+    message: string;
 }

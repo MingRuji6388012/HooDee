@@ -45,7 +45,7 @@ class Search extends Component<{}, {data:QueryManyMusics;}>{
                         <div className="col-lg-10 music-title">Popular musics</div>
                         <div className="col-lg-1"></div>
                     </div>
-                    <RowVerticalCard musics={this.state.data.musics} type={"music"} hidden={false} />
+                    <RowVerticalCard musics={this.state.data.musics} type={"music"}/>
                 </div>
             </div>
         );

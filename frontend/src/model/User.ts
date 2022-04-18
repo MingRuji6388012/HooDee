@@ -19,7 +19,7 @@ export interface UserButSecret extends User {
 }
 
 export interface QueryManyUsers {
-    error: string;
-    users: [User] | null;
+    error: boolean;
+    users: User[] | null;
     message: string;
 }

@@ -9,7 +9,6 @@ interface RowProps{
     playlists?: PlaylistWithUserName[] | [] | null;
     users?: User[] | [] | null;
     type: string;
-    hidden: boolean;
 }
 class RowVerticalCard extends Component<RowProps>{
 
@@ -24,7 +23,7 @@ class RowVerticalCard extends Component<RowProps>{
                 img = user.UserProfileIMG ? user.UserProfileIMG : "/what is love.jpg"; // default value
                 href = `/user?userid=${user.UserID}`; // TODO: tbd
                 cards_tobe_append.push(
-                    <div className="col-lg-2" hidden={this.props.hidden}>
+                    <div className="col-lg-2">
                         <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={user}/>
                     </div>
                 );
@@ -43,7 +42,7 @@ class RowVerticalCard extends Component<RowProps>{
                 img = playlist.PlaylistIMG ? playlist.PlaylistIMG : "/what is love.jpg"; // default value
                 href = `/playlist?playlistid=${playlist.PlaylistID}`; // TODO: tbd
                 cards_tobe_append.push(
-                    <div className="col-lg-2" hidden={this.props.hidden}>
+                    <div className="col-lg-2">
                         <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={playlist}/>
                     </div>
                 );
@@ -63,7 +62,7 @@ class RowVerticalCard extends Component<RowProps>{
                 img = music.MusicIMG ? music.MusicIMG : "/what is love.jpg"; // default value
                 href = music.MusicFile; // TODO: tbd
                 cards_tobe_append.push(
-                    <div className="col-lg-2" hidden={this.props.hidden}>
+                    <div className="col-lg-2">
                         <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={music}/>
                     </div>
                 );
