@@ -14,6 +14,6 @@ export interface PlaylistWithUserName extends Playlist {
 
 export interface QueryManyPlaylists {
     error: boolean;
-    playlists: [PlaylistWithUserName]
+    playlists: PlaylistWithUserName[] | null;
     message: string;
 }
