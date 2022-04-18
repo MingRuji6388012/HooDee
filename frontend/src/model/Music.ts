@@ -1,5 +1,5 @@
 
-// interfaces for data that has been fetch from api
+// interfaces for data that has been fetch from api, related to music
 
 export interface Music{
     MusicID:Number;
@@ -14,8 +14,8 @@ export interface MusicWithUserName extends Music{
     UserName:string;
 }
 
-export interface SearchMusics {
-    error?:boolean;
-    musics?:[MusicWithUserName];
-    message?:string;
+export interface QueryManyMusics {
+    error:boolean;
+    musics:[MusicWithUserName] | null;
+    message:string;
 }
