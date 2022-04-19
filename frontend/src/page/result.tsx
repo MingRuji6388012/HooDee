@@ -1,12 +1,13 @@
 import { Component, ReactNode } from "react";
 import SearchBar from "../component/SearchBar";
 import RowVerticalCard from "../component/RowVerticalCard";
-import { QueryManyMusics } from "../model/Music";
+import { MusicWithUserName, QueryManyMusics } from "../model/Music";
 import { QueryManyUsers } from "../model/User";
 import { QueryManyPlaylists } from "../model/Playlist";
 import { EACH_ROW, API_PORT } from "../setting";
 import "../css/result.css";
-
+import HalfHorizonalCard from "../component/HalfHorizonalCard";
+import HalfTopCard from "../component/HalfTopCard";
 
 function get_parameter(): object{
     // return dict of get parameter, like $_GET in PHP
@@ -32,12 +33,18 @@ interface resultState {
     musicFetch: QueryManyMusics;
     playlistFetch: QueryManyPlaylists;
     userComponents: JSX.Element[];
+    topMusicComponent: JSX.Element | null;
     musicComponents: JSX.Element[];
     playlistComponents: JSX.Element[];
     userHidden: boolean;
     musicHidden: boolean;
     playlistHidden: boolean;
     quantifier: string;
+    updateHtml: {
+        playlistShowall: string,
+        musicShowall: string,
+        userShowall: string
+    };
 }
 
 class Result extends Component <{}, resultState> {
@@ -61,15 +68,22 @@ class Result extends Component <{}, resultState> {
                 message: ""
             },
             userComponents: [],
+            topMusicComponent: null,
             musicComponents: [],
             playlistComponents: [],
             userHidden: true,
             musicHidden:true,
             playlistHidden: true,
-            quantifier: ""
+            quantifier: "",
+            updateHtml: {
+                playlistShowall: "Show all",
+                musicShowall: "Show all",
+                userShowall: "Show all"
+            }
         };
-        this.playlistShowall = this.playlistShowall.bind(this);
-        this.userShowall = this.userShowall.bind(this);
+        this.handlePlaylistShowall = this.handlePlaylistShowall.bind(this);
+        this.handleUserShowall = this.handleUserShowall.bind(this);
+        this.handleMusicShowall = this.handleMusicShowall.bind(this);
     }
 
     componentDidMount(){
@@ -104,43 +118,87 @@ class Result extends Component <{}, resultState> {
 
     updateComponent(){
         const users = this.state.userFetch, musics = this.state.musicFetch, playlists = this.state.playlistFetch;
-        let userComponents = [], playlistComponents = [], musicComponents = [];
-        for(let idx = 0; users !== null && users.users !== null && idx < users.users.length; idx+=EACH_ROW){
-            const users5 = users.users.slice(idx, idx+EACH_ROW);
-            userComponents.push(
-                <RowVerticalCard users={users5} type={"user"}/>
-            );
-            if(this.state.userHidden) break;
-        }
+        let userComponents = [], playlistComponents = [], musicComponents = [], topMusicComponent = null;
 
-        for(let idx = 0; musics !== null && musics.musics !== null && idx < musics.musics.length; idx+=EACH_ROW){
-            const musics5 = musics.musics.slice(idx, idx+EACH_ROW);
-            musicComponents.push(
-                <RowVerticalCard musics={musics5} type={"music"}/>
-            );
-            if(this.state.musicHidden) break;
+        if(this.state.quantifier === "user" || this.state.quantifier === "all"){
+            for(let idx = 0; users !== null && users.users !== null && idx < users.users.length; idx+=EACH_ROW){
+                const users5 = users.users.slice(idx, idx+EACH_ROW);
+                userComponents.push(
+                    <RowVerticalCard users={users5} type={"user"}/>
+                );
+                if(this.state.userHidden) break;
+            }
+        }
+        if((this.state.quantifier === "music" || this.state.quantifier === "all") && musics !== null && musics.musics !== null){
+            let music: MusicWithUserName = musics.musics[0];
+            topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
+            
+            for(let idx = 1; idx < musics.musics.length; idx++){
+                music = musics.musics[idx];
+                musicComponents.push(
+                    <HalfHorizonalCard top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
+                );
+                if(this.state.musicHidden && musicComponents.length >= EACH_ROW-1) break;
+            }
         }
         
-        for(let idx = 0; playlists !== null && playlists.playlists !== null && idx < playlists.playlists.length; idx+=EACH_ROW){
-            const playlists5 = playlists.playlists.slice(idx, idx+EACH_ROW);
-            playlistComponents.push(
-                <RowVerticalCard playlists={playlists5} type={"playlist"}/>
-            );
-            if(this.state.playlistHidden) break;
+        if(this.state.quantifier === "playlist" || this.state.quantifier === "all"){
+            for(let idx = 0; playlists !== null && playlists.playlists !== null && idx < playlists.playlists.length; idx+=EACH_ROW){
+                const playlists5 = playlists.playlists.slice(idx, idx+EACH_ROW);
+                playlistComponents.push(
+                    <RowVerticalCard playlists={playlists5} type={"playlist"}/>
+                );
+                if(this.state.playlistHidden) break;
+            }
         }
-        this.setState({userComponents: userComponents, musicComponents: musicComponents, playlistComponents: playlistComponents}); // "setting state here will trigger re-rendering", got it bro 👍
-        this.forceUpdate();
+        this.setState({
+            userComponents: userComponents, 
+            musicComponents: musicComponents, 
+            playlistComponents: playlistComponents, 
+            topMusicComponent: topMusicComponent
+        }, () => {
+            this.forceUpdate()
+        });
     }
 
 
-    playlistShowall(e: any){
-        this.setState({playlistHidden: !this.state.playlistHidden});
-        this.updateComponent();
+    handlePlaylistShowall(e: any){
+        this.setState({
+            playlistHidden: !this.state.playlistHidden, 
+            updateHtml:{
+                playlistShowall: this.state.updateHtml.playlistShowall === "Show all" ? "Show less" : "Show all",
+                musicShowall: this.state.updateHtml.musicShowall,
+                userShowall: this.state.updateHtml.userShowall
+            }
+        }, () => { // setState is async method, FOR REAL DUDE?
+            this.updateComponent();
+        });
     }
 
-    userShowall(e: any){
-        this.setState({userHidden: !this.state.userHidden});
-        this.updateComponent();
+    handleUserShowall(e: any){
+        this.setState({
+            userHidden: !this.state.userHidden,
+            updateHtml:{
+                playlistShowall: this.state.updateHtml.playlistShowall,
+                musicShowall: this.state.updateHtml.musicShowall,
+                userShowall: this.state.updateHtml.userShowall  === "Show all" ? "Show less" : "Show all"
+            }
+        }, () => {
+            this.updateComponent();
+        });
+    }
+
+    handleMusicShowall(e: any){
+        this.setState({
+            musicHidden: !this.state.musicHidden,
+            updateHtml:{
+                playlistShowall: this.state.updateHtml.playlistShowall,
+                musicShowall: this.state.updateHtml.musicShowall === "Show all" ? "Show less" : "Show all",
+                userShowall: this.state.updateHtml.userShowall
+            }
+        }, () => {
+            this.updateComponent();
+        });
     }
 
     render(): ReactNode {
@@ -154,14 +212,20 @@ class Result extends Component <{}, resultState> {
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Top result</div>
                             <div className="col-lg-4 music-title">Musics</div>
-                            <div className="col-lg-2 showall">Show all</div>
+                            <div className="col-lg-2 showall" onClick={this.handleMusicShowall}>
+                                {this.state.updateHtml.musicShowall}
+                                </div>
                             <div className="col-lg-1"></div>
                         </div>
                         
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4" id="top-music-append"></div>
-                            <div className="col-lg-6" id="music-append"></div>
+                            <div className="col-lg-4" id="top-music-append">
+                                {this.state.topMusicComponent}
+                            </div>
+                            <div className="col-lg-6" id="music-append">
+                                {this.state.musicComponents}
+                            </div>
                             <div className="col-lg-1"></div>
                         </div>
                     </div>
@@ -170,7 +234,7 @@ class Result extends Component <{}, resultState> {
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Playlist</div>
                             <div className="col-lg-4"></div>
-                            <div className="col-lg-2 showall" onClick={this.playlistShowall}>Show all</div>
+                            <div className="col-lg-2 showall" onClick={this.handlePlaylistShowall}>{this.state.updateHtml.playlistShowall}</div>
                             <div className="col-lg-1"></div>
                         </div>
             
@@ -183,7 +247,7 @@ class Result extends Component <{}, resultState> {
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Artist</div>
                             <div className="col-lg-4"></div>
-                            <div className="col-lg-2 showall" onClick={this.userShowall}>Show all</div>
+                            <div className="col-lg-2 showall" onClick={this.handleUserShowall}>{this.state.updateHtml.userShowall}</div>
                             <div className="col-lg-1"></div>
                         </div>
             
