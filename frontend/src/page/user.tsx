@@ -11,15 +11,15 @@ import { searchUserByUserID } from "../controller/UserController";
 import { searchMusicsByUserID } from "../controller/MusicController";
 import { searchPlaylistsByUserID } from "../controller/PlaylistController";
 
-interface UserPropsState {
-    user: UserWithFollowerFollowee | null;
+interface UserPageState {
+    user: UserWithFollowerFollowee | null;          // results from fetch data from db
     musicOwn: MusicWithUserName[] | null;
     playlistOwn: PlaylistWithUserName[] | null;
-    musicComponents: JSX.Element[];
+    musicComponents: JSX.Element[];                 // lists of component to be display
     playlistComponents: JSX.Element[];
-    musicHidden: boolean;
+    musicHidden: boolean;                           // state of show or hidden
     playlistHidden: boolean;
-    updateHtml: {
+    updateHtml: {                                   // text to be update from some event
         playlistShowall: string,
         musicShowall: string,
         followButton: string
@@ -31,12 +31,12 @@ interface UserPageGetReqParam {
     userid: string;
 }
 
-class UserPage extends Component<{}, UserPropsState> {
+class UserPage extends Component<{}, UserPageState> {
 
 
     constructor(props:any){
         super(props);
-        this.state = {
+        this.state = { // init state
             user: null,
             musicOwn: null,
             playlistOwn: null,
@@ -84,7 +84,7 @@ class UserPage extends Component<{}, UserPropsState> {
         if(this.state.musicOwn){
             for(idx = 0; idx < this.state.musicOwn.length; idx++){
                 music = this.state.musicOwn[idx];
-                musicComponents.push(<HorizontalCard top_text={music.MusicName} bottom_text={music.UserName} href={music.MusicFile} img_url={music.MusicIMG} type={"music"} extra_info={music}/>)
+                musicComponents.push(<HorizontalCard top_text={music.MusicName} bottom_text={music.UserName} href={music.MusicFile} img_url={music.MusicIMG} type={"music"} card_info={music}/>)
                 if(this.state.musicHidden && idx >= EACH_ROW-1) break;
             }
         }

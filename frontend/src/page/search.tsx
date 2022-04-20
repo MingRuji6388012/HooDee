@@ -6,14 +6,14 @@ import { searchMusicsByMusicName } from "../controller/MusicController";
 import "../css/search.css";
 
 interface SearchPageState{
-    musics: MusicWithUserName[] | null;
+    musicsComponent: MusicWithUserName[] | null; // lists of component to be display
 }
 class SearchPage extends Component<{}, SearchPageState>{
     
     constructor(prop:any){
         super(prop);
         this.state = { 
-            musics: null
+            musicsComponent: null
         };
     }
 
@@ -22,7 +22,7 @@ class SearchPage extends Component<{}, SearchPageState>{
             if(res.error){
                 return;
             }
-            this.setState({musics: res.musics})
+            this.setState({musicsComponent: res.musics})
             return res;
         });
     }
@@ -37,7 +37,7 @@ class SearchPage extends Component<{}, SearchPageState>{
                         <div className="col-lg-10 music-title">Popular musics</div>
                         <div className="col-lg-1"></div>
                     </div>
-                    <RowVerticalCard musics={this.state.musics} type={"music"}/>
+                    <RowVerticalCard musics={this.state.musicsComponent} type={"music"}/>
                 </div>
             </div>
         );

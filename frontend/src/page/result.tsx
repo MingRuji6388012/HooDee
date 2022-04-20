@@ -19,18 +19,18 @@ interface resultQuery {
 }
 
 interface resultState {
-    userFetch: QueryManyUsers;
+    userFetch: QueryManyUsers;              // results from fetch data from db
     musicFetch: QueryManyMusics;
     playlistFetch: QueryManyPlaylists;
-    userComponents: JSX.Element[];
+    userComponents: JSX.Element[];          // lists of component to be display
     topMusicComponent: JSX.Element | null;
     musicComponents: JSX.Element[];
     playlistComponents: JSX.Element[];
-    userHidden: boolean;
+    userHidden: boolean;                    // state of show or hidden
     musicHidden: boolean;
     playlistHidden: boolean;
     quantifier: string;
-    updateHtml: {
+    updateHtml: {                           // text to be update from some event
         playlistShowall: string,
         musicShowall: string,
         userShowall: string
@@ -115,12 +115,12 @@ class ResultPage extends Component <{}, resultState> {
         }
         if((this.state.quantifier === "music" || this.state.quantifier === "all") && musics !== null && musics.musics !== null){
             let music: MusicWithUserName = musics.musics[0];
-            topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
+            topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
             
             for(let idx = 1; idx < musics.musics.length; idx++){
                 music = musics.musics[idx];
                 musicComponents.push(
-                    <HalfHorizontalCard top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
+                    <HalfHorizontalCard top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
                 );
                 if(this.state.musicHidden && musicComponents.length >= EACH_ROW-1) break;
             }
