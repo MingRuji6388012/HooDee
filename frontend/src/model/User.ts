@@ -29,7 +29,7 @@ export interface QueryManyUsers {
     message: string;
 }
 
-export interface QueryOneUsers {
+export interface QueryOneUser {
     error: boolean;
     user: UserWithFollowerFollowee | null;
     message: string;
