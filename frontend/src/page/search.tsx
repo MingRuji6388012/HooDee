@@ -5,8 +5,10 @@ import "../css/search.css";
 import { QueryManyMusics } from "../model/Music"
 import RowVerticalCard from "../component/RowVerticalCard";
 
-
-class Search extends Component<{}, {data:QueryManyMusics;}>{
+interface SearchPageState{
+    data:QueryManyMusics;
+}
+class SearchPage extends Component<{}, SearchPageState>{
     
     constructor(prop:any){
         super(prop);
@@ -52,4 +54,4 @@ class Search extends Component<{}, {data:QueryManyMusics;}>{
     }
 }
 
-export default Search;
+export default SearchPage;

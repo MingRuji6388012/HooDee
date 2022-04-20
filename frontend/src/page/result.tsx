@@ -8,20 +8,7 @@ import { EACH_ROW, API_PORT } from "../setting";
 import "../css/result.css";
 import HalfHorizontalCard from "../component/HalfHorizonalCard";
 import HalfTopCard from "../component/HalfTopCard";
-
-function get_parameter(): object{
-    // return dict of get parameter, like $_GET in PHP
-    const url = window.location.href;
-    let url_split = url.split("?");
-    let parameters = url_split[1].split("&");
-    let dict:any = {};
-    parameters.forEach(element => {
-        let [key, value] = element.split("=");
-        dict[key] = value;
-    });
-    return dict;
-}
-
+import { get_parameter } from "../common";
 interface resultQuery {
     // ?queryText=text&quantifier=all
     queryText: string;
@@ -47,7 +34,7 @@ interface resultState {
     };
 }
 
-class Result extends Component <{}, resultState> {
+class ResultPage extends Component <{}, resultState> {
 
     constructor(props:any){
         super(props);
@@ -261,4 +248,4 @@ class Result extends Component <{}, resultState> {
     }
 }
 
-export default Result;
+export default ResultPage;

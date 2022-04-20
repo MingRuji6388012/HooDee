@@ -9,6 +9,11 @@ export interface User {
     Role:number;
 }
 
+export interface UserWithFollowerFollowee extends User{    
+    Followers?: User[];
+    Followees?: User[];
+}
+
 export interface UserButSecret extends User {
     Email?:string;
     Password?:string;
@@ -21,5 +26,11 @@ export interface UserButSecret extends User {
 export interface QueryManyUsers {
     error: boolean;
     users: User[] | null;
+    message: string;
+}
+
+export interface QueryOneUsers {
+    error: boolean;
+    user: UserWithFollowerFollowee | null;
     message: string;
 }
