@@ -4,11 +4,14 @@ import RowVerticalCard from "../component/RowVerticalCard";
 import { MusicWithUserName, QueryManyMusics } from "../model/Music";
 import { QueryManyUsers } from "../model/User";
 import { QueryManyPlaylists } from "../model/Playlist";
-import { EACH_ROW, API_PORT } from "../setting";
+import { EACH_ROW } from "../setting";
 import "../css/result.css";
 import HalfHorizontalCard from "../component/HalfHorizonalCard";
 import HalfTopCard from "../component/HalfTopCard";
 import { get_parameter } from "../common";
+import { seachUsersByUserName } from "../controller/UserController";
+import { searchMusicsByMusicName } from "../controller/MusicController";
+import { searchPlaylistsByPlaylistName } from "../controller/PlaylistController";
 interface resultQuery {
     // ?queryText=text&quantifier=all
     queryText: string;
@@ -81,19 +84,13 @@ class ResultPage extends Component <{}, resultState> {
     
         let user_list = null, music_list = null, playlist_list = null;
         if(quantifier === "user" || quantifier === "all"){
-            user_list = fetch(`http://localhost:${API_PORT}/api/user/search_by_username?UserName=${queryText}`, {
-                method: "GET",
-            }).then(res => res.json());
+            user_list = seachUsersByUserName(queryText);
         }
         if(quantifier === "music" || quantifier === "all"){
-            music_list = fetch(`http://localhost:${API_PORT}/api/music/search_by_musicname/${queryText}`, {
-                method: "GET",
-            }).then(res => res.json());
+            music_list = searchMusicsByMusicName(queryText);
         }
         if(quantifier === "playlist" || quantifier === "all"){
-            playlist_list = fetch(`http://localhost:${API_PORT}/api/playlist/search_by_playlistname/${queryText}`, {
-                method: "GET",
-            }).then(res => res.json());
+            playlist_list = searchPlaylistsByPlaylistName(queryText);
         }
         Promise.all([user_list, music_list, playlist_list]).then((values) => {
             const [users, musics, playlists] = values as [QueryManyUsers, QueryManyMusics, QueryManyPlaylists];

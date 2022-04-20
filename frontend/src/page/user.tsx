@@ -1,12 +1,15 @@
 import { Component, ReactNode } from "react";
-import { QueryOneUsers, UserWithFollowerFollowee } from "../model/User"
+import { UserWithFollowerFollowee } from "../model/User"
 import "../css/artist.css"
 import { get_parameter } from "../common";
-import { MusicWithUserName, QueryManyMusics } from "../model/Music";
-import { PlaylistWithUserName, QueryManyPlaylists } from "../model/Playlist";
-import { API_PORT, EACH_ROW } from "../setting";
+import { MusicWithUserName } from "../model/Music";
+import { PlaylistWithUserName } from "../model/Playlist";
+import { EACH_ROW } from "../setting";
 import HorizontalCard from "../component/HorizontalCard";
 import RowVerticalCard from "../component/RowVerticalCard";
+import { searchUserByUserID } from "../controller/UserController";
+import { searchMusicsByUserID } from "../controller/MusicController";
+import { searchPlaylistsByUserID } from "../controller/PlaylistController";
 
 interface UserPropsState {
     user: UserWithFollowerFollowee | null;
@@ -24,7 +27,8 @@ interface UserPropsState {
 }
 
 interface UserPageGetReqParam {
-    user_id: string;
+    // /user?userid=51
+    userid: string;
 }
 
 class UserPage extends Component<{}, UserPropsState> {
@@ -53,11 +57,11 @@ class UserPage extends Component<{}, UserPropsState> {
 
     componentDidMount(){
         const $_GET = get_parameter() as UserPageGetReqParam;
-        const user_id = $_GET["user_id"];
+        const user_id = $_GET["userid"];
         
-        const userPromise = fetch(`http://localhost:${API_PORT}/api/user/search_by_id/${user_id}`).then((res) => res.json() as Promise<QueryOneUsers>);
-        const musicsPromise = fetch(`http://localhost:${API_PORT}/api/music/search_by_authorid/${user_id}`).then(res => res.json() as Promise<QueryManyMusics>);
-        const playlistsPromise = fetch(`http://localhost:${API_PORT}/api/playlist/search_by_userid/${user_id}`).then(res => res.json() as Promise<QueryManyPlaylists>);
+        const userPromise = searchUserByUserID(user_id);
+        const musicsPromise = searchMusicsByUserID(user_id);
+        const playlistsPromise = searchPlaylistsByUserID(user_id);
         
         Promise.all([userPromise, musicsPromise, playlistsPromise]).then((values) => {
             const [user, musics, playlists] = values;
@@ -143,7 +147,7 @@ class UserPage extends Component<{}, UserPropsState> {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-9 music-title">Musics</div>
+                            <div className="col-lg-9 music-title">Musics ({this.state.musicOwn?.length})</div>
                             <div className="col-lg-1 showall">
                                 <div id="music-showall" onClick={this.handleMusicShowall}>
                                     {this.state.updateHtml.musicShowall}
@@ -168,7 +172,7 @@ class UserPage extends Component<{}, UserPropsState> {
                     <div className="container">
                         <div className="row">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-9 music-title">Playlist</div>
+                            <div className="col-lg-9 music-title">Playlist ({this.state.playlistOwn?.length})</div>
                             <div className="col-lg-1 showall" >
                                 <div id="playlist-showall" onClick={this.handlePlaylistShowall}>
                                     {this.state.updateHtml.playlistShowall}
