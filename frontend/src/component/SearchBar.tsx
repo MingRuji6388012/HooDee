@@ -18,15 +18,15 @@ class SearchBar extends Component<any, stateSearchBar> {
     }
 
     onClickCross(e:any){
-        this.setState({["queryText"]: ""});
-        // this.state.queryText = "";
+        this.setState({queryText: ""});
+        
     }
 
     handleTextChange(e:any) {
-        this.setState({["queryText"]: e.target.value});
+        this.setState({queryText: e.target.value});
     }
     handleRadioChange(e:any){
-        this.setState({["quantifier"]: e.target.value});
+        this.setState({quantifier: e.target.value});
     }
     render(): ReactNode {
         return (
@@ -36,13 +36,13 @@ class SearchBar extends Component<any, stateSearchBar> {
                     <div className="input-group">
                         <div className="input-group-prepend">
                             <span className="search_bar input-group-text">
-                                <img src="button/magnifier_white.png" height="34"/>
+                                <img src="button/magnifier_white.png" height="34" alt="magnifier_white"/>
                             </span>
                         </div>
                         <input type="text" className="form-control" placeholder="Search bar" aria-label="Search bar" aria-describedby="basic-addon1" id="search-bar" name="queryText" value={this.state.queryText} onChange={this.handleTextChange}/>
                         <div className="input-group-append">
                             <span className="search_bar input-group-text" onClick={this.onClickCross}>
-                                <img src="button/cross.png" height="34"/>
+                                <img src="button/cross.png" height="34" alt="click to clear text"/>
                             </span>
                         </div>
                     </div>
