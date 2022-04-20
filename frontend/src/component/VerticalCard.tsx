@@ -16,10 +16,10 @@ class VerticalCard extends Component<VerticalCardProp>{
             <div className="card music-card">
                 <img className="card-img-top" src={this.props.img_url} alt="2021" />
                 {/* <dropdonwn type={this.type} owner={this.extra_info}/> // this is last thing that i want to do, god fuking damn it*/}
-                <div className="card-body">
+                <a className="card-body" href={this.props.href}>
                     <figcaption className="card-title">{this.props.top_text}</figcaption>
-                    <figcaption className="card-text"><a href={this.props.href}>{this.props.bottom_text}</a></figcaption>
-                </div>
+                    <figcaption className="card-text"><div>{this.props.bottom_text}</div></figcaption>
+                </a>
             </div>  
         );
     }
