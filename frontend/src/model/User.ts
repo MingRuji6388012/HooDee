@@ -11,8 +11,8 @@ export interface User {
 }
 
 export interface UserWithFollowerFollowee extends User{    
-    Followers?: User[];
-    Followees?: User[];
+    Followers: {FollowerID: number}[];
+    Followees: {FolloweeID: number}[]; // only ids were fetched
 }
 
 export interface UserButSecret extends User {
