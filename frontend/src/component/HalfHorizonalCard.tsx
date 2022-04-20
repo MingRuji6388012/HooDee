@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Dropdown from "./Dropdown";
 
 interface HalfHorizontalCardProps{
     top_text:string;
@@ -6,7 +7,7 @@ interface HalfHorizontalCardProps{
     img_url:string;
     href:string;
     type:string;
-    extra_info:object|null;
+    card_info:object;
 }
 
 class HalfHorizontalCard extends Component<HalfHorizontalCardProps> {
@@ -24,24 +25,12 @@ class HalfHorizontalCard extends Component<HalfHorizontalCardProps> {
                         </div>
                     </a>
                     <div className="col-lg-1 dropdown">
-                        {/* 
-                        <select name="selectoption" className="dropimg" >
-                            <option value="" selected disabled hidden><img className="dropimg" src="public/button/dropdown.png" alt="choices" width="1"/></option>
-                            <option className="opt" value="redirectToUser:${UserID}">Go to artist</option>
-                            <option className="opt" value="share:">Share</option>
-                            <option className="opt" value="followUser:${FolloweeID},${FollowerID}">Follow this user</option>
-                            <option className="opt" value="followPlaylist:${MusicID},${PlaylistID}">Follow this playlist</option>
-                            <optgroup className="opt" label="Add to playlist : "/>
-                            <option className="opt" value="addToPlaylist:${MusicID},${PlaylistID}">Playlist Name 1</option>
-                            ...
-                        </select> */}
+                        <Dropdown type={this.props.type} dropdownOn={this.props.card_info}/> 
                     </div> 
                 </div>
             </div>
-
         ); 
     };
-
 }
 
 export default HalfHorizontalCard;

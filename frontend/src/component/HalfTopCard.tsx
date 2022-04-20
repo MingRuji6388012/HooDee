@@ -1,4 +1,5 @@
 import { Component, ReactNode } from "react";
+import Dropdown from "./Dropdown";
 
 
 interface HalfTopCardProps{
@@ -7,7 +8,7 @@ interface HalfTopCardProps{
     img_url:string;
     href:string;
     type:string;
-    extra_info:object|null;
+    card_info:object;
 }
 
 class HalfTopCard extends Component<HalfTopCardProps> {
@@ -26,7 +27,7 @@ class HalfTopCard extends Component<HalfTopCardProps> {
                             </div>
                         </div>
                         <div className="col-md-1">
-                            {/* <dropdrown extra_info={this.props.extra_info}/> */}
+                            <Dropdown type={this.props.type} dropdownOn={this.props.card_info}/> 
                         </div>
                     </div>
                 </div>

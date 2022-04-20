@@ -1,4 +1,5 @@
 import { Component } from "react";
+import Dropdown from "./Dropdown";
 
 interface HorizontalCardProps {
     top_text:string;
@@ -6,7 +7,7 @@ interface HorizontalCardProps {
     img_url:string;
     href:string;
     type:string;
-    extra_info:object|null;
+    card_info:object;
 }
 
 class HorizontalCard extends Component<HorizontalCardProps> {
@@ -23,7 +24,7 @@ class HorizontalCard extends Component<HorizontalCardProps> {
                             </figcaption>
                         </div>
                         <div className="col-lg-1 vertical-dropdown">
-                            {/* dropdown */}
+                            <Dropdown type={this.props.type} dropdownOn={this.props.card_info}/> 
                         </div>
                     </div>
                 </div>

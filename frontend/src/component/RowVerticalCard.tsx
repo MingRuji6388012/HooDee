@@ -24,7 +24,7 @@ class RowVerticalCard extends Component<RowProps>{
                 href = `/user?userid=${user.UserID}`; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">
-                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={user}/>
+                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} card_info={user}/>
                     </div>
                 );
             }
@@ -43,7 +43,7 @@ class RowVerticalCard extends Component<RowProps>{
                 href = `/playlist?playlistid=${playlist.PlaylistID}`; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">
-                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={playlist}/>
+                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} card_info={playlist}/>
                     </div>
                 );
             }
@@ -63,7 +63,7 @@ class RowVerticalCard extends Component<RowProps>{
                 href = music.MusicFile; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">
-                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} extra_info={music}/>
+                        <VerticalCard top_text={top_text} bottom_text={bottom_text} img_url={img} href={href} type={this.props.type} card_info={music}/>
                     </div>
                 );
             }
