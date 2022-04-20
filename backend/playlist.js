@@ -140,7 +140,7 @@ playlist_api_route.delete("/add_music", function(req, res){
 
 playlist_api_route.get("/search_by_userid/:UserID", function(req, res){
     let user_id = req.params.UserID;
-    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, TimeCreated FROM Playlist WHERE PlaylistCreator = ? AND IsDeleted = false;", user_id, function(error, results, fields){
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, p.TimeCreated, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE PlaylistCreator = ? AND p.IsDeleted = false;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), playlists: null});
         else res.send({error: false, message: "getting playlists success", playlists: results});
     });
