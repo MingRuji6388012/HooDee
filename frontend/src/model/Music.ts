@@ -1,5 +1,5 @@
-
 // interfaces for data that has been fetch from api, related to music
+import GeneralResponse from "./GeneralResponse";
 
 export interface Music{
     MusicID:Number;
@@ -14,8 +14,6 @@ export interface MusicWithUserName extends Music{
     UserName:string;
 }
 
-export interface QueryManyMusics {
-    error: boolean;
+export interface QueryManyMusics extends GeneralResponse {
     musics: MusicWithUserName[] | null;
-    message: string;
 }

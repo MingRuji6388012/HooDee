@@ -1,3 +1,4 @@
+import GeneralResponse from "./GeneralResponse";
 
 
 export interface Playlist {
@@ -12,8 +13,6 @@ export interface PlaylistWithUserName extends Playlist {
     UserName:string;
 }
 
-export interface QueryManyPlaylists {
-    error: boolean;
+export interface QueryManyPlaylists extends GeneralResponse{
     playlists: PlaylistWithUserName[] | null;
-    message: string;
 }

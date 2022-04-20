@@ -1,4 +1,5 @@
 // interfaces for data that has been fetch from api, related to User
+import GeneralResponse from "./GeneralResponse";
 export interface User {
     UserID: number;
     UserName:string;
@@ -23,14 +24,11 @@ export interface UserButSecret extends User {
     TimeCreated?:Date;
 }
 
-export interface QueryManyUsers {
-    error: boolean;
+export interface QueryManyUsers extends GeneralResponse{
     users: User[] | null;
-    message: string;
 }
 
-export interface QueryOneUser {
-    error: boolean;
+export interface QueryOneUser extends GeneralResponse {
     user: UserWithFollowerFollowee | null;
-    message: string;
 }
+
