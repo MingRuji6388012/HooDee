@@ -36,12 +36,13 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         let music_id, playlist_id, user_id, followee_id;
         switch (command) {
             case Dropdown.ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
+                [music_id, playlist_id] = params.split(",");
                 break;
             case Dropdown.ACTION_IN_SELECT[1]: // followPlaylist:UserID,PlaylistID
                 break;
             case Dropdown.ACTION_IN_SELECT[2]: // redirectToUser:UserID
                 user_id = params;
-                window.location.replace(`/user?userid=${user_id}`); //redirect to ...
+                window.location.href = `/user?userid=${user_id}`; //redirect to ...
                 break;
             case Dropdown.ACTION_IN_SELECT[3]: // share:
                 console.log(`${command}: `); // noop
@@ -185,7 +186,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         return (
             <div className="dropdown">
                 <select className="dropimg" name="selectoption" onChange={this.onDropdownChange}>
-                    <option value="" hidden={true} disabled={true}>
+                    <option value="" hidden={true} disabled={true} selected={this.state.selected === ""}>
                         <img className="dropimg" width="1" src="/button/dropdown.png"/>
                     </option>
                     <option className="opt" value={`${Dropdown.ACTION_IN_SELECT[2]}:${((this.props.dropdownOn) as User).UserID ? ((this.props.dropdownOn) as User).UserID : ((this.props.dropdownOn) as Playlist).PlaylistCreator}`}>Go to artist</option>

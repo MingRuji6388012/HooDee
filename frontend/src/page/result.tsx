@@ -113,7 +113,7 @@ class ResultPage extends Component <{}, resultState> {
                 if(this.state.userHidden) break;
             }
         }
-        if((this.state.quantifier === "music" || this.state.quantifier === "all") && musics !== null && musics.musics !== null){
+        if((this.state.quantifier === "music" || this.state.quantifier === "all") && musics !== null && musics.musics !== null && musics.musics.length){
             let music: MusicWithUserName = musics.musics[0];
             topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
             
