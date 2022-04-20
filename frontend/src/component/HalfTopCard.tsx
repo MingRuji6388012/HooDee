@@ -25,7 +25,9 @@ class HalfTopCard extends Component<HalfTopCardProps> {
                                 <figcaption className="card-text">{this.props.bottom_text}</figcaption>
                             </div>
                         </div>
-                        {/* <dropdrown extra_info={this.props.extra_info}/> */}
+                        <div className="col-md-1">
+                            {/* <dropdrown extra_info={this.props.extra_info}/> */}
+                        </div>
                     </div>
                 </div>
             </a> 
