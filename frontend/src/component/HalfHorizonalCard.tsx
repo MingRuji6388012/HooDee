@@ -1,6 +1,6 @@
 import { Component } from "react";
 
-interface HalfHorizonalCardProps{
+interface HalfHorizontalCardProps{
     top_text:string;
     bottom_text:string;
     img_url:string;
@@ -9,7 +9,7 @@ interface HalfHorizonalCardProps{
     extra_info:object|null;
 }
 
-class HalfHorizonalCard extends Component<HalfHorizonalCardProps> {
+class HalfHorizontalCard extends Component<HalfHorizontalCardProps> {
     render(){ 
         return (
             <div className="card music-card p-1 m-1">
@@ -44,4 +44,4 @@ class HalfHorizonalCard extends Component<HalfHorizonalCardProps> {
 
 }
 
-export default HalfHorizonalCard;
+export default HalfHorizontalCard;

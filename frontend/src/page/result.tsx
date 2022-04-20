@@ -6,7 +6,7 @@ import { QueryManyUsers } from "../model/User";
 import { QueryManyPlaylists } from "../model/Playlist";
 import { EACH_ROW, API_PORT } from "../setting";
 import "../css/result.css";
-import HalfHorizonalCard from "../component/HalfHorizonalCard";
+import HalfHorizontalCard from "../component/HalfHorizonalCard";
 import HalfTopCard from "../component/HalfTopCard";
 
 function get_parameter(): object{
@@ -136,7 +136,7 @@ class Result extends Component <{}, resultState> {
             for(let idx = 1; idx < musics.musics.length; idx++){
                 music = musics.musics[idx];
                 musicComponents.push(
-                    <HalfHorizonalCard top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
+                    <HalfHorizontalCard top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} extra_info={music}/>
                 );
                 if(this.state.musicHidden && musicComponents.length >= EACH_ROW-1) break;
             }
