@@ -7,6 +7,7 @@ import Navbar from './component/Navbar';
 import SearchPage from './page/search';
 import ResultPage from './page/result';
 import UserPage from './page/user';
+import LoginPage from './page/login';
 
 function App() {
     return (
@@ -15,7 +16,7 @@ function App() {
             <Routes>
                 <Route path="/" element=""></Route>
                 <Route path="/about_us" element=""></Route>
-                <Route path="/login" element=""></Route>
+                <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/search" element={<SearchPage/>}></Route>
                 <Route path="/user" element={<UserPage/>}></Route>
                 <Route path="/playlist" element=""></Route>

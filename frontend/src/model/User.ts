@@ -1,5 +1,6 @@
 // interfaces for data that has been fetch from api, related to User
 import GeneralResponse from "./GeneralResponse";
+import { PlaylistWithUserName } from "./Playlist";
 export interface User {
     UserID: number;
     UserName:string;
@@ -16,12 +17,15 @@ export interface UserWithFollowerFollowee extends User{
 }
 
 export interface UserButSecret extends User {
-    Email?:string;
-    Password?:string;
-    Salt?:string;
-    IsDelete?:string;
-    Secret?:string;
-    TimeCreated?:Date;
+    Email:string;
+    TimeCreated:Date;
+    Playlists: PlaylistWithUserName[];
+}
+
+export interface ResponseFromAuthen extends GeneralResponse {
+    user: UserButSecret;
+    token: string;
+    authenticate: boolean;
 }
 
 export interface QueryManyUsers extends GeneralResponse{

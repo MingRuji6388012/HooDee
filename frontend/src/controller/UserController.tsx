@@ -1,5 +1,5 @@
 import GeneralResponse from "../model/GeneralResponse";
-import { QueryManyUsers, QueryOneUser } from "../model/User";
+import { QueryManyUsers, QueryOneUser, ResponseFromAuthen, UserButSecret } from "../model/User";
 import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/user`;
@@ -14,7 +14,7 @@ export async function seachUsersByUserName(queryStr: string){
 }
 
 export async function userFollowUser(followeeID: string, followerID: string){
-    return fetch("/api/user/follow", {
+    return fetch(`${API_URL}/api/user/follow`, {
         method: "post",
         headers: {
             "Content-Type": "application/json"
@@ -28,7 +28,7 @@ export async function userFollowUser(followeeID: string, followerID: string){
 }
 
 export async function userUnfollowUser(followerID: number, followeeID: number){
-    return fetch(`/api/user/follow`, {
+    return fetch(`${API_URL}/api/user/follow`, {
         method: "delete",
         headers: {
             "Content-Type": "application/json"
@@ -42,7 +42,7 @@ export async function userUnfollowUser(followerID: number, followeeID: number){
 }
 
 export async function removeUser(userID: number){
-    return fetch("/api/user/remove", {
+    return fetch(`${API_URL}/api/user/remove`, {
         method: "delete",
         headers: {
             "Content-Type" : "application/json"
@@ -52,4 +52,15 @@ export async function removeUser(userID: number){
         })
     })
     .then(res => res.json() as Promise<GeneralResponse>);
+}
+
+export async function login(email:string, password:string, fa2:string){
+    return fetch(`${API_URL}/authentication`, {
+        headers: {
+            'Content-Type' : 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify({ "User": {"Email": email, "Password": password}, "Code": fa2 }),
+    })
+    .then(res => res.json() as Promise<ResponseFromAuthen>);
 }
