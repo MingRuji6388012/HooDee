@@ -71,7 +71,6 @@ class SearchBar extends Component<any, stateSearchBar> {
                             <input className="btn justify-content-end" type="submit" value="Done"/>
                         </div>
                         <div className="col-lg-1"></div>
-
                     </div>
                 </form>
             </div>
