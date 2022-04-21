@@ -11,8 +11,8 @@ class SearchBar extends Component<any, stateSearchBar> {
         super(prop);
         let $_GET = get_parameter() as stateSearchBar;
         this.state = {
-            queryText: $_GET["quantifier"] !== undefined ? $_GET["quantifier"] : "",
-            quantifier: $_GET["queryText"] !== undefined ? $_GET["queryText"] : "all"
+            queryText: $_GET["queryText"] !== undefined ? $_GET["queryText"] : "",
+            quantifier: $_GET["quantifier"] !== undefined ? $_GET["quantifier"] : "all"
         };
         this.onClickCross = this.onClickCross.bind(this);
         this.handleRadioChange = this.handleRadioChange.bind(this);
