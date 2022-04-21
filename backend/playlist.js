@@ -111,7 +111,7 @@ playlist_api_route.delete("/user_follow", function(req, res){
 
 playlist_api_route.get("/user_follow/:UserID", function(req, res){
     let user_id = req.params.UserID; // int
-    connection.query("SELECT * FROM UserFollowPlaylist ufp INNER JOIN Playlist p on ufp.PlaylistID = p.PlaylistID WHERE ufp.UserID = ?;", user_id, function(error, results, fields){
+    connection.query("SELECT * FROM UserFollowPlaylist ufp INNER JOIN Playlist p on ufp.PlaylistID = p.PlaylistID INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE ufp.UserID = ? AND p.IsDeleted = True;", user_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, playlists: null, message: error.toString()});
         else res.send({error: false, playlists: results, message: "return playlist success"});
     });
