@@ -8,11 +8,11 @@
 /* color of search bar itself */
 .search_bar {
     background-color: #FAF8FC !important;
-    height: 100 px;
-    width: 100 px;
+    height: 100 px !important;
+    width: 100 px !important;
 }
 .done-button {
-    display:flex;
+    display:flex ;
     justify-content:flex-end;
     align-items:center;
 }
@@ -37,6 +37,7 @@
     visibility: visible;
     border: 2px solid #C4C4C4;   
 }
+
 .search-mode-radio-button div input[type='radio']:checked:after {
     width: 15px;
     height: 15px;
@@ -50,3 +51,7 @@
     visibility: visible;
     border: 2px solid #C4C4C4;
 }
+
+.form-control, .form-control:focus {
+    background-color: lightgray !important;
+   }
