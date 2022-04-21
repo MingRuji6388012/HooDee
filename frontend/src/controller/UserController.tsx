@@ -4,7 +4,7 @@ import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/user`;
 
-export async function searchUserByUserID(userID: string){
+export async function searchUserByUserID(userID: number){
     // return a user that has user id provided.
     return fetch(`${API_URL}/search_by_id/${userID}`).then(res => res.json() as Promise<QueryOneUser>);
 }
@@ -27,7 +27,7 @@ export async function userFollowUser(followeeID: string, followerID: string){
     .then(res => res.json() as Promise<GeneralResponse>);
 }
 
-export async function userUnfollowUser(followerID: string, followeeID: string){
+export async function userUnfollowUser(followerID: number, followeeID: number){
     return fetch(`/api/user/follow`, {
         method: "delete",
         headers: {
@@ -41,3 +41,15 @@ export async function userUnfollowUser(followerID: string, followeeID: string){
     .then(res => res.json() as Promise<GeneralResponse>);
 }
 
+export async function removeUser(userID: number){
+    return fetch("/api/user/remove", {
+        method: "delete",
+        headers: {
+            "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({
+            UserID: userID
+        })
+    })
+    .then(res => res.json() as Promise<GeneralResponse>);
+}

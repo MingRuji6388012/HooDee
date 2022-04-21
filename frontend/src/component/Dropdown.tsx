@@ -1,7 +1,9 @@
 import { Component } from "react";
-import { userFollowUser, userUnfollowUser } from "../controller/UserController";
+import { removeMusic } from "../controller/MusicController";
+import { addNewMusicToPlaylist, playlistUnfollow, removePlaylist, playlistFollow } from "../controller/PlaylistController";
+import { removeUser, userFollowUser, userUnfollowUser } from "../controller/UserController";
 import { Playlist } from "../model/Playlist";
-import { User, UserWithFollowerFollowee } from "../model/User";
+import { User } from "../model/User";
 
 interface DrowdownProps{
     type:string;
@@ -36,9 +38,35 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         let music_id, playlist_id, user_id, followee_id;
         switch (command) {
             case Dropdown.ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
-                [music_id, playlist_id] = params.split(",");
+                [music_id, playlist_id] = params.split(",").map(v => Number(v));
+                addNewMusicToPlaylist(music_id, playlist_id)
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("Error! ")
+                        return;
+                    }
+                    Dropdown.updateUserInStorage();
+                    alert("add music into playlist success!");
+                });
                 break;
             case Dropdown.ACTION_IN_SELECT[1]: // followPlaylist:UserID,PlaylistID
+                [user_id, playlist_id] = params.split(",").map(v => Number(v));
+                playlistFollow(user_id, playlist_id)
+                .then(res => {
+                    if(res.error && res.message.includes("Duplicate entry")){
+                        console.log(res.message);
+                        alert("You already follow this playlist");
+                        return;
+                    }
+                    else if(res.error){
+                        console.log(res.message);
+                        alert("internal error");
+                        return;
+                    }
+                    Dropdown.updateUserInStorage();
+                    alert("Follow Playlist complete!");
+                })
                 break;
             case Dropdown.ACTION_IN_SELECT[2]: // redirectToUser:UserID
                 user_id = params;
@@ -61,11 +89,59 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                 });
                 break;
             case Dropdown.ACTION_IN_SELECT[5]: // removeUser:UserID
+                user_id = Number(params);
+                removeUser(user_id)
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("can't remove user");
+                        return;
+                    }
+                    Dropdown.updateUserInStorage();
+                    alert("remove user complete");
+                });
+                break;
             case Dropdown.ACTION_IN_SELECT[6]: // removeMusic:MusicID
+                music_id = Number(params);
+                removeMusic(music_id)
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("can't remove this song");
+                        return;
+                    }
+                    Dropdown.updateUserInStorage();
+                    alert("Remove song complete!");
+                });
+                break;
             case Dropdown.ACTION_IN_SELECT[7]: // removePlaylist:PlaylistID
+                playlist_id = Number(params);
+                removePlaylist(playlist_id)
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("can't remove this playlist");
+                        return;
+                    }
+                    Dropdown.updateUserInStorage();
+                    alert("Remove playlist complete!");
+                });
+                break;
             case Dropdown.ACTION_IN_SELECT[8]: // unfollowPlaylist:UserID,PlaylistID
+                [user_id, playlist_id] = params.split(",").map(v => Number(v));
+                playlistUnfollow(user_id, playlist_id)
+                .then(res => {
+                    if(res.error){
+                        console.log(res.message);
+                        alert("can't Unfollow playlist");
+                        return;
+                    }
+                    alert("Unfollow playlist complete!");
+                    Dropdown.updateUserInStorage();
+                });
+                break;
             case Dropdown.ACTION_IN_SELECT[9]: // unfollowUser:FollowerID,FolloweeID
-                [user_id, followee_id] = params.split(",");
+                [user_id, followee_id] = params.split(",").map(Number);
                 userUnfollowUser(user_id, followee_id).then((res) => {
                     if(res.error){
                         alert("Unfollow error");
@@ -77,11 +153,13 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                 });
                 break;
             default:
-                // console.log(`Command ${selectedAction} invalid: misuse of ondropdown_change function`);
-                console.log("unimplemented i guess")
+                console.log(`Command ${selectedAction} invalid: misuse of ondropdown_change function`);
         }
         this.resetSelected();
-        
+    }
+
+    static updateUserInStorage(){
+        window.location.reload(); // easy way for update user, i guess?
     }
 
     resetSelected(){

@@ -57,7 +57,7 @@ class UserPage extends Component<{}, UserPageState> {
 
     componentDidMount(){
         const $_GET = get_parameter() as UserPageGetReqParam;
-        const user_id = $_GET["userid"];
+        const user_id = Number($_GET["userid"]);
         
         const userPromise = searchUserByUserID(user_id);
         const musicsPromise = searchMusicsByUserID(user_id);
