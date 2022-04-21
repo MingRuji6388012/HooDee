@@ -65,3 +65,7 @@ export async function playlistUnfollow(userID: number, playlistID: number){
     })
     .then(res => res.json() as Promise<GeneralResponse>);
 }
+
+export async function searchPlaylistFollowedByUserID(userID: number){
+    return fetch(`${API_URL}/user_follow/${userID}`).then(res => res.json() as Promise<QueryManyPlaylists>);
+}

@@ -26,6 +26,7 @@ class LoginPage extends Component<{},  LoginPageState> {
                 searchPlaylistsByUserID(user.UserID).then((res) => {
                     user.Playlists = !res.error && res.playlists !== null? res.playlists : [];
                     sessionStorage.clear();
+                    console.log(JSON.stringify(user));
                     sessionStorage.setItem("user", JSON.stringify(user));
                     sessionStorage.setItem("token", token);
                     window.location.replace("/"); //Redirect to HOME -> Redirect to 2FA Page

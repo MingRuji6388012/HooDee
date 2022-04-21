@@ -1,8 +1,49 @@
 import { Component } from "react";
-import "../css/navbar.css"
+import { refetchUserInfo } from "../common";
+import "../css/navbar.css";
 
+interface NavbarState{
+    isLoggedin: boolean;
+    buttonLogInOut: JSX.Element | null;
+}
+class Navbar extends Component<{}, NavbarState> {
+    constructor(props:any){
+        super(props);
+        let userJSON = sessionStorage.getItem("user");
+        this.state = {
+            isLoggedin: userJSON === null,
+            buttonLogInOut: null
+        };
+    }
 
-class Navbar extends Component {
+    updateLoginButton(){
+        let text, className, onClick;
+        if(this.state.isLoggedin) {
+            text = "Log in";
+            className = "";
+            onClick = () => window.location.href = "/login";
+        }
+        else {
+            text = "Log out";
+            className = "logout btn"
+            onClick = () => {
+                sessionStorage.clear();
+                window.location.replace(`/`); //redirect to home
+                alert("You already logged out!");
+            }
+        }
+        this.setState({
+            buttonLogInOut: <button className={className} onClick={onClick}>{text}</button>
+        });
+        
+     }
+    
+    componentDidMount(){
+        console.log("refetching");
+        refetchUserInfo();
+        this.updateLoginButton();
+    }
+
     render() {
         return (
             <header className="navbar">
@@ -19,9 +60,7 @@ class Navbar extends Component {
                         </li>
                     </ul>
                     <div className="CTA"> 
-                        <a className="login" href="login">
-                            <button>Log in</button>
-                        </a>
+                        {this.state.buttonLogInOut}
                     </div>
                 </nav>
             </header>

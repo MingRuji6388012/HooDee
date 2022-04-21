@@ -1,5 +1,5 @@
 import GeneralResponse from "../model/GeneralResponse";
-import { QueryManyUsers, QueryOneUser, ResponseFromAuthen, UserButSecret } from "../model/User";
+import { QueryManyUsers, QueryOneUser, ResponseFromAuthen, UserButInSessionStorage } from "../model/User";
 import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/user`;
@@ -61,6 +61,33 @@ export async function login(email:string, password:string, fa2:string){
         },
         method: "POST",
         body: JSON.stringify({ "User": {"Email": email, "Password": password}, "Code": fa2 }),
+    })
+    .then(res => res.json() as Promise<ResponseFromAuthen>);
+}
+
+export async function signup(email:string, fname:string, lname:string, username:string, password:string){
+    const auth = { "User" : {"Email": email, "FirstName": fname, "Lastname": lname, "UserName": username, "Password": password} };
+    return fetch(`${API_URL}/registeration`, {
+        headers: {
+            'Content-Type' : 'application/json',
+            'Accept': 'application/json'
+        },
+        method: "POST",
+        body: JSON.stringify(auth),
+    })
+    .then(res => res.json() as any);
+}
+
+export async function signup2FA(code:string, email:string){
+    return fetch(`${API_URL}/sign-up-2fa`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            code: code,
+            email: email
+        })
     })
     .then(res => res.json() as Promise<ResponseFromAuthen>);
 }

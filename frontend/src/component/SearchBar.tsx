@@ -1,5 +1,6 @@
-import { Component, ReactNode } from "react"
-import "../css/search_bar.css"
+import { Component, ReactNode } from "react";
+import { get_parameter } from "../common";
+import "../css/search_bar.css";
 interface stateSearchBar {
     queryText:string;
     quantifier:string;
@@ -8,9 +9,10 @@ interface stateSearchBar {
 class SearchBar extends Component<any, stateSearchBar> {
     constructor(prop:any){
         super(prop);
+        let $_GET = get_parameter() as stateSearchBar;
         this.state = {
-            queryText: "",
-            quantifier: "all"
+            queryText: $_GET["quantifier"] !== undefined ? $_GET["quantifier"] : "",
+            quantifier: $_GET["queryText"] !== undefined ? $_GET["queryText"] : "all"
         };
         this.onClickCross = this.onClickCross.bind(this);
         this.handleRadioChange = this.handleRadioChange.bind(this);
@@ -19,7 +21,6 @@ class SearchBar extends Component<any, stateSearchBar> {
 
     onClickCross(e:any){
         this.setState({queryText: ""});
-        
     }
 
     handleTextChange(e:any) {

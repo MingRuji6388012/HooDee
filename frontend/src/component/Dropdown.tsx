@@ -259,6 +259,9 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         return followed;
     }
     
+    componentDidMount(){
+        this.create_dropdown_session_related_options();
+    }
 
     render() {
         return (
