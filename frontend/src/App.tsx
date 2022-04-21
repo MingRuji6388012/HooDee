@@ -9,13 +9,14 @@ import UserPage from './page/user';
 import LoginPage from './page/login';
 import SignUpPage from './page/signup';
 import SignUp2FAPage from './page/signup-2fa';
+import HomePage from "./page/home";
 
 function App() {
     return (
         <BrowserRouter>
             <Navbar/>
             <Routes>
-                <Route path="/" element=""></Route>
+                <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/about_us" element=""></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/search" element={<SearchPage/>}></Route>
