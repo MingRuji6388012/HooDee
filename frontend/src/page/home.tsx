@@ -74,15 +74,21 @@ class HomePage extends Component<{}, HomePageState> {
     }
 
     onMusicShowall(){
+        let updateHtml = this.state.updateHtml;
+        updateHtml.musicShowall = this.state.updateHtml.musicShowall === "Show all" ? "Show less" : "Show all";
         this.setState({
-            musicHidden: !this.state.musicHidden
+            musicHidden: !this.state.musicHidden,
+            updateHtml: updateHtml
         }, () => {
             this.componentDidMount()
         });
     }
     onPlaylistShowall(){
+        let updateHtml = this.state.updateHtml;
+        updateHtml.playlistShowall = this.state.updateHtml.playlistShowall === "Show all" ? "Show less" : "Show all";
         this.setState({
-            playlistHidden: !this.state.playlistHidden
+            playlistHidden: !this.state.playlistHidden,
+            updateHtml: updateHtml
         }, () => {
             this.componentDidMount()
         });
@@ -102,7 +108,7 @@ class HomePage extends Component<{}, HomePageState> {
                         <div className="col-lg-2"></div>
                         <div className="col-lg-2">
                             <div className="showall">
-                                <div id="music-showall" onClick={this.onMusicShowall}>Show all</div>
+                                <div id="music-showall" onClick={this.onMusicShowall}>{this.state.updateHtml.musicShowall}</div>
                             </div>
                         </div>
                         <div className="col-lg-1"></div>
@@ -121,7 +127,7 @@ class HomePage extends Component<{}, HomePageState> {
                         <div className="col-lg-2"></div>
                         <div className="col-lg-2">
                             <div className="showall">
-                                <div id="playlist-showall" onClick={this.onPlaylistShowall}>Show all</div>
+                                <div id="playlist-showall" onClick={this.onPlaylistShowall}>{this.state.updateHtml.playlistShowall}</div>
                             </div>
                         </div>
                         <div className="col-lg-1"></div>

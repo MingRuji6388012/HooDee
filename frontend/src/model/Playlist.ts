@@ -1,4 +1,5 @@
 import GeneralResponse from "./GeneralResponse";
+import { MusicWithUserName } from "./Music";
 
 
 export interface Playlist {
@@ -16,3 +17,10 @@ export interface PlaylistWithUserName extends Playlist {
 export interface QueryManyPlaylists extends GeneralResponse{
     playlists: PlaylistWithUserName[] | null;
 }
+
+export interface QueryOnePlaylist extends GeneralResponse {
+    playlist: PlaylistWithUserName | null;
+}
+export interface QueryMusicInPlaylist extends QueryOnePlaylist{
+    musics: MusicWithUserName[] | null;
+};
