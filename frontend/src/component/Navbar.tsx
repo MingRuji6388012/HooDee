@@ -35,7 +35,6 @@ class Navbar extends Component<{}, NavbarState> {
         this.setState({
             buttonLogInOut: <button className={className} onClick={onClick}>{text}</button>
         });
-        
      }
     
     componentDidMount(){
@@ -58,10 +57,10 @@ class Navbar extends Component<{}, NavbarState> {
                         <li className="nav_items">
                             <a href="about_us">About Us</a>
                         </li>
+                        <li>
+                            {this.state.buttonLogInOut}
+                        </li>
                     </ul>
-                    <div className="CTA"> 
-                        {this.state.buttonLogInOut}
-                    </div>
                 </nav>
             </header>
         );
