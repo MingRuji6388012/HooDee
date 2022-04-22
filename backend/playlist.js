@@ -43,6 +43,7 @@ playlist_api_route.put("/edit", function(req, res){
     let playlist_id = playlist.PlaylistID;
     if(playlist.TimeCreated !== undefined) delete playlist.TimeCreated; // strictly cant edit
     if(playlist.IsDeleted !== undefined) delete playlist.IsDeleted; // strictly cant edit with this method
+    if(playlist.PlaylistCreator !== undefined) delete playlist.PlaylistCreator; // strictly cant edit
 
     connection.query("UPDATE Playlist SET ? WHERE PlaylistID = ?;", [playlist, playlist_id], function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});

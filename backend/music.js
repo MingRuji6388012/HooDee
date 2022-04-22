@@ -130,5 +130,33 @@ music_api_route.get("/search_by_authorid/:id", function(req, res){
     });
 });
 
+music_api_route.put("/edit", function (req,res) {
+    /**req body
+     * {
+     *      Music: {
+     *          MusicID: value,
+     *          MusicName: value or null,
+     *          MusicIMG: value or null
+     *      }
+     * }
+     * 
+     * res
+     * {
+     *      error: bool,
+     *      message: string
+     * }
+     */
+    const music_id = req.body.Music.MusicID, old_music = req.body.Music;
+    const new_music = {
+        MusicName : old_music.MusicName,
+        MusicIMG : old_music.MusicIMG
+    }
+    if(new_music.MusicName === null) {delete new_music.MusicName}
+    if(new_music.MusicIMG === null) {delete new_music.MusicIMG}
+    connection.query("UPDATE Music SET ? WHERE MusicID = ?;", [new_music, music_id], function(error, result, fields){
+        if(error) res.status(500).send({error: true, message: error.toString()});
+        else res.send({error: false, message: "music updated"});
+    });
+});
 
 module.exports.music_api_route = music_api_route;
