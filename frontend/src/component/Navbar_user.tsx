@@ -6,7 +6,7 @@ interface NavbarState{
     isLoggedin: boolean;
     buttonLogInOut: JSX.Element | null;
 }
-class Navbar extends Component<{}, NavbarState> {
+class Navbar_user extends Component<{}, NavbarState> {
     constructor(props:any){
         super(props);
         let userJSON = sessionStorage.getItem("user");
@@ -67,4 +67,4 @@ class Navbar extends Component<{}, NavbarState> {
     }
 }
 
-export default Navbar;
+export default Navbar_user;

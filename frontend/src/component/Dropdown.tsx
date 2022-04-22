@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { refetchUserInfo } from "../common";
 import { removeMusic } from "../controller/MusicController";
 import { addNewMusicToPlaylist, playlistUnfollow, removePlaylist, playlistFollow } from "../controller/PlaylistController";
 import { removeUser, userFollowUser, userUnfollowUser } from "../controller/UserController";
@@ -46,7 +47,6 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         alert("Error! ")
                         return;
                     }
-                    Dropdown.updateUserInStorage();
                     alert("add music into playlist success!");
                 });
                 break;
@@ -64,9 +64,8 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         alert("internal error");
                         return;
                     }
-                    Dropdown.updateUserInStorage();
                     alert("Follow Playlist complete!");
-                })
+                });
                 break;
             case Dropdown.ACTION_IN_SELECT[2]: // redirectToUser:UserID
                 user_id = params;
@@ -97,7 +96,6 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         alert("can't remove user");
                         return;
                     }
-                    Dropdown.updateUserInStorage();
                     alert("remove user complete");
                 });
                 break;
@@ -110,7 +108,6 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         alert("can't remove this song");
                         return;
                     }
-                    Dropdown.updateUserInStorage();
                     alert("Remove song complete!");
                 });
                 break;
@@ -123,7 +120,6 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         alert("can't remove this playlist");
                         return;
                     }
-                    Dropdown.updateUserInStorage();
                     alert("Remove playlist complete!");
                 });
                 break;
@@ -137,7 +133,6 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                         return;
                     }
                     alert("Unfollow playlist complete!");
-                    Dropdown.updateUserInStorage();
                 });
                 break;
             case Dropdown.ACTION_IN_SELECT[9]: // unfollowUser:FollowerID,FolloweeID
@@ -156,10 +151,11 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                 console.log(`Command ${selectedAction} invalid: misuse of ondropdown_change function`);
         }
         this.resetSelected();
+        Dropdown.updateUserInStorage();
     }
 
     static updateUserInStorage(){
-        window.location.reload(); // easy way for update user, i guess?
+        refetchUserInfo();
     }
 
     resetSelected(){
