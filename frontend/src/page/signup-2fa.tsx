@@ -58,6 +58,20 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
                         <label className="form-label">2FA Code</label>
                         <input type="text" className="form-control" id="code" name="code" onChange={this.onCodeChange}/>
                     </div>
+                    <div className="role-selection">
+                        <div className="form-check form-check-inline d-flex justify-content-end">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="user-radio-button" value="user" defaultChecked/>
+                            <label className="form-check-label">1</label>
+                        </div>
+                        <div className="form-check form-check-inline d-flex justify-content-end">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="artist-radio-button" value="artist"/>
+                            <label className="form-check-label">2</label>
+                        </div>
+                        <div className="form-check form-check-inline d-flex justify-content-end">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="admin-radio-button" value="admin"/>
+                            <label className="form-check-label">3</label>
+                        </div>
+                    </div>
                     <div className="signup-button-block">
                         <button className="btn signup-button-submit" value="Sign up" onClick={this.onSignUp2FA} />
                     </div>
