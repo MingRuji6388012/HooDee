@@ -53,7 +53,7 @@ playlist_api_route.put("/edit", function(req, res){
 playlist_api_route.get("/search_by_authorname/:AuthorName", function(req, res){
     let author_name = req.params.AuthorName;
     let author_name_query = "%" + author_name + "%";
-    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE u.UserName LIKE ? AND p.IsDeleted = false AND u.IsDeleted = false;", author_name_query, function(error, results, fields){
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, u.UserName, p.TimeCreated FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE u.UserName LIKE ? AND p.IsDeleted = false AND u.IsDeleted = false;", author_name_query, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), playlists: null});
         else res.send({error: false, message: "found playlists", playlists: results});
     });

@@ -142,7 +142,7 @@ connection.connect();
 
 // // new table about
 
-// connection.query("UPDATE User SET role = 1 WHERE UserName = 'Oily';");
+// connection.query("UPDATE User SET role = 1 WHERE Email = 'mail';");
 
 connection.query("SELECT * FROM User;", function(error, results, fields) {
     if(error) throw error;
