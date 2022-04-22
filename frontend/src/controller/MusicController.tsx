@@ -14,7 +14,7 @@ export async function searchMusicsByMusicName(queryStr: string){
 }
 
 export async function removeMusic(musicID: number){
-    return fetch("/api/music/remove", {
+    return fetch(`${API_URL}/remove`, {
         method: "delete",
         body: JSON.stringify({MusicID: musicID}),
         headers: {
@@ -22,4 +22,9 @@ export async function removeMusic(musicID: number){
         }
     })
     .then(res => res.json() as Promise<GeneralResponse>);
+}
+
+export async function searchMusicByAuthorName(queryStr: string) {
+    return fetch(`${API_URL}/search_by_authorname/${queryStr}`)
+    .then(res => res.json() as Promise<QueryManyMusics>);
 }

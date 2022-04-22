@@ -7,18 +7,19 @@ import { EACH_ROW } from "../setting";
 import "../css/result.css";
 import HalfHorizontalCard from "../component/HalfHorizonalCard";
 import HalfTopCard from "../component/HalfTopCard";
-import { get_parameter } from "../common";
-import { seachUsersByUserName } from "../controller/UserController";
-import { searchMusicsByMusicName } from "../controller/MusicController";
-import { searchPlaylistsByPlaylistName } from "../controller/PlaylistController";
+import { get_parameter, ROLES } from "../common";
+import { seachUsersByUserName, searchUserByFirstName, searchUserByUserNameButRole as searchUserByUserNameButRoleWise } from "../controller/UserController";
+import { searchMusicByAuthorName, searchMusicsByMusicName } from "../controller/MusicController";
+import { searchPlaylistByCreatorName, searchPlaylistsByPlaylistName } from "../controller/PlaylistController";
 import UserSearchBar from "../component/UserSearchBar";
-interface resultQuery {
-    // ?queryText=text&quantifier=all
+interface ResultQuery {
+    // result?queryText=e&quantifier=all&subQuantifier=itsName
     queryText: string;
     quantifier: string;
+    subQuantifier: string;
 }
 
-interface resultState {
+interface ResultState {
     userFetch: QueryManyUsers;              // results from fetch data from db
     musicFetch: QueryManyMusics;
     playlistFetch: QueryManyPlaylists;
@@ -29,15 +30,15 @@ interface resultState {
     userHidden: boolean;                    // state of show or hidden
     musicHidden: boolean;
     playlistHidden: boolean;
-    quantifier: string;
     updateHtml: {                           // text to be update from some event
         playlistShowall: string,
         musicShowall: string,
         userShowall: string
     };
+    resultQuery: ResultQuery;
 }
 
-class ResultPage extends Component <{}, resultState> {
+class ResultPage extends Component <{}, ResultState> {
 
     constructor(props:any){
         super(props);
@@ -64,12 +65,12 @@ class ResultPage extends Component <{}, resultState> {
             userHidden: true,
             musicHidden:true,
             playlistHidden: true,
-            quantifier: "",
             updateHtml: {
                 playlistShowall: "Show all",
                 musicShowall: "Show all",
                 userShowall: "Show all"
-            }
+            },
+            resultQuery: get_parameter() as ResultQuery
         };
         this.handlePlaylistShowall = this.handlePlaylistShowall.bind(this);
         this.handleUserShowall = this.handleUserShowall.bind(this);
@@ -77,21 +78,34 @@ class ResultPage extends Component <{}, resultState> {
     }
 
     componentDidMount(){
-        const $_GET = get_parameter() as resultQuery;
-        console.log($_GET);
-        const {queryText, quantifier} = $_GET;
-        this.setState({quantifier: quantifier});
+        const {queryText, quantifier, subQuantifier} = this.state.resultQuery;
     
         let user_list = null, music_list = null, playlist_list = null;
-        if(quantifier === "user" || quantifier === "all"){
+        if((quantifier === "user" && subQuantifier === "userName") || (quantifier === "all" && subQuantifier === "itsName")){
             user_list = seachUsersByUserName(queryText);
         }
-        if(quantifier === "music" || quantifier === "all"){
+        if(quantifier === "user" && subQuantifier === "firstName") {
+            user_list = searchUserByFirstName(queryText);
+        }
+        if(quantifier === "user" && subQuantifier === "userOnly") {
+            user_list = searchUserByUserNameButRoleWise(queryText, ROLES.user);
+        }
+        if(quantifier === "user" && subQuantifier === "artistOnly") {
+            user_list = searchUserByUserNameButRoleWise(queryText, ROLES.artist);
+        }
+        if((quantifier === "music" && subQuantifier === "musicName") || (quantifier === "all" && subQuantifier === "itsName")){
             music_list = searchMusicsByMusicName(queryText);
         }
-        if(quantifier === "playlist" || quantifier === "all"){
+        if(quantifier === "music" && subQuantifier === "aritistName"){
+            music_list = searchMusicByAuthorName(queryText);
+        }
+        if((quantifier === "playlist" && subQuantifier === "playlistName") || (quantifier === "all" && subQuantifier === "itsName")){
             playlist_list = searchPlaylistsByPlaylistName(queryText);
         }
+        if((quantifier === "playlist" && subQuantifier === "playlistCreatorName") || (quantifier === "all" && subQuantifier === "creatorName")){
+            playlist_list = searchPlaylistByCreatorName(queryText);
+        }
+        
         Promise.all([user_list, music_list, playlist_list]).then((values) => {
             const [users, musics, playlists] = values as [QueryManyUsers, QueryManyMusics, QueryManyPlaylists];
             this.setState({userFetch: users, musicFetch: musics, playlistFetch: playlists});
@@ -104,7 +118,7 @@ class ResultPage extends Component <{}, resultState> {
         const users = this.state.userFetch, musics = this.state.musicFetch, playlists = this.state.playlistFetch;
         let userComponents = [], playlistComponents = [], musicComponents = [], topMusicComponent = null;
 
-        if(this.state.quantifier === "user" || this.state.quantifier === "all"){
+        if(this.state.resultQuery.quantifier === "user" || this.state.resultQuery.quantifier === "all"){
             for(let idx = 0; users !== null && users.users !== null && idx < users.users.length; idx+=EACH_ROW){
                 const users5 = users.users.slice(idx, idx+EACH_ROW);
                 userComponents.push(
@@ -113,7 +127,7 @@ class ResultPage extends Component <{}, resultState> {
                 if(this.state.userHidden) break;
             }
         }
-        if((this.state.quantifier === "music" || this.state.quantifier === "all") && musics !== null && musics.musics !== null && musics.musics.length){
+        if((this.state.resultQuery.quantifier === "music" || this.state.resultQuery.quantifier === "all") && musics !== null && musics.musics !== null && musics.musics.length){
             let music: MusicWithUserName = musics.musics[0];
             topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
             
@@ -126,7 +140,7 @@ class ResultPage extends Component <{}, resultState> {
             }
         }
         
-        if(this.state.quantifier === "playlist" || this.state.quantifier === "all"){
+        if(this.state.resultQuery.quantifier === "playlist" || this.state.resultQuery.quantifier === "all"){
             for(let idx = 0; playlists !== null && playlists.playlists !== null && idx < playlists.playlists.length; idx+=EACH_ROW){
                 const playlists5 = playlists.playlists.slice(idx, idx+EACH_ROW);
                 playlistComponents.push(
@@ -191,7 +205,7 @@ class ResultPage extends Component <{}, resultState> {
             <div>
                 <UserSearchBar />
                 <div className="container music-container">
-                    <div id="top-music" hidden={this.state.quantifier !== "music" && this.state.quantifier !== "all"}>
+                    <div id="top-music" hidden={this.state.resultQuery.quantifier !== "music" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Top result</div>
@@ -213,7 +227,7 @@ class ResultPage extends Component <{}, resultState> {
                             <div className="col-lg-1"></div>
                         </div>
                     </div>
-                    <div id="playlist" hidden={this.state.quantifier !== "playlist" && this.state.quantifier !== "all"}>
+                    <div id="playlist" hidden={this.state.resultQuery.quantifier !== "playlist" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Playlist</div>
@@ -226,7 +240,7 @@ class ResultPage extends Component <{}, resultState> {
                             {this.state.playlistComponents}
                         </div>
                     </div>
-                    <div id="artist" hidden={this.state.quantifier !== "user" && this.state.quantifier !== "all"}>
+                    <div id="artist" hidden={this.state.resultQuery.quantifier !== "user" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Artist</div>

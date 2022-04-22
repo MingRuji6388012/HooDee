@@ -75,3 +75,8 @@ export async function searchMusicInPlaylist(playlist_id:number){ // it is questi
         method: "GET"
     }).then(res => res.json() as Promise<QueryMusicInPlaylist>);
 }
+
+export async function searchPlaylistByCreatorName(queryText: string){
+    return fetch(`${API_URL}/search_by_authorname/${queryText}`)
+    .then(res => res.json() as Promise<QueryManyPlaylists>);
+}

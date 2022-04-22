@@ -12,7 +12,7 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
         let $_GET = get_parameter() as QuantifierRadioButtonState;
         this.state = {
             quantifier: $_GET["quantifier"] !== undefined ? $_GET["quantifier"] : "all",
-            subQuantifier: "itsName"
+            subQuantifier: $_GET["subQuantifier"] !== undefined ? $_GET["subQuantifier"] : "itsName"
         };
         this.handlePrimaryQuantifierChange = this.handlePrimaryQuantifierChange.bind(this);
         this.handleSecondaryQuantifierChange = this.handleSecondaryQuantifierChange.bind(this);
@@ -79,7 +79,7 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
                                 <label className="form-check-label">By It's name</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inline mx-0 px-4">
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="CreatorName" checked={this.state.subQuantifier === "CreatorName"}/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="creatorName" checked={this.state.subQuantifier === "creatorName"}/>
                                 <label className="form-check-label">By Creator name</label>
                             </div>,
                         ]
