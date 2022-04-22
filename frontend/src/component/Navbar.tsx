@@ -1,24 +1,24 @@
 import { Component } from "react";
-import { refetchUserInfo } from "../common";
+import { refetchUserInfo, ROLES } from "../common";
 import "../css/navbar.css";
+import { UserButInSessionStorage } from "../model/User";
 
 interface NavbarState{
-    isLoggedin: boolean;
     buttonLogInOut: JSX.Element | null;
+    adminFeatures: JSX.Element[];
 }
 class Navbar extends Component<{}, NavbarState> {
     constructor(props:any){
         super(props);
-        let userJSON = sessionStorage.getItem("user");
         this.state = {
-            isLoggedin: userJSON === null,
-            buttonLogInOut: null
+            buttonLogInOut: null,
+            adminFeatures: []
         };
     }
 
-    updateLoginButton(){
+    updateLoginButton(user: UserButInSessionStorage | null){
         let text, className, onClick;
-        if(this.state.isLoggedin) {
+        if(!user) {
             text = "Log in";
             className = "";
             onClick = () => window.location.href = "/login";
@@ -38,9 +38,40 @@ class Navbar extends Component<{}, NavbarState> {
      }
     
     componentDidMount(){
-        console.log("refetching");
-        refetchUserInfo();
-        this.updateLoginButton();
+        let userJSON = sessionStorage.getItem("user");
+        let user = null;
+        if(userJSON){
+            refetchUserInfo().then(() => {
+                userJSON = sessionStorage.getItem("user") as string;
+                user = JSON.parse(userJSON) as UserButInSessionStorage;
+                this.addAdminFeatures(user)
+                this.updateLoginButton(user);
+                this.forceUpdate();
+            }).catch(() => {
+                console.log("fetch failed");
+            });
+        }
+        else{
+            this.updateLoginButton(user);
+            this.forceUpdate();
+        }
+    }
+
+    addAdminFeatures(user:UserButInSessionStorage){
+        if(user.Role === ROLES.admin){
+            this.setState({
+                adminFeatures: [
+                    <li className="nav_items" key="add">
+                        <a href="add">Add</a>
+                    </li>, 
+                    <li className="nav_items" key="manage">
+                        <a href="manage">Manage</a>
+                    </li>
+                ]
+            }, () =>  {
+                this.forceUpdate();
+            });
+        }
     }
 
     render() {
@@ -51,13 +82,14 @@ class Navbar extends Component<{}, NavbarState> {
                 </a>
                 <nav>
                     <ul className="nav_links">
-                        <li className="nav_items">
+                        {this.state.adminFeatures}
+                        <li className="nav_items" key="search">
                             <a href="search">Search</a>
                         </li>
-                        <li className="nav_items">
+                        <li className="nav_items" key="about us">
                             <a href="about_us">About Us</a>
                         </li>
-                        <li>
+                        <li key="buttonlog">
                             {this.state.buttonLogInOut}
                         </li>
                     </ul>

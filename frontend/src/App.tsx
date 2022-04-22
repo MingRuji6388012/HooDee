@@ -28,6 +28,8 @@ function App() {
                 <Route path="/result" element={<ResultPage/>}></Route>
                 <Route path="/signup" element={<SignUpPage/>}></Route>
                 <Route path="/signup-2fa" element={<SignUp2FAPage/>}></Route>
+                <Route path="/add" element={<div/>}></Route>
+                <Route path="/manage" element={<div/>}></Route>
             </Routes>
         </BrowserRouter>
     );
