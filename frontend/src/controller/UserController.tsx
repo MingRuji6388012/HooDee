@@ -1,5 +1,5 @@
 import GeneralResponse from "../model/GeneralResponse";
-import { QueryManyUsers, QueryOneUser, ResponseFromAuthen, UserButInSessionStorage } from "../model/User";
+import { QueryManyUsers, QueryOneUser, ResponseFromAuthen } from "../model/User";
 import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/user`;
@@ -10,7 +10,7 @@ export async function searchUserByUserID(userID: number){
 }
 
 export async function seachUsersByUserName(queryStr: string){
-    return fetch(`${API_URL}/search_by_username?UserName=${queryStr}`).then(res => res.json() as Promise<QueryManyUsers>);
+    return fetch(`${API_URL}/search_by_username?UserName=${queryStr}}`).then(res => res.json() as Promise<QueryManyUsers>);
 }
 
 export async function userFollowUser(followeeID: string, followerID: string){
@@ -91,3 +91,14 @@ export async function signup2FA(code:string, email:string){
     })
     .then(res => res.json() as Promise<ResponseFromAuthen>);
 }
+
+export async function searchUserByFirstName(queryText:string){
+    return fetch(`${API_URL}/search_by_firstname/${queryText}`)
+    .then(res => res.json() as Promise<QueryManyUsers>);
+}
+
+export async function searchUserByUserNameButRole(queryText:string, role: number){
+    return fetch(`${API_URL}/search_by_username_but_role_specific?UserName=${queryText}&Role=${role}`)
+    .then(res => res.json() as Promise<QueryManyUsers>);
+}
+

@@ -242,7 +242,8 @@ user_api_route.put("/edit", function(req, res){
      *          "UserName" : value or null,
      *          "FirstName" : value or null,
      *          "LastName" : value or null,
-     *          "DOB" : value or null
+     *          "DOB" : value or null,
+     *          "Password" : value or null
      *      }
      * }
      * in req body
@@ -254,15 +255,30 @@ user_api_route.put("/edit", function(req, res){
      * }
      * 
      */
-    console.log("editing");
-    let user = req.body.User
-    let user_id = user.UserID;
-    if(user.Password !== undefined){ delete user.password; } // strictly cant change
+    console.log("editing user ", user.UserID);
+    const user = req.body.User
+    const user_id = user.UserID;
     if(user.Email !== undefined){ delete user.Email; }   // strictly cant change
+    if(user.Salt !== undefined){ delete user.Salt; }     // strictly cant change
+    if(user.TimeCreated !== undefined){ delete user.TimeCreated; }     // strictly cant change
+    if(user.IsDeleted !== undefined){ delete user.IsDeleted; }     // strictly cant change
+    if(user.Secret !== undefined){ delete user.Secret; }     // strictly cant change
+    if(user.Role !== undefined){ delete user.Role; }     // strictly cant change
+    
+    if(user.Password === null){ delete user.password; }
     if(user.UserName === null){ delete user.UserName; }
     if(user.FirstName === null){ delete user.FirstName; }
     if(user.LastName === null){ delete user.LastName; }
     if(user.DOB === null){ delete user.DOB; }
+
+    if(user.Password){
+        const password = req.body.User.Password;
+        const salt = crypto.randomBytes(20).toString("hex");
+        const hashed_password = crypto.createHash('sha256').update(password + salt).digest('hex');
+        user.Password = hashed_password;
+        user.Salt = salt;
+    }
+
     connection.query("UPDATE User SET ? WHERE UserID = ?;", [user, user_id], function (error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString()});
         else res.send({error: false, message: "edit user profile complete"});
@@ -299,7 +315,7 @@ user_api_route.get("/search_by_username", function(req, res){
      * Search users in db by username
      * expected to get
      * {
-     *      "UserName" : value,
+     *      "UserName" : value
      * }
      * in req query
      * 
@@ -369,5 +385,42 @@ user_api_route.get("/search_by_id/:id", function(req, res){
         else res.send({error: false, message: "User is deleted or no user use that id", user: null});
     });
 });
+
+user_api_route.get("/search_by_firstname/:firstname", function(req, res){
+    const firstname = req.params.firstname;
+    if (firstname == null) {res.status(400).send({error: true, users: null, message: "firstname can't be null"}); return;}
+    const firstname_query = "%" + firstname + "%";
+    connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE FirstName LIKE ? AND IsDeleted = False;", firstname_query, function(error, results, fields){
+        if(error) res.status(500).send({error: true, users: null, messsage: error.toString()});
+        else res.send({error: false, users: results, message: "returning found users"});
+    });
+});
+
+user_api_route.get("/search_by_username_but_role_specific", function(req, res){
+    /**
+     * Search users in db by username
+     * expected to get
+     * {
+     *      "UserName" : value,
+     *      "Role" : value
+     * }
+     * in req query
+     * 
+     * expected to response
+     * {
+     *      "error" : bool,
+     *      "users" : list of user(username, firstname, lastname, dob, userprofileimg, role) or null,
+     *      "message" : exception message 
+     * }
+     */
+    const username = req.query.UserName, role = req.query.Role;
+    if (!username|| !role) {res.status(400).send({error: true, users: null, message: "UserName or role scan't be null"}); return;}
+    const username_query = "%" + username + "%";
+    connection.query("SELECT UserID, UserName, FirstName, LastName, DOB, UserProfileIMG, Role FROM User WHERE UserName LIKE ? AND IsDeleted = False AND Role = ?;", [username_query, role], function(error, results, fields){
+        if(error) res.status(500).send({error: true, users: null, messsage: error.toString()});
+        else res.send({error: false, users: results, message: "returning found users"});
+    });
+});
+
 
 module.exports.user_api_route = user_api_route;

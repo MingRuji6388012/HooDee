@@ -20,7 +20,7 @@ class RowVerticalCard extends Component<RowProps>{
                 user = this.props.users[i];
                 top_text = user.UserName;
                 bottom_text = "User";
-                img = user.UserProfileIMG ? user.UserProfileIMG : "/what is love.jpg"; // default value
+                img = user.UserProfileIMG ? user.UserProfileIMG : "/ProfilePic/DefaultProfilePic.png"; // default value
                 href = `/user?userid=${user.UserID}`; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">
@@ -40,7 +40,7 @@ class RowVerticalCard extends Component<RowProps>{
                 playlist = this.props.playlists[i];
                 top_text = playlist.PlaylistName;
                 bottom_text = playlist.UserName;
-                img = playlist.PlaylistIMG ? playlist.PlaylistIMG : "/what is love.jpg"; // default value
+                img = playlist.PlaylistIMG ? playlist.PlaylistIMG : "/ProfilePic/DefaultProfilePic.png"; // default value
                 href = `/playlist?playlistid=${playlist.PlaylistID}`; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">
@@ -60,7 +60,7 @@ class RowVerticalCard extends Component<RowProps>{
                 music = this.props.musics[i];
                 top_text = music.MusicName;
                 bottom_text = music.UserName;
-                img = music.MusicIMG ? music.MusicIMG : "/what is love.jpg"; // default value
+                img = music.MusicIMG ? music.MusicIMG : "/ProfilePic/DefaultProfilePic.png"; // default value
                 href = music.MusicFile; // TODO: tbd
                 cards_tobe_append.push(
                     <div className="col-lg-2">

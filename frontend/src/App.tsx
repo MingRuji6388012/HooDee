@@ -12,6 +12,7 @@ import SignUpPage from './page/signup';
 import SignUp2FAPage from './page/signup-2fa';
 import HomePage from "./page/home";
 import PlaylistPage from "./page/playlist";
+import EditPage from "./page/edit";
 // import Navbar_user from "./component/Navbar";
 
 
@@ -30,7 +31,7 @@ function App() {
                 <Route path="/signup" element={<SignUpPage/>}></Route>
                 <Route path="/signup-2fa" element={<SignUp2FAPage/>}></Route>
                 <Route path="/add" element={<div/>}></Route>
-                <Route path="/manage" element={<div/>}></Route>
+                <Route path="/edit" element={<EditPage/>}></Route>
             </Routes>
         </BrowserRouter>
     );

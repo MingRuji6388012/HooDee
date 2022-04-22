@@ -46,3 +46,10 @@ export const ROLES = {
     admin: 1,
     artist: 2
 };
+
+export function goHomeKiddos(){
+    // for unauthorized access
+    window.location.replace("/"); 
+    // alert("Normies can't access"); 
+    return;
+}

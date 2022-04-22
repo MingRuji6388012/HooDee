@@ -22,9 +22,9 @@ class DomainSelection extends Component<{}, EditPageState>{
     render(){
         return(
             <div className = "DomainList">
-                <button onClick = {this.setPressingState} className = "DomainButton">User/Artist</button>
+                {/* <button onClick = {this.setPressingState} className = "DomainButton">User/Artist</button>
                 <button onClick = {this.setPressingState} className = "DomainButton">Music</button>
-                <button onClick = {this.setPressingState} className = "DomainButton">Playlist</button>
+                <button onClick = {this.setPressingState} className = "DomainButton">Playlist</button> */}
             </div>
         )
     }

@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { MusicWithUserName } from "../model/Music";
 import Dropdown from "./Dropdown";
 
 interface HorizontalCardProps {
@@ -11,6 +12,15 @@ interface HorizontalCardProps {
 }
 
 class HorizontalCard extends Component<HorizontalCardProps> {
+    static createListOfHorizonaltalCardFromMusicWithUserName(musics: MusicWithUserName[]|null){
+        if (!musics) return [];
+        let musicsComponent:JSX.Element[] = [];
+        musics.forEach((v) => {
+            musicsComponent.push(<HorizontalCard top_text={v.MusicName} bottom_text={v.UserName} img_url={v.MusicIMG} href={v.MusicFile} type="music" card_info={v} />)
+        });
+        return musicsComponent;
+    }
+
     render(){
         return (
             <div>
