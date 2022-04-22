@@ -41,3 +41,8 @@ export async function refetchUserInfo(){
     });
 }
 
+export const ROLES = {
+    user: 0,
+    admin: 1,
+    artist: 2
+};

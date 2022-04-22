@@ -167,9 +167,16 @@ playlist_api_route.get("/search_by_playlistid", function(req, res){
 
 playlist_api_route.get("/musics_in_playlist", function(req, res){
     const playlist_id = req.query.PlaylistID;
-    connection.query("SELECT m.MusicID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserID, u.UserName  FROM MusicInPlaylist mip INNER JOIN Music m ON mip.MusicID = m.MusicID INNER JOIN User u ON m.UserID = u.UserID WHERE PlaylistID = ? AND m.IsDeleted = false;", playlist_id, function(error, results, fields){
-        if(error) res.status(500).send({error: true, message: error.toString(), playlist: null});
-        else res.send({error: false, message: "getting music success", musics: results});
+    connection.query("SELECT PlaylistID, PlaylistName, PlaylistIMG, PlaylistCreator, p.TimeCreated, u.UserName FROM Playlist p INNER JOIN User u ON p.PlaylistCreator = u.UserID WHERE PlaylistID = ? AND p.IsDeleted = false;", playlist_id, function(error, results, fields){
+        if(error) res.status(500).send({error: true, message: error.toString(), playlist: null, musics: null});
+        else if(!results.length) res.status(404).send({error: true, message: "Playlist was deleted, or doesn't exist in the first place.", playlist: null, musics: null});
+        else{ 
+            let playlist = results[0];
+            connection.query("SELECT m.MusicID, u.UserID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID INNER JOIN MusicInPlaylist mip ON mip.MusicID = m.MusicID WHERE mip.PlaylistID = ? AND m.IsDeleted = False ;", playlist_id, function(error, results, fields){
+                if(error) res.status(500).send({error: true, message: error.toString(), playlist: null, musics: null});
+                else res.send({error: false, message: "getting music success", playlist:playlist, musics: results});
+            });
+        }
     });
 });
 
