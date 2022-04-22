@@ -31,6 +31,7 @@ class RowVerticalCard extends Component<RowProps>{
         }
         return cards_tobe_append;
     }
+    
     playlistType(){
         if(this.props.playlists === null) {return [];}
         let top_text, bottom_text, img, href, playlist, cards_tobe_append = [];

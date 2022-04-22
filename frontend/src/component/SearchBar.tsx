@@ -26,9 +26,11 @@ class SearchBar extends Component<any, stateSearchBar> {
     handleTextChange(e:any) {
         this.setState({queryText: e.target.value});
     }
+
     handleRadioChange(e:any){
         this.setState({quantifier: e.target.value});
     }
+
     render(): ReactNode {
         return (
             <div className="bar container px-0 my-5">
