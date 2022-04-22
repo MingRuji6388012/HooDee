@@ -63,9 +63,6 @@ class Navbar extends Component<{}, NavbarState> {
                 adminFeatures: [
                     <li className="nav_items" key="add">
                         <a href="add">Add</a>
-                    </li>, 
-                    <li className="nav_items" key="manage">
-                        <a href="manage">Manage</a>
                     </li>
                 ]
             }, () =>  {

@@ -1,5 +1,4 @@
 import { Component, ReactNode } from "react";
-import SearchBar from "../component/SearchBar";
 import RowVerticalCard from "../component/RowVerticalCard";
 import { MusicWithUserName, QueryManyMusics } from "../model/Music";
 import { QueryManyUsers } from "../model/User";
@@ -12,6 +11,7 @@ import { get_parameter } from "../common";
 import { seachUsersByUserName } from "../controller/UserController";
 import { searchMusicsByMusicName } from "../controller/MusicController";
 import { searchPlaylistsByPlaylistName } from "../controller/PlaylistController";
+import UserSearchBar from "../component/UserSearchBar";
 interface resultQuery {
     // ?queryText=text&quantifier=all
     queryText: string;
@@ -189,7 +189,7 @@ class ResultPage extends Component <{}, resultState> {
         // <a href="">Show all</a> i remove this thing from html below, hence styling that apply and a tag is gone.
         return (
             <div>
-                <SearchBar />
+                <UserSearchBar />
                 <div className="container music-container">
                     <div id="top-music" hidden={this.state.quantifier !== "music" && this.state.quantifier !== "all"}>
                         <div className="row my-3">
