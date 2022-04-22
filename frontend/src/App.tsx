@@ -12,6 +12,7 @@ import SignUpPage from './page/signup';
 import SignUp2FAPage from './page/signup-2fa';
 import HomePage from "./page/home";
 import PlaylistPage from "./page/playlist";
+// import Navbar_user from "./component/Navbar";
 
 
 function App() {
@@ -19,8 +20,8 @@ function App() {
         <BrowserRouter>
             <Navbar/>
             <Routes>
-                <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/about_us" element={<About_usPage/>}></Route>
+                <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/search" element={<SearchPage/>}></Route>
                 <Route path="/user" element={<UserPage/>}></Route>
