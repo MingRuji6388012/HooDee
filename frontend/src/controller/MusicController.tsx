@@ -1,5 +1,5 @@
 import GeneralResponse from "../model/GeneralResponse";
-import { QueryManyMusics } from "../model/Music";
+import { QueryManyMusics, QueryOneMusic } from "../model/Music";
 import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/music`;
@@ -27,4 +27,9 @@ export async function removeMusic(musicID: number){
 export async function searchMusicByAuthorName(queryStr: string) {
     return fetch(`${API_URL}/search_by_authorname/${queryStr}`)
     .then(res => res.json() as Promise<QueryManyMusics>);
+}
+
+export async function searchMusicsByMusicID(music_id:number) {
+    return fetch(`${API_URL}/search_by_musicid/${music_id}`)
+    .then(res => res.json() as Promise<QueryOneMusic>);
 }

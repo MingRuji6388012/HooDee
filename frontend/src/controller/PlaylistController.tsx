@@ -70,7 +70,7 @@ export async function searchPlaylistFollowedByUserID(userID: number){
     return fetch(`${API_URL}/user_follow/${userID}`).then(res => res.json() as Promise<QueryManyPlaylists>);
 }
 
-export async function searchMusicInPlaylist(playlist_id:number){ // it is questionable that this one should be in this file or music
+export async function searchMusicInPlaylistByPlaylistID(playlist_id:number){ // it is questionable that this one should be in this file or music
     return fetch(`${API_URL}/musics_in_playlist?PlaylistID=${playlist_id}`, {
         method: "GET"
     }).then(res => res.json() as Promise<QueryMusicInPlaylist>);

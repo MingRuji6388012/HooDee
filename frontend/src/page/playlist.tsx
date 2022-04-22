@@ -1,7 +1,8 @@
 import { Component } from "react";
 import { get_parameter } from "../common";
+import BundleOfHorizonalCard from "../component/BundleOfHorizontalCard";
 import HorizontalCard from "../component/HorizontalCard";
-import { searchMusicInPlaylist } from "../controller/PlaylistController";
+import { searchMusicInPlaylistByPlaylistID } from "../controller/PlaylistController";
 import "../css/playlist.css";
 import { PlaylistWithUserName, QueryMusicInPlaylist } from "../model/Playlist";
 
@@ -38,7 +39,7 @@ class PlaylistPage extends Component <{}, PlaylistPageState>{
     componentDidMount() {
         const {playlistid} = get_parameter() as PlaylistPageParameter;
 
-        searchMusicInPlaylist(playlistid).then(resMusicsInPlaylist => {
+        searchMusicInPlaylistByPlaylistID(playlistid).then(resMusicsInPlaylist => {
             if(!resMusicsInPlaylist.error){
                 console.log(JSON.stringify(resMusicsInPlaylist));
                 let musicsComponent:JSX.Element[] = [];
@@ -81,25 +82,7 @@ class PlaylistPage extends Component <{}, PlaylistPageState>{
                         </div>
                     </div>
                 </section>
-
-                <section className="music-section my-3">
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-1"></div>
-                            <div className="col-lg-11 music-title">Musics</div>
-                        </div>
-                    </div>
-
-                    <div className="container">
-                        <div className="row">
-                            <div className="col-lg-1"></div>
-                            <div className="col-lg-10" id="music-append">
-                                {this.state.musicsComponent}
-                            </div>
-                            <div className="col-lg-1"></div>
-                        </div>
-                    </div>
-                </section>
+                <BundleOfHorizonalCard topText="Music" horiCards={this.state.musicsComponent}/>
             </div>
         );
     }

@@ -17,3 +17,7 @@ export interface MusicWithUserName extends Music{
 export interface QueryManyMusics extends GeneralResponse {
     musics: MusicWithUserName[] | null;
 }
+
+export interface QueryOneMusic extends GeneralResponse {
+    music: MusicWithUserName | null;
+}
