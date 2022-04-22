@@ -25,7 +25,6 @@ class SearchBar extends Component<{}, SearchBarState> {
     }
 
     render(): ReactNode {
-        console.log(this.state.queryText);
         return (    
             <div className="bar container px-0 my-5">
                 <div className="input-group">
