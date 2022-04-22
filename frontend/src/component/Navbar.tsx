@@ -58,20 +58,18 @@ class Navbar extends Component<{}, NavbarState> {
     }
 
     addAdminFeatures(user:UserButInSessionStorage){
-        if(user.Role === ROLES.admin){
-            this.setState({
-                adminFeatures: [
-                    <li className="nav_items" key="add">
-                        <a href="add">Add</a>
-                    </li>, 
-                    <li className="nav_items" key="manage">
-                        <a href="manage">Manage</a>
-                    </li>
-                ]
-            }, () =>  {
-                this.forceUpdate();
-            });
-        }
+        this.setState({
+            adminFeatures: [
+                <li className="nav_items" key="add">
+                    <a href="add">Add</a>
+                </li>, 
+                <li className="nav_items" key="manage">
+                    <a href="manage">Manage</a>
+                </li>
+            ]
+        }, () =>  {
+            this.forceUpdate();
+        });
     }
 
     render() {
