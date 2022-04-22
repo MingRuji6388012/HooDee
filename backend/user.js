@@ -69,9 +69,6 @@ user_api_route.post("/registeration", function(req, res) {
         else{
             QRCode.toDataURL(authenticator.keyuri(email, 'HooDee', secret), (err, url) => {
                 if (err) {throw err}
-                // req.session.qr = url;
-                // req.session.email = email;
-                // res.redirect('/sign-up-2fa'); //Redirect to 2FA Page
                 res.send({error: false, email: email, qr: url});
             });
         }
