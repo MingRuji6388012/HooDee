@@ -1,3 +1,4 @@
+import { ROLES } from "../common";
 import GeneralResponse from "../model/GeneralResponse";
 import { QueryManyUsers, QueryOneUser, ResponseFromAuthen } from "../model/User";
 import { API_PORT } from "../setting"
@@ -65,8 +66,9 @@ export async function login(email:string, password:string, fa2:string){
     .then(res => res.json() as Promise<ResponseFromAuthen>);
 }
 
-export async function signup(email:string, fname:string, lname:string, username:string, password:string){
-    const auth = { "User" : {"Email": email, "FirstName": fname, "Lastname": lname, "UserName": username, "Password": password} };
+export async function signup(email:string, fname:string, lname:string, username:string, password:string, role:number){
+    if(!Object.values(ROLES).includes(role)){throw new Error("invalid role");}
+    const auth = { "User" : {"Email": email, "FirstName": fname, "LastName": lname, "UserName": username, "Password": password, "Role": role} };
     return fetch(`${API_URL}/registeration`, {
         headers: {
             'Content-Type' : 'application/json',
