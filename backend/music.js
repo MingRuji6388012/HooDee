@@ -160,8 +160,8 @@ music_api_route.put("/edit", function (req,res) {
 });
 
 music_api_route.get("/search_by_musicid/:music_id", function(req, res){
-    const music_id = req.body.music_id;
-    connection.query("SELECT MusicID, m.UserID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE MusicID = ? AND IsDeleted = False;", music_id, function(error, results, fields){
+    const music_id = req.params.music_id;
+    connection.query("SELECT MusicID, m.UserID, MusicName, MusicIMG, MusicFile, m.TimeCreated, u.UserName FROM Music m INNER JOIN User u ON m.UserID = u.UserID WHERE MusicID = ? AND u.IsDeleted = False;", music_id, function(error, results, fields){
         if(error) res.status(500).send({error: true, message: error.toString(), music: null});
         else if(results.length) res.send({error: false, message: "no music use this id", music: null});
         else res.send({error: false, message: "music returned", music: results[0]});
