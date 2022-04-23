@@ -14,7 +14,7 @@ export async function searchUsersByUserName(queryStr: string){
     return fetch(`${API_URL}/search_by_username?UserName=${queryStr}`).then(res => res.json() as Promise<QueryManyUsers>);
 }
 
-export async function userFollowUser(followeeID: string, followerID: string){
+export async function userFollowUser(followerID: number, followeeID: number){
     return fetch(`${API_URL}/follow`, {
         method: "post",
         headers: {
@@ -35,8 +35,8 @@ export async function userUnfollowUser(followerID: number, followeeID: number){
             "Content-Type": "application/json"
         },
         body: JSON.stringify({
-            "FollowerID" : followerID,
-            "FolloweeID" : followeeID
+            "FolloweeID" : followeeID,
+            "FollowerID" : followerID
         })
     })
     .then(res => res.json() as Promise<GeneralResponse>);

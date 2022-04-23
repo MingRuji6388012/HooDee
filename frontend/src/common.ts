@@ -53,3 +53,11 @@ export function goHomeKiddos(){
     // alert("Normies can't access"); 
     return;
 }
+
+export function is_user_followed(user_id:number, users_followee:{FolloweeID: number}[]){
+    return users_followee.map(v => v.FolloweeID === user_id).reduce((a, b) => a || b, false);
+}
+
+export function is_playlist_followed(playlist_id:number, playlists_followed:{PlaylistID: number}[]){
+    return playlists_followed.map(v => v.PlaylistID === playlist_id).reduce((a, b) => a || b, false);;
+}

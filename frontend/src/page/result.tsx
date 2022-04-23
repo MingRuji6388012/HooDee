@@ -108,9 +108,8 @@ class ResultPage extends Component <{}, ResultState> {
         
         Promise.all([user_list, music_list, playlist_list]).then((values) => {
             const [users, musics, playlists] = values as [QueryManyUsers, QueryManyMusics, QueryManyPlaylists];
-            this.setState({userFetch: users, musicFetch: musics, playlistFetch: playlists});
+            this.setState({userFetch: users, musicFetch: musics, playlistFetch: playlists}, this.updateComponent);
             console.log(users, musics, playlists);
-            this.updateComponent();
         });
     }
 
@@ -118,8 +117,8 @@ class ResultPage extends Component <{}, ResultState> {
         const users = this.state.userFetch, musics = this.state.musicFetch, playlists = this.state.playlistFetch;
         let userComponents = [], playlistComponents = [], musicComponents = [], topMusicComponent = null;
 
-        if(this.state.resultQuery.quantifier === "user" || this.state.resultQuery.quantifier === "all"){
-            for(let idx = 0; users !== null && users.users !== null && idx < users.users.length; idx+=EACH_ROW){
+        if((this.state.resultQuery.quantifier === "user" || this.state.resultQuery.quantifier === "all") &&  users && users.users){
+            for(let idx = 0; idx < users.users.length; idx+=EACH_ROW){
                 const users5 = users.users.slice(idx, idx+EACH_ROW);
                 userComponents.push(
                     <RowVerticalCard users={users5} type={"user"}/>
@@ -127,7 +126,7 @@ class ResultPage extends Component <{}, ResultState> {
                 if(this.state.userHidden) break;
             }
         }
-        if((this.state.resultQuery.quantifier === "music" || this.state.resultQuery.quantifier === "all") && musics !== null && musics.musics !== null && musics.musics.length){
+        if((this.state.resultQuery.quantifier === "music" || this.state.resultQuery.quantifier === "all") && musics && musics.musics && musics.musics.length > 0){
             let music: MusicWithUserName = musics.musics[0];
             topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
             
@@ -139,9 +138,8 @@ class ResultPage extends Component <{}, ResultState> {
                 if(this.state.musicHidden && musicComponents.length >= EACH_ROW-1) break;
             }
         }
-        
-        if(this.state.resultQuery.quantifier === "playlist" || this.state.resultQuery.quantifier === "all"){
-            for(let idx = 0; playlists !== null && playlists.playlists !== null && idx < playlists.playlists.length; idx+=EACH_ROW){
+        if((this.state.resultQuery.quantifier === "playlist" || this.state.resultQuery.quantifier === "all") &&  playlists && playlists.playlists){
+            for(let idx = 0; idx < playlists.playlists.length; idx+=EACH_ROW){
                 const playlists5 = playlists.playlists.slice(idx, idx+EACH_ROW);
                 playlistComponents.push(
                     <RowVerticalCard playlists={playlists5} type={"playlist"}/>
