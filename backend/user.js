@@ -64,12 +64,11 @@ user_api_route.post("/registeration", function(req, res) {
         Secret : secret
     };
     connection.query("INSERT INTO User SET ?;", user, function(error, result, fields) {
-        if (error) res.status(500).send({ error: true, message: error.toString()});
-        // res.status(400).send({ authenticate: false, message: "SQL SUCKS" });
+        if (error) res.status(500).send({ error: true, message: error.toString(), email:null, qr:null});
         else{
             QRCode.toDataURL(authenticator.keyuri(email, 'HooDee', secret), (err, url) => {
                 if (err) {throw err}
-                res.send({error: false, email: email, qr: url});
+                res.send({error: false, message: "half way though, please scan qrcode", email: email, qr: url});
             });
         }
     });
