@@ -27,6 +27,7 @@ user_api_route.post("/registeration", function(req, res) {
         "User" : {
             "Email" : value,         necessary
             "Password" : value       necessary
+            "Role" : value           {testing purpose}
         }
     }
     in the body
@@ -57,7 +58,7 @@ user_api_route.post("/registeration", function(req, res) {
         DOB : req.body.User.DOB,
         Password : hashed_password,
         salt : salt,
-        Role : 0, // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
+        Role : req.body.User.Role, // role = 0 -> User, role = 1 -> Artist, role = 2 -> Administrator
         TimeCreated : new Date().toISOString().slice(0, 19).replace('T', ' '),
         IsDeleted : false,
         Secret : secret
@@ -68,9 +69,6 @@ user_api_route.post("/registeration", function(req, res) {
         else{
             QRCode.toDataURL(authenticator.keyuri(email, 'HooDee', secret), (err, url) => {
                 if (err) {throw err}
-                // req.session.qr = url;
-                // req.session.email = email;
-                // res.redirect('/sign-up-2fa'); //Redirect to 2FA Page
                 res.send({error: false, email: email, qr: url});
             });
         }
@@ -264,7 +262,7 @@ user_api_route.put("/edit", function(req, res){
     if(user.IsDeleted !== undefined){ delete user.IsDeleted; }     // strictly cant change
     if(user.Secret !== undefined){ delete user.Secret; }     // strictly cant change
     if(user.Role !== undefined){ delete user.Role; }     // strictly cant change
-    
+
     if(user.Password === null){ delete user.password; }
     if(user.UserName === null){ delete user.UserName; }
     if(user.FirstName === null){ delete user.FirstName; }

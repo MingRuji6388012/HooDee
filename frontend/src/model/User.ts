@@ -16,10 +16,11 @@ export interface UserWithFollowerFollowee extends User{
     Followees: {FolloweeID: number}[]; // only ids were fetched
 }
 
-export interface UserButInSessionStorage extends User {
+export interface UserButInSessionStorage extends UserWithFollowerFollowee {
     Email:string;
     TimeCreated:Date;
     Playlists: PlaylistWithUserName[];
+    PlaylistsFollow: PlaylistWithUserName[];
 }
 
 export interface ResponseFromAuthen extends GeneralResponse {

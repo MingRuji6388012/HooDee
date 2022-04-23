@@ -1,10 +1,10 @@
 import { Component } from "react";
-import { refetchUserInfo } from "../common";
+import { ROLES } from "../common";
 import { removeMusic } from "../controller/MusicController";
 import { addNewMusicToPlaylist, playlistUnfollow, removePlaylist, playlistFollow } from "../controller/PlaylistController";
 import { removeUser, userFollowUser, userUnfollowUser } from "../controller/UserController";
 import { Playlist } from "../model/Playlist";
-import { User } from "../model/User";
+import { User, UserButInSessionStorage } from "../model/User";
 
 interface DrowdownProps{
     type:string;
@@ -15,13 +15,13 @@ interface DrowdownState{
     sessionedOptions: JSX.Element[];
 }
 class Dropdown extends Component<DrowdownProps, DrowdownState> {
-    private static ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser", "removeUser", "removeMusic", "removePlaylist", "unfollowPlaylist", "unfollowUser"];
+    private static ACTION_IN_SELECT = ["addToPlaylist", "followPlaylist", "redirectToUser", "share", "followUser", "removeUser", "removeMusic", "removePlaylist", "unfollowPlaylist", "unfollowUser", "edit"];
     cardOwnerID:string; // user id, for easy accessing
     constructor(props:DrowdownProps){
         super(props);
         this.state = {
             selected : "",
-            sessionedOptions: []
+            sessionedOptions: this.create_dropdown_session_related_options()
         };
         if(props.type === "playlist"){
             this.cardOwnerID = props.dropdownOn.PlaylistCreator;
@@ -36,7 +36,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         const selectedAction = e.target.value as string;
         console.log(selectedAction);
         const [command, params] = selectedAction.split(":");
-        let music_id, playlist_id, user_id, followee_id;
+        let music_id, playlist_id, user_id, followee_id, ty, id;
         switch (command) {
             case Dropdown.ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
                 [music_id, playlist_id] = params.split(",").map(v => Number(v));
@@ -147,6 +147,10 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                     }
                 });
                 break;
+            case Dropdown.ACTION_IN_SELECT[10]: // edit:type,id
+                [ty, id] = params.split(",");
+                window.location.href = `/edit?type=${ty}&id=${id}`
+                break;
             default:
                 console.log(`Command ${selectedAction} invalid: misuse of ondropdown_change function`);
         }
@@ -155,28 +159,36 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
     }
 
     static updateUserInStorage(){
-        refetchUserInfo();
+        // refetchUserInfo();
+        window.location.reload();
     }
 
     resetSelected(){
         this.setState({selected : ""});
     }
 
-    create_dropdown_session_related_options(){
+    create_dropdown_session_related_options(): JSX.Element[]{
         const userJSON = sessionStorage.getItem("user");
         if(!userJSON){ // if not in session, GTFO
             return [];
         }
-        const user = JSON.parse(userJSON);
+        const user = JSON.parse(userJSON) as UserButInSessionStorage;
         let dropdown_sessioned_options = [], followed, text, selected_value;
         if(this.props.type === "music" && this.props.dropdownOn){ // assume dropdownOn is Music
-            if(user.Role === 1){
+            if(user.Role === ROLES.admin){
                 dropdown_sessioned_options.push(
-                    <option className="opt" value={`removeMusic:${this.props.dropdownOn.MusicID}`}>Delete this music</option>
+                    <option className="opt" value={`removeMusic:${this.props.dropdownOn.MusicID}`}>Delete this music</option>,
+                    <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this user</option>
                 );
             }
+            else{
+                if(this.props.dropdownOn.UserID === user.UserID)
+                dropdown_sessioned_options.push(
+                    <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this music</option>
+                );
+            }
+
             dropdown_sessioned_options.push(<optgroup className="opt" label="Add to playlist : " />);
-    
             const playlists = user.Playlists;
             for(let idx = 0; idx < playlists.length; idx++){
                 dropdown_sessioned_options.push(
@@ -197,10 +209,16 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             dropdown_sessioned_options.push(
                 <option className="opt" value={selected_value}>{text}</option>
             );
-    
-            if(user.Role === 1){                
+            if(user.Role === ROLES.admin){
                 dropdown_sessioned_options.push(
-                    <option value={`removeUser:${this.props.dropdownOn.UserID}`}>Delele this user</option>
+                    <option className="opt" value={`removeUser:${this.props.dropdownOn.UserID}`}>Delele this user</option>,
+                    <option className="opt" value={`edit:user,${this.props.dropdownOn.UserID}`}>Edit this user</option>
+                );
+            }
+            else{
+                if(this.props.dropdownOn.UserID === user.UserID)
+                dropdown_sessioned_options.push(
+                    <option className="opt" value={`edit:user,${this.props.dropdownOn.UserID}`}>Edit this user</option>
                 );
             }
         }
@@ -218,17 +236,17 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
                 <option className="opt" value={selected_value}>{text}</option>
             );
     
-            if(user.Role === 1){
+            if(user.Role === ROLES.admin){
                 dropdown_sessioned_options.push(
-                    <option className="opt" value={`removePlaylist:${this.props.dropdownOn.PlaylistID}`}>Delete this playlist</option>
+                    <option className="opt" value={`removePlaylist:${this.props.dropdownOn.PlaylistID}`}>Delete this playlist</option>,
+                    <option className="opt" value={`edit:playlist,${this.props.dropdownOn.MusicID}`}>Edit this playlist</option>
                 );
             }
         }
         else{
             console.log("misuse of vertical card function");
         }
-        // return dropdown_sessioned_options; // maybe change this to setstate
-        this.setState({sessionedOptions: dropdown_sessioned_options})
+        return dropdown_sessioned_options;
     }
 
     is_user_followed(user_id:number, users_followee:{FolloweeID: number}[]){
@@ -254,17 +272,13 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         // playlists_followed.map(v => v.PlaylistID === playlist_id).reduce((a, b) => a || b, false);
         return followed;
     }
-    
-    componentDidMount(){
-        this.create_dropdown_session_related_options();
-    }
 
     render() {
         return (
             <div className="dropdown">
                 <select className="dropimg" name="selectoption" onChange={this.onDropdownChange}>
-                    <option value="" hidden={true} disabled={true} selected={this.state.selected === ""}>
-                        <img className="dropimg" width="1" src="/button/dropdown.png"/>
+                    <option value="" hidden={true} disabled={true} defaultChecked>
+                        <img className="dropimg" width="1" src="/button/dropdown.png" alt="dropdown"/>
                     </option>
                     <option className="opt" value={`${Dropdown.ACTION_IN_SELECT[2]}:${((this.props.dropdownOn) as User).UserID ? ((this.props.dropdownOn) as User).UserID : ((this.props.dropdownOn) as Playlist).PlaylistCreator}`}>Go to artist</option>
                     <option className="opt" value="share:">Share</option>

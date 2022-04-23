@@ -96,7 +96,7 @@ button,
     font-size: 21px !important;
     font-weight: 500 !important;
     padding: 5px 30px !important;
-    background-color: #B775FB;
+    background-color: #B775FB !important;
     border: none !important;
     border-radius: 15px !important;
     cursor: pointer !important;
@@ -181,3 +181,4 @@ select {
     width: 20px;
     border: none;
 }
+

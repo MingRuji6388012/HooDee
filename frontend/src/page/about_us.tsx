@@ -1,7 +1,7 @@
 import { Component } from "react";
 import "../css/about_us.css";
 
-class About_usPage extends Component{
+class AboutUsPage extends Component{
     render(){
         return(
             <section className="introduction">
@@ -55,4 +55,4 @@ class About_usPage extends Component{
     }
 }
 
-export default About_usPage;
+export default AboutUsPage;

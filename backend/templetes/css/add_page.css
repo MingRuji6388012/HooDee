@@ -1,0 +1,45 @@
+.header-add{
+    font-size: x-large;
+    text-align: center !important;
+    margin-top: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.profile-pic{
+    background: url("../public/ProfilePic/DefaultProfilePic.png");
+    margin-bottom: 1.5rem;
+    border-radius: 1rem;
+}
+
+.profile-pic:hover{
+    cursor: pointer;
+}
+
+.button-add{
+    background-color: #B775FB !important;
+    margin-top: 1rem;
+}
+
+.button-add:hover{
+    background-color: #62569C !important;
+}
+
+.button-cancel{
+    font-size: large !important;
+    background-color: #403672!important;
+    margin-top: 0.7rem;
+}
+
+.button-cancel:hover{
+    background-color: #403672!important;
+    color: #62569C !important;
+}
+
+.profile-img-block{
+    display: flex;
+    justify-content: center;
+}
+
+input{
+    background-color: #62569C !important;
+}

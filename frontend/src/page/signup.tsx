@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { ROLES } from "../common";
 import { signup } from "../controller/UserController";
 import "../css/signup.css"
 
@@ -8,6 +9,7 @@ interface SignUpPageState {
     lastname:string;
     username:string;
     password:string;
+    role: number;
 }
 class SignUpPage extends Component<{}, SignUpPageState>{
 
@@ -18,7 +20,8 @@ class SignUpPage extends Component<{}, SignUpPageState>{
             firstname : "",
             lastname:"",
             username:"",
-            password:""
+            password:"",
+            role: 0
         };
         this.onSignup = this.onSignup.bind(this);
         this.onEmailChange = this.onEmailChange.bind(this);
@@ -26,10 +29,11 @@ class SignUpPage extends Component<{}, SignUpPageState>{
         this.onLastnameChange = this.onLastnameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onRoleChange = this.onRoleChange.bind(this);
     }
 
     onSignup(_:any){
-        signup(this.state.email, this.state.firstname, this.state.lastname, this.state.username, this.state.password).then((res) => {
+        signup(this.state.email, this.state.firstname, this.state.lastname, this.state.username, this.state.password, this.state.role).then((res) => {
             console.log(res);
             if(!res.error){
                 sessionStorage.setItem("qr", res.qr);
@@ -72,6 +76,12 @@ class SignUpPage extends Component<{}, SignUpPageState>{
         });
     }
 
+    onRoleChange(e: any){
+        this.setState({
+            role: Number(e.target.value)
+        })
+    }
+
     render(){
         return (
             <div className="container mx-auto mt-4">
@@ -96,6 +106,20 @@ class SignUpPage extends Component<{}, SignUpPageState>{
                     <div className="mb-3">
                         <label className="form-label">Password</label>
                         <input type="password" className="form-control" id="Password" name="Password" onChange={this.onPasswordChange}/>
+                    </div>
+                    <div className="role-selection d-flex justify-content-center" onChange={this.onRoleChange}>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="user-radio-button" value={ROLES.user} defaultChecked/>
+                            <label className="form-check-label">User</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="artist-radio-button" value={ROLES.artist} />
+                            <label className="form-check-label">Artist</label>
+                        </div>
+                        <div className="form-check form-check-inline">
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="admin-radio-button" value={ROLES.admin} />
+                            <label className="form-check-label">Admin</label>
+                        </div>
                     </div>
                     <div className="signup-button-block">
                         <input type="button" className="btn signup-button-submit" value="Sign up" onClick={this.onSignup} />
