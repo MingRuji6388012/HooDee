@@ -8,7 +8,7 @@ import "../css/result.css";
 import HalfHorizontalCard from "../component/HalfHorizonalCard";
 import HalfTopCard from "../component/HalfTopCard";
 import { get_parameter, ROLES } from "../common";
-import { seachUsersByUserName, searchUserByFirstName, searchUserByUserNameButRole as searchUserByUserNameButRoleWise } from "../controller/UserController";
+import { searchUsersByUserName, searchUserByFirstName, searchUserByUserNameButRole as searchUserByUserNameButRoleWise } from "../controller/UserController";
 import { searchMusicByAuthorName, searchMusicsByMusicName } from "../controller/MusicController";
 import { searchPlaylistByCreatorName, searchPlaylistsByPlaylistName } from "../controller/PlaylistController";
 import UserSearchBar from "../component/UserSearchBar";
@@ -82,27 +82,27 @@ class ResultPage extends Component <{}, ResultState> {
     
         let user_list = null, music_list = null, playlist_list = null;
         if((quantifier === "user" && subQuantifier === "userName") || (quantifier === "all" && subQuantifier === "itsName")){
-            user_list = seachUsersByUserName(queryText);
+            user_list = searchUsersByUserName(queryText);
         }
-        if(quantifier === "user" && subQuantifier === "firstName") {
+        else if(quantifier === "user" && subQuantifier === "firstName") {
             user_list = searchUserByFirstName(queryText);
         }
-        if(quantifier === "user" && subQuantifier === "userOnly") {
+        else if(quantifier === "user" && subQuantifier === "userOnly") {
             user_list = searchUserByUserNameButRoleWise(queryText, ROLES.user);
         }
-        if(quantifier === "user" && subQuantifier === "artistOnly") {
+        else if(quantifier === "user" && subQuantifier === "artistOnly") {
             user_list = searchUserByUserNameButRoleWise(queryText, ROLES.artist);
         }
         if((quantifier === "music" && subQuantifier === "musicName") || (quantifier === "all" && subQuantifier === "itsName")){
             music_list = searchMusicsByMusicName(queryText);
         }
-        if(quantifier === "music" && subQuantifier === "aritistName"){
+        else if(quantifier === "music" && subQuantifier === "aritistName"){
             music_list = searchMusicByAuthorName(queryText);
         }
         if((quantifier === "playlist" && subQuantifier === "playlistName") || (quantifier === "all" && subQuantifier === "itsName")){
             playlist_list = searchPlaylistsByPlaylistName(queryText);
         }
-        if((quantifier === "playlist" && subQuantifier === "playlistCreatorName") || (quantifier === "all" && subQuantifier === "creatorName")){
+        else if((quantifier === "playlist" && subQuantifier === "playlistCreatorName") || (quantifier === "all" && subQuantifier === "creatorName")){
             playlist_list = searchPlaylistByCreatorName(queryText);
         }
         
