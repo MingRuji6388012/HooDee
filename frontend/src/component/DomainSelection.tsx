@@ -24,6 +24,8 @@ class DomainSelection extends Component<{},DomainSelectionState>{
             classNamePlaylist: 'DomainButton'
         }
         this.changeClassNameUser = this.changeClassNameUser.bind(this);
+        this.changeClassNameMusic = this.changeClassNameMusic.bind(this);
+        this.changeClassNamePlaylist = this.changeClassNamePlaylist.bind(this);
     }
 
     changeClassNameUser = () => {

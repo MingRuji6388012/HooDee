@@ -15,18 +15,16 @@ class LoginPage extends Component<{},  LoginPageState> {
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onFA2Change = this.onFA2Change.bind(this);
-        
     }
     
     onLogin(){
         login(this.state.email, this.state.password, this.state.fa2).then(res => {
-            console.log(JSON.stringify(res));
             if(!res.error && res.authenticate){
                 let user = res.user, token = res.token;
                 searchPlaylistsByUserID(user.UserID).then((res) => {
                     user.Playlists = !res.error && res.playlists !== null? res.playlists : [];
                     sessionStorage.clear();
-                    console.log(JSON.stringify(user));
+                    console.log(JSON.parse(JSON.stringify(user)));
                     sessionStorage.setItem("user", JSON.stringify(user));
                     sessionStorage.setItem("token", token);
                     window.location.replace("/"); //Redirect to HOME -> Redirect to 2FA Page

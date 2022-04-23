@@ -37,3 +37,9 @@ export interface QueryOneUser extends GeneralResponse {
     user: UserWithFollowerFollowee | null;
 }
 
+export interface ResponseFromSignUp{
+    error: boolean;
+    message: string;
+    email: string;
+    qr: string
+}

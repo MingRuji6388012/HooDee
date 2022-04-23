@@ -1,6 +1,6 @@
 import { ROLES } from "../common";
 import GeneralResponse from "../model/GeneralResponse";
-import { QueryManyUsers, QueryOneUser, ResponseFromAuthen } from "../model/User";
+import { QueryManyUsers, QueryOneUser, ResponseFromAuthen, ResponseFromSignUp } from "../model/User";
 import { API_PORT } from "../setting"
 
 const API_URL = `http://localhost:${API_PORT}/api/user`;
@@ -77,7 +77,7 @@ export async function signup(email:string, fname:string, lname:string, username:
         method: "POST",
         body: JSON.stringify(auth),
     })
-    .then(res => res.json() as any);
+    .then(res => res.json() as Promise<ResponseFromSignUp>);
 }
 
 export async function signup2FA(code:string, email:string){

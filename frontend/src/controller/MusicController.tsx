@@ -33,3 +33,12 @@ export async function searchMusicsByMusicID(music_id:number) {
     return fetch(`${API_URL}/search_by_musicid/${music_id}`)
     .then(res => res.json() as Promise<QueryOneMusic>);
 }
+
+export async function createMusic(userid:number, musicName: string, musicFile:string, musicIMG: string) {
+    const music = {Music : {UserID: userid, MusicName: musicName, MusicFile: musicFile, MusicIMG: musicIMG}};
+    return fetch(`${API_URL}/add`, {
+        method: "post",
+        body: JSON.stringify(music),
+        headers: {"Content-Type": "application/json"}
+    }).then(res => res.json() as Promise<GeneralResponse>);
+}

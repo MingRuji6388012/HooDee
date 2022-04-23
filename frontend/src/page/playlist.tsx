@@ -59,7 +59,6 @@ class PlaylistPage extends Component <{}, PlaylistPageState>{
             
         searchMusicInPlaylistByPlaylistID(playlistid).then(resMusicsInPlaylist => {
             if(!resMusicsInPlaylist.error){
-                console.log(resMusicsInPlaylist);
                 let musicsComponent:JSX.Element[] = [];
                 resMusicsInPlaylist.musics?.forEach((v) => {
                     musicsComponent.push(<HorizontalCard top_text={v.MusicName} bottom_text={v.UserName} img_url={v.MusicIMG} href={v.MusicFile} type="music" card_info={v} />)

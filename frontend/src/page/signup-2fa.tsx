@@ -29,12 +29,12 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
             console.log(res);
             if(res.error){
                 console.log(res.message);
-                window.location.replace("/signup")
                 alert("auth fail, try again");
-                return; 
             }
-            sessionStorage.setItem("token", res.token);
-            window.location.replace(`/login`);
+            else{
+                sessionStorage.setItem("token", res.token);   
+                window.location.replace(`/login`);
+            }
         });
     }
 
@@ -49,7 +49,7 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
             <div className="container mx-auto mt-4">
                 <h1>Sign Up - Set 2FA</h1>
                 <div>
-                    <p>Scan the QR Code in the Authenticator app then enter the code that you see in the app in the text field and click Submit.</p>
+                    <p>Scan the QR Code in the <a href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2&hl=en&gl=US">Authenticator app</a> then enter the code that you see in the app in the text field and click Submit.</p>
                     <div className="QR-show"></div>
                     <div id="please-appear-here">
                         <img src={this.state.qr} alt="hopefully qrcode"/>
@@ -57,20 +57,6 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
                     <div className="mb-3">
                         <label className="form-label">2FA Code</label>
                         <input type="text" className="form-control" id="code" name="code" onChange={this.onCodeChange}/>
-                    </div>
-                    <div className="role-selection">
-                        <div className="form-check form-check-inline d-flex justify-content-end">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="user-radio-button" value="user" defaultChecked/>
-                            <label className="form-check-label">1</label>
-                        </div>
-                        <div className="form-check form-check-inline d-flex justify-content-end">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="artist-radio-button" value="artist"/>
-                            <label className="form-check-label">2</label>
-                        </div>
-                        <div className="form-check form-check-inline d-flex justify-content-end">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="admin-radio-button" value="admin"/>
-                            <label className="form-check-label">3</label>
-                        </div>
                     </div>
                     <div className="signup-button-block">
                         <button className="btn signup-button-submit" value="Sign up" onClick={this.onSignUp2FA}>Sign up</button>

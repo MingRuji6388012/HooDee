@@ -13,7 +13,9 @@ import SignUp2FAPage from './page/signup-2fa';
 import HomePage from "./page/home";
 import PlaylistPage from "./page/playlist";
 import EditPage from "./page/edit";
-import DomainSelection from "./component/DomainSelection"
+// import DomainSelection from "./component/DomainSelection"
+import AddPage from "./page/add";
+import { ROLES } from "./common";
 // import Navbar_user from "./component/Navbar";
 
 
@@ -21,7 +23,6 @@ function App() {
     return (
         <BrowserRouter>
             <Navbar/>
-            <DomainSelection/>
             <Routes>
                 <Route path="/about_us" element={<About_usPage/>}></Route>
                 <Route path="/" element={<HomePage/>}></Route>
@@ -30,9 +31,9 @@ function App() {
                 <Route path="/user" element={<UserPage/>}></Route>
                 <Route path="/playlist" element={<PlaylistPage/>}></Route>
                 <Route path="/result" element={<ResultPage/>}></Route>
-                <Route path="/signup" element={<SignUpPage/>}></Route>
+                <Route path="/signup" element={<SignUpPage email="" firstname="" lastname="" password="" role={ROLES.user} username="" />}></Route>
                 <Route path="/signup-2fa" element={<SignUp2FAPage/>}></Route>
-                <Route path="/add" element={<div/>}></Route>
+                <Route path="/add" element={<AddPage/>}></Route>
                 <Route path="/edit" element={<EditPage/>}></Route>
             </Routes>
         </BrowserRouter>

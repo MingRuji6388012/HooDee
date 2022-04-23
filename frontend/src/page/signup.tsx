@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ROLES } from "../common";
+import { goHomeKiddos, ROLES } from "../common";
 import { signup } from "../controller/UserController";
 import "../css/signup.css"
 
@@ -11,18 +11,12 @@ interface SignUpPageState {
     password:string;
     role: number;
 }
-class SignUpPage extends Component<{}, SignUpPageState>{
+type SignUpPageInitState = SignUpPageState;
+class SignUpPage extends Component<SignUpPageInitState, SignUpPageState>{
 
-    constructor(props:any){
+    constructor(props:SignUpPageInitState){
         super(props);
-        this.state = {
-            email : "",
-            firstname : "",
-            lastname:"",
-            username:"",
-            password:"",
-            role: 0
-        };
+        this.state = props;
         this.onSignup = this.onSignup.bind(this);
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onFirstnameChange = this.onFirstnameChange.bind(this);
@@ -85,39 +79,42 @@ class SignUpPage extends Component<{}, SignUpPageState>{
     render(){
         return (
             <div className="container mx-auto mt-4">
-                <h1>Sign Up</h1>
+                <h1 className="header-add">Sign Up</h1>
                 <form >
+                    <div className="profile-img-block d-flex justify-content-center">
+                        <img className="profile-pic" src="/ProfilePic/DefaultProfilePic.png" alt="Default Profile Pic" width="150" height="150"/>
+                    </div>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
-                        <input type="email" className="form-control" id="email" name="email" onChange={this.onEmailChange}/>
+                        <input type="email" className="form-control" id="email" name="email" value={this.state.email} onChange={this.onEmailChange}/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">First name</label>
-                        <input className="form-control" id="FirstName" name="FirstName" onChange={this.onFirstnameChange}/>
+                        <input className="form-control" id="FirstName" name="FirstName" value={this.state.firstname} onChange={this.onFirstnameChange}/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Last name</label>
-                        <input className="form-control" id="LastName" name="LastName" onChange={this.onLastnameChange}/>
+                        <input className="form-control" id="LastName" name="LastName" value={this.state.lastname} onChange={this.onLastnameChange}/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Username</label>
-                        <input className="form-control" id="UserName" name="UserName" onChange={this.onUsernameChange}/>
+                        <input className="form-control" id="UserName" name="UserName" value={this.state.username} onChange={this.onUsernameChange}/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Password</label>
-                        <input type="password" className="form-control" id="Password" name="Password" onChange={this.onPasswordChange}/>
+                        <input type="password" className="form-control" id="Password" name="Password" value={this.state.password} onChange={this.onPasswordChange}/>
                     </div>
                     <div className="role-selection d-flex justify-content-center" onChange={this.onRoleChange}>
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="user-radio-button" value={ROLES.user} defaultChecked/>
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="user-radio-button" value={ROLES.user} defaultChecked={this.props.role === ROLES.user}/>
                             <label className="form-check-label">User</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="artist-radio-button" value={ROLES.artist} />
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="artist-radio-button" value={ROLES.artist} defaultChecked={this.props.role === ROLES.artist}/>
                             <label className="form-check-label">Artist</label>
                         </div>
                         <div className="form-check form-check-inline">
-                            <input className="form-check-input" type="radio" name="roleQuantifier" id="admin-radio-button" value={ROLES.admin} />
+                            <input className="form-check-input" type="radio" name="roleQuantifier" id="admin-radio-button" value={ROLES.admin} defaultChecked={this.props.role === ROLES.admin}/>
                             <label className="form-check-label">Admin</label>
                         </div>
                     </div>

@@ -80,3 +80,19 @@ export async function searchPlaylistByCreatorName(queryText: string){
     return fetch(`${API_URL}/search_by_authorname/${queryText}`)
     .then(res => res.json() as Promise<QueryManyPlaylists>);
 }
+
+export async function createPlaylist(userID:number, playlistName:string, playlistIMG:string){
+    return fetch(`${API_URL}/create`, {
+        method: "post",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            Playlist: {
+                PlaylistCreator: userID,
+                PlaylistName: playlistName,
+                PlaylistIMG: playlistIMG
+            }
+        })
+    }).then(res => res.json() as Promise<GeneralResponse>)
+}
