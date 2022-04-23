@@ -13,6 +13,7 @@ import SignUp2FAPage from './page/signup-2fa';
 import HomePage from "./page/home";
 import PlaylistPage from "./page/playlist";
 import EditPage from "./page/edit";
+import DomainSelection from "./component/DomainSelection"
 // import Navbar_user from "./component/Navbar";
 
 
@@ -20,6 +21,7 @@ function App() {
     return (
         <BrowserRouter>
             <Navbar/>
+            <DomainSelection/>
             <Routes>
                 <Route path="/about_us" element={<About_usPage/>}></Route>
                 <Route path="/" element={<HomePage/>}></Route>

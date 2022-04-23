@@ -5,14 +5,14 @@ import { UserButInSessionStorage } from "../model/User";
 
 interface NavbarState{
     buttonLogInOut: JSX.Element | null;
-    adminFeatures: JSX.Element[];
+    sessionFeatures: JSX.Element[];
 }
 class Navbar extends Component<{}, NavbarState> {
     constructor(props:any){
         super(props);
         this.state = {
             buttonLogInOut: null,
-            adminFeatures: []
+            sessionFeatures: []
         };
     }
 
@@ -55,16 +55,14 @@ class Navbar extends Component<{}, NavbarState> {
         }
     }
 
-    addAdminFeatures(user:UserButInSessionStorage){
-        if(user.Role === ROLES.admin){
-            this.setState({
-                adminFeatures: [
-                    <li className="nav_items" key="add">
-                        <a href="add">Add</a>
-                    </li>
-                ]
-            });
-        }
+    addAdminFeatures(_:UserButInSessionStorage){
+        this.setState({
+            sessionFeatures: [
+                <li className="nav_items" key="add">
+                    <a href="add">Add</a>
+                </li>
+            ]
+        });
     }
 
     render() {
@@ -75,7 +73,7 @@ class Navbar extends Component<{}, NavbarState> {
                 </a>
                 <nav>
                     <ul className="nav_links">
-                        {this.state.adminFeatures}
+                        {this.state.sessionFeatures}
                         <li className="nav_items" key="search">
                             <a href="search">Search</a>
                         </li>

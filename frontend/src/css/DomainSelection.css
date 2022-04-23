@@ -1,13 +1,19 @@
 .DomainList{
-    text-align: center;
+    text-align: center !important;
 }
 
 .DomainButton{
-    background-color: rgba(196, 196, 196, 0.2);
-    margin: 1.5rem 1.5rem 1.5rem 1.5rem;
+    background-color: rgba(196, 196, 196, 0.2) !important;
+    margin: 1.5rem 1.5rem 0rem 1.5rem !important;
 }
 
 .DomainButton:hover{
     background-color: rgba(196, 196, 196, 0.2) !important;
     color: #B775FB !important;
+}
+
+.DomainButtonChanged{
+    background-color: rgba(196, 196, 196, 0.2) !important;
+    color: #B775FB !important;
+    margin: 1.5rem 1.5rem 0rem 1.5rem !important;
 }
