@@ -1,13 +1,13 @@
 import { Component, ReactNode } from "react";
-import { UserWithFollowerFollowee } from "../model/User"
+import { UserButInSessionStorage, UserWithFollowerFollowee } from "../model/User"
 import "../css/artist.css"
-import { get_parameter } from "../common";
+import { get_parameter, is_user_followed } from "../common";
 import { MusicWithUserName } from "../model/Music";
 import { PlaylistWithUserName } from "../model/Playlist";
 import { EACH_ROW } from "../setting";
 import HorizontalCard from "../component/HorizontalCard";
 import RowVerticalCard from "../component/RowVerticalCard";
-import { searchUserByUserID } from "../controller/UserController";
+import { searchUserByUserID, userFollowUser, userUnfollowUser } from "../controller/UserController";
 import { searchMusicsByUserID } from "../controller/MusicController";
 import { searchPlaylistsByUserID } from "../controller/PlaylistController";
 
@@ -22,8 +22,8 @@ interface UserPageState {
     updateHtml: {                                   // text to be update from some event
         playlistShowall: string,
         musicShowall: string,
-        followButton: string
-    }
+    };
+    isFollowed: boolean
 }
 
 interface UserPageGetReqParam {
@@ -37,7 +37,7 @@ class UserPage extends Component<{}, UserPageState> {
     constructor(props:any){
         super(props);
         this.state = { // init state
-            user: null,
+            user: null, // user on this page
             musicOwn: null,
             playlistOwn: null,
             musicComponents: [],
@@ -46,9 +46,9 @@ class UserPage extends Component<{}, UserPageState> {
             playlistHidden: true,
             updateHtml: {
                 playlistShowall: "Show all",
-                musicShowall: "Show all",
-                followButton: "Follow"
-            }
+                musicShowall: "Show all"
+            },
+            isFollowed: false
         };
         this.handlePlaylistShowall = this.handlePlaylistShowall.bind(this);
         this.handleMusicShowall = this.handleMusicShowall.bind(this);
@@ -56,17 +56,19 @@ class UserPage extends Component<{}, UserPageState> {
     }
 
     componentDidMount(){
+        this.fetchUserData();
+    }
+
+    fetchUserData(){
         const $_GET = get_parameter() as UserPageGetReqParam;
-        const user_id = Number($_GET["userid"]);
-        
-        const userPromise = searchUserByUserID(user_id);
-        const musicsPromise = searchMusicsByUserID(user_id);
-        const playlistsPromise = searchPlaylistsByUserID(user_id);
+        const current_page_user_id = Number($_GET["userid"]);
+        const userPromise = searchUserByUserID(current_page_user_id);
+        const musicsPromise = searchMusicsByUserID(current_page_user_id);
+        const playlistsPromise = searchPlaylistsByUserID(current_page_user_id);
         
         Promise.all([userPromise, musicsPromise, playlistsPromise]).then((values) => {
             const [user, musics, playlists] = values;
-            this.setState(
-                {
+            this.setState({
                     user: !user.error ? user.user : null,
                     musicOwn: !musics.error ? musics.musics : null,
                     playlistOwn: !playlists.error ? playlists.playlists : null
@@ -77,6 +79,11 @@ class UserPage extends Component<{}, UserPageState> {
                 }
             );
         });
+        const userJSON = sessionStorage.getItem("user"); 
+        if(userJSON){
+            const user = JSON.parse(userJSON) as UserButInSessionStorage;
+            this.setState({isFollowed: is_user_followed(current_page_user_id, user.Followees)});
+        }
     }
 
     updateComponent() {
@@ -97,8 +104,6 @@ class UserPage extends Component<{}, UserPageState> {
         this.setState({
             musicComponents: musicComponents,
             playlistComponents: playlistComponents
-        }, () => {
-            this.forceUpdate();
         });
     }
 
@@ -125,12 +130,39 @@ class UserPage extends Component<{}, UserPageState> {
     }
 
     onFollow(e: any) {
-        console.log("unimplement, tobe implement when login system is complete");
-        // let updateHtml = this.state.updateHtml;
-        // updateHtml.followButton = updateHtml.followButton === "Follow" ? "Unfollow" : "Follow";
-        // this.setState({
-        //     updateHtml: updateHtml
-        // });
+        const userJSON = sessionStorage.getItem("user");
+        if(userJSON && this.state.user){
+            const userInSession = JSON.parse(userJSON) as UserButInSessionStorage;
+            if(!this.state.isFollowed){
+                userFollowUser(userInSession.UserID, this.state.user.UserID).then((res) => {
+                    if(!res.error){
+                        this.setState({isFollowed: true});
+                        alert("Follow complete");
+                    }
+                    else{
+                        console.log(res.message);
+                        alert("Follow failed")
+                    }
+                });
+            }
+            else{
+                userUnfollowUser(userInSession.UserID, this.state.user.UserID).then((res) => {
+                    if(!res.error){
+                        this.setState({isFollowed: false});
+                        alert("Unfollow complete");
+                    }
+                    else{
+                        console.log(res.message);
+                        alert("Unfollow failed");
+                    }
+                });
+            }
+            this.fetchUserData();
+        }
+        else{
+            window.location.href = "/login";
+            alert("not in session, can't follow");
+        }
     }
 
     render(): ReactNode {
@@ -140,7 +172,7 @@ class UserPage extends Component<{}, UserPageState> {
                     <div className="h1 artist-name-header">{this.state.user?.UserName}</div>
                     <div className="h5 artist-follower-header">{this.state.user?.Followers?.length} FOLLOWERS</div>
                     <br/>    
-                    <div><button className="btn follow-button">{this.state.updateHtml.followButton}</button></div>
+                    <div><button className="btn follow-button" onClick={this.onFollow}>{(!this.state.isFollowed && "Follow") || (this.state.isFollowed && "Unfollow")}</button></div>
                 </div>
             
                 <div className="music-section my-3">

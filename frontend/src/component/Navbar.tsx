@@ -35,8 +35,8 @@ class Navbar extends Component<{}, NavbarState> {
         this.setState({
             buttonLogInOut: <button className={className} onClick={onClick}>{text}</button>
         });
-     }
-    
+    }
+
     componentDidMount(){
         let userJSON = sessionStorage.getItem("user");
         let user = null;
