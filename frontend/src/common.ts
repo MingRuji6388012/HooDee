@@ -2,7 +2,7 @@ import { searchPlaylistFollowedByUserID, searchPlaylistsByUserID } from "./contr
 import { searchUserByUserID } from "./controller/UserController";
 import { UserButInSessionStorage } from "./model/User";
 
-export function get_parameter(): object{
+export function get_parameter(): object {
     // return dict of get parameter, like $_GET in PHP
     const url = window.location.href;
     let url_split = url.split("?");
@@ -55,9 +55,9 @@ export function goHomeKiddos(){
 }
 
 export function is_user_followed(user_id:number, users_followee:{FolloweeID: number}[]){
-    return users_followee.map(v => v.FolloweeID === user_id).reduce((a, b) => a || b, false);
+    return users_followee.map(v => (v.FolloweeID === user_id)).reduce((a, b) => a || b, false);
 }
 
 export function is_playlist_followed(playlist_id:number, playlists_followed:{PlaylistID: number}[]){
-    return playlists_followed.map(v => v.PlaylistID === playlist_id).reduce((a, b) => a || b, false);;
+    return playlists_followed.map(v => (v.PlaylistID === playlist_id)).reduce((a, b) => a || b, false);;
 }

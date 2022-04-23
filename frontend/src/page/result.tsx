@@ -198,7 +198,6 @@ class ResultPage extends Component <{}, ResultState> {
     }
 
     render(): ReactNode {
-        // <a href="">Show all</a> i remove this thing from html below, hence styling that apply and a tag is gone.
         return (
             <div>
                 <UserSearchBar />
@@ -207,7 +206,7 @@ class ResultPage extends Component <{}, ResultState> {
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Top result</div>
-                            <div className="col-lg-4 music-title">Musics</div>
+                            <div className="col-lg-4 music-title">Musics ({this.state.musicFetch.musics && this.state.musicFetch.musics.length})</div>
                             <div className="col-lg-2 showall" onClick={this.handleMusicShowall}>
                                 {this.state.updateHtml.musicShowall}
                                 </div>
@@ -228,7 +227,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="playlist" hidden={this.state.resultQuery.quantifier !== "playlist" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">Playlist</div>
+                            <div className="col-lg-4 music-title">Playlist ({this.state.playlistFetch.playlists && this.state.playlistFetch.playlists.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handlePlaylistShowall}>{this.state.updateHtml.playlistShowall}</div>
                             <div className="col-lg-1"></div>
@@ -241,7 +240,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="artist" hidden={this.state.resultQuery.quantifier !== "user" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">Artist</div>
+                            <div className="col-lg-4 music-title">User/Artist ({this.state.userFetch.users && this.state.userFetch.users.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handleUserShowall}>{this.state.updateHtml.userShowall}</div>
                             <div className="col-lg-1"></div>

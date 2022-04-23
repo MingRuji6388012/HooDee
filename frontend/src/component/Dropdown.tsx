@@ -174,18 +174,16 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         const user = JSON.parse(userJSON) as UserButInSessionStorage;
         let dropdown_sessioned_options = [], followed, text, selected_value;
         if(this.props.type === "music" && this.props.dropdownOn){ // assume dropdownOn is Music
-            if(user.Role === ROLES.admin){
+            if(user.Role === ROLES.admin)
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`removeMusic:${this.props.dropdownOn.MusicID}`}>Delete this music</option>,
                     <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this user</option>
                 );
-            }
-            else{
-                if(this.props.dropdownOn.UserID === user.UserID)
+            else if(this.props.dropdownOn.UserID === user.UserID)
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this music</option>
                 );
-            }
+            
 
             dropdown_sessioned_options.push(<optgroup className="opt" label="Add to playlist : " />);
             const playlists = user.Playlists;
