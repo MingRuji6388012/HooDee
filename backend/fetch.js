@@ -200,6 +200,24 @@ fetch(`${domain_name}/api/user/registeration`,
     }
 )
 
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 1,
+                "FirstName": "Ruji",
+                "LastName" : "Charat",
+                "UserName" : "Hecker",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "ming@gmail.com",
+                "Password" : "ming"
+            }})
+    }
+)
+
+
 // Create data to "music" table in Database
 fetch(`${domain_name}/api/music/add`,
     {

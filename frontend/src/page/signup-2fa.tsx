@@ -73,7 +73,7 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
                         </div>
                     </div>
                     <div className="signup-button-block">
-                        <button className="btn signup-button-submit" value="Sign up" onClick={this.onSignUp2FA} />
+                        <button className="btn signup-button-submit" value="Sign up" onClick={this.onSignUp2FA}>Sign up</button>
                     </div>
                 </div>
             </div>

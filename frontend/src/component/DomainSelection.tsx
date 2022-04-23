@@ -1,30 +1,61 @@
-import { Component, ReactNode } from "react";
-import ReactDOM from "react-dom";
+import React, { Component } from 'react'
 import "../css/DomainSelection.css";
 
-interface DomainListState{
-    userPressed: boolean;
-    musicPressed: boolean;
-    playlistPressed: boolean;
+
+// class DomainList extends Component{
+    
+// }
+
+// interface EditPageState{
+//     buttonStateQuantifier: DomainList
+// }
+interface DomainSelectionState{
+    classNameUser: string;
+    classNameMusic: string;
+    classNamePlaylist: string;
 }
 
-class DomainList extends Component<{}, DomainListState>{
-    setPressingState(){
-        
+class DomainSelection extends Component<{},DomainSelectionState>{
+    constructor(props:any){
+        super(props)
+        this.state = {
+            classNameUser: 'DomainButton',
+            classNameMusic: 'DomainButton',
+            classNamePlaylist: 'DomainButton'
+        }
+        this.changeClassNameUser = this.changeClassNameUser.bind(this);
     }
-}
 
-interface EditPageState{
-    buttonStateQuantifier: DomainList
-}
+    changeClassNameUser = () => {
+        this.setState({
+            classNameUser: 'DomainButtonChanged',
+            classNameMusic: 'DomainButton',
+            classNamePlaylist: 'DomainButton'
+        })
+    }
+    
+    changeClassNameMusic = () => {
+        this.setState({
+            classNameUser: 'DomainButton',
+            classNameMusic: 'DomainButtonChanged',
+            classNamePlaylist: 'DomainButton'
+        })
+    }
 
-class DomainSelection extends Component<{}, EditPageState>{
+    changeClassNamePlaylist = () => {
+        this.setState({
+            classNameUser: 'DomainButton',
+            classNameMusic: 'DomainButton',
+            classNamePlaylist: 'DomainButtonChanged'
+        })
+    }
+
     render(){
         return(
             <div className = "DomainList">
-                {/* <button onClick = {this.setPressingState} className = "DomainButton">User/Artist</button>
-                <button onClick = {this.setPressingState} className = "DomainButton">Music</button>
-                <button onClick = {this.setPressingState} className = "DomainButton">Playlist</button> */}
+                <button onClick={this.changeClassNameUser} className={this.state.classNameUser}>User/Artist</button>
+                <button onClick={this.changeClassNameMusic} className={this.state.classNameMusic}>Music</button>
+                <button onClick={this.changeClassNamePlaylist} className={this.state.classNamePlaylist}>Playlist</button>
             </div>
         )
     }
