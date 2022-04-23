@@ -46,14 +46,12 @@ class Navbar extends Component<{}, NavbarState> {
                 user = JSON.parse(userJSON) as UserButInSessionStorage;
                 this.addAdminFeatures(user)
                 this.updateLoginButton(user);
-                this.forceUpdate();
             }).catch(() => {
                 console.log("fetch failed");
             });
         }
         else{
             this.updateLoginButton(user);
-            this.forceUpdate();
         }
     }
 
@@ -65,8 +63,6 @@ class Navbar extends Component<{}, NavbarState> {
                         <a href="add">Add</a>
                     </li>
                 ]
-            }, () =>  {
-                this.forceUpdate();
             });
         }
     }
