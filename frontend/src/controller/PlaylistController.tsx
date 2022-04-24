@@ -96,3 +96,19 @@ export async function createPlaylist(userID:number, playlistName:string, playlis
         })
     }).then(res => res.json() as Promise<GeneralResponse>)
 }
+
+export async function editPlaylist(playlistID:number, playlistName:string, playlistIMG:string){
+    return fetch(`${API_URL}/edit`, {
+        method: "put",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            Playlist: {
+                PlaylistID: playlistID,
+                PlaylistName: playlistName,
+                PlaylistIMG: playlistIMG
+            }
+        })
+    }).then(res => res.json() as Promise<GeneralResponse>);
+}

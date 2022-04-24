@@ -8,15 +8,18 @@ import { searchMusicsByMusicID } from "../controller/MusicController";
 import { searchMusicInPlaylistByPlaylistID } from "../controller/PlaylistController";
 import HorizontalCard from "../component/HorizontalCard";
 import BundleOfHorizonalCard from "../component/BundleOfHorizontalCard";
+import AddMusicComponent from "../component/AddMusic";
+import SignUpPage from "./signup";
+import AddPlaylistComponent from "../component/AddPlaylist";
 
 
 interface EditPageParameter{
     // /edit?type=music&id=11
-    type: string;
+    type: "user" | "music" | "playlist";
     id: number;
 }
 interface EditPageState{
-    type: string;
+    type: "user" | "music" | "playlist";
     id: number;
     tobeEdit: {
         user: User | null,
@@ -53,7 +56,7 @@ class EditPage extends Component<{}, EditPageState> {
                     if (!res.error && res.user){
                         let tobeEdit = this.state.tobeEdit;
                         tobeEdit.user = res.user;
-                        this.setState({tobeEdit: tobeEdit}, ()=>this.forceUpdate());
+                        this.setState({tobeEdit: tobeEdit});
                     }
                     else if(!res.error && res.user === null){
                         console.log("I believe user doesn't exist");
@@ -75,7 +78,7 @@ class EditPage extends Component<{}, EditPageState> {
                         if(res.music.UserID) {goHomeKiddos(); return;}
                         let tobeEdit = this.state.tobeEdit;
                         tobeEdit.music = res.music;
-                        this.setState({tobeEdit: tobeEdit}, ()=>this.forceUpdate());
+                        this.setState({tobeEdit: tobeEdit});
                     }
                     else{
                         console.log(res.message);
@@ -97,7 +100,7 @@ class EditPage extends Component<{}, EditPageState> {
                         this.setState({
                             tobeEdit: tobeEdit,
                             musicsFromPlaylistComponent: musicList
-                        }, ()=>this.forceUpdate());
+                        });
                     }
                     else{
                         console.log(res.message);
@@ -115,7 +118,7 @@ class EditPage extends Component<{}, EditPageState> {
                 if(!res.error){
                     let tobeEdit = this.state.tobeEdit;
                     tobeEdit.user = res.user;
-                    this.setState({tobeEdit: tobeEdit}, ()=>this.forceUpdate());
+                    this.setState({tobeEdit: tobeEdit});
                 }
                 else if (!res.error && res.user === null){
                     console.log("I believe user doesn't exist");
@@ -129,10 +132,11 @@ class EditPage extends Component<{}, EditPageState> {
         }
         if(this.state.type === "music" && !this.state.tobeEdit.music){
             searchMusicsByMusicID(this.state.id).then(res => {
+                console.log(res);
                 if(!res.error){
                     let tobeEdit = this.state.tobeEdit;
                     tobeEdit.music = res.music;
-                    this.setState({tobeEdit: tobeEdit}, ()=>this.forceUpdate());
+                    this.setState({tobeEdit: tobeEdit}, ()=>console.log(this.state));
                 }
                 else if (!res.error && res.music === null){
                     console.log("I believe user doesn't exist");
@@ -147,13 +151,13 @@ class EditPage extends Component<{}, EditPageState> {
         if(this.state.type === "playlist" && !this.state.tobeEdit.playlist){
             searchMusicInPlaylistByPlaylistID(this.state.id).then(res => {
                 if(!res.error){
-                    const tobeEdit = this.state.tobeEdit;
+                    let tobeEdit = this.state.tobeEdit;
                     tobeEdit.playlist = res.playlist;
                     const musicList = HorizontalCard.createListOfHorizonaltalCardFromMusicWithUserName(res.musics);
                     this.setState({
                         tobeEdit: tobeEdit,
                         musicsFromPlaylistComponent: musicList
-                    }, ()=>this.forceUpdate());
+                    });
                 }
                 else if (!res.error && res.playlist === null){
                     console.log("I believe user doesn't exist");
@@ -170,7 +174,9 @@ class EditPage extends Component<{}, EditPageState> {
     render(){
         return (
             <div>
-                <form></form>
+                {this.state.type === "user" && this.state.tobeEdit.user && <SignUpPage firstname={this.state.tobeEdit.user.FirstName} lastname={this.state.tobeEdit.user.LastName} username={this.state.tobeEdit.user.UserName} role={this.state.tobeEdit.user.Role} userIMG={this.state.tobeEdit.user.UserProfileIMG} />}
+                {this.state.type === "music" && this.state.tobeEdit.music && <AddMusicComponent musicName={this.state.tobeEdit.music.MusicName} musicURL={this.state.tobeEdit.music.MusicFile} musicIMG={this.state.tobeEdit.music.MusicIMG} inplace={true} musicID={this.state.id}/>}
+                {this.state.type === "playlist" && this.state.tobeEdit.playlist && <AddPlaylistComponent playlistName={this.state.tobeEdit.playlist.PlaylistName} playlistIMG={this.state.tobeEdit.playlist.PlaylistIMG} inPlace={true} playlistID={this.state.id}/>}
                 {this.state.type === "playlist" && <BundleOfHorizonalCard topText="Music" horiCards={this.state.musicsFromPlaylistComponent}/>}
             </div>
         );

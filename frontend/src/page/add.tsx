@@ -80,9 +80,9 @@ class AddPage extends Component<{}, AddPageState>{
                     <button onClick={this.changeClassNamePlaylist} className={this.state.classNamePlaylist}>Playlist</button>
                 </div>
 
-                {(this.state.userInSession.Role === ROLES.admin) && this.state.userPressed && <SignUpPage email="" firstname="" lastname="" password="" role={ROLES.user} username="" />}
-                {(this.state.userInSession.Role !== ROLES.user) && this.state.musicPressed && <AddMusicComponent musicName="" musicURL="" />}
-                {this.state.playlistPressed && <AddPlaylistComponent playlistName="" />}
+                {(this.state.userInSession.Role === ROLES.admin) && this.state.userPressed && <SignUpPage firstname="" lastname="" role={ROLES.user} username="" userIMG="" />}
+                {(this.state.userInSession.Role !== ROLES.user) && this.state.musicPressed && <AddMusicComponent musicName="" musicURL="" musicIMG="" inplace={false} />}
+                {this.state.playlistPressed && <AddPlaylistComponent playlistName="" playlistIMG="" inPlace={true}/>}
             </div>
         );
     }

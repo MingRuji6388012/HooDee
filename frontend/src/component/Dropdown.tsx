@@ -177,11 +177,11 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             if(user.Role === ROLES.admin)
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`removeMusic:${this.props.dropdownOn.MusicID}`}>Delete this music</option>,
-                    <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this user</option>
+                    <option className="opt" value={`edit:music,${this.props.dropdownOn.MusicID}`}>Edit this music</option>
                 );
             else if(this.props.dropdownOn.UserID === user.UserID)
                 dropdown_sessioned_options.push(
-                    <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this music</option>
+                    <option className="opt" value={`edit:music,${this.props.dropdownOn.MusicID}`}>Edit this music</option>
                 );
             
 

@@ -42,3 +42,12 @@ export async function createMusic(userid:number, musicName: string, musicFile:st
         headers: {"Content-Type": "application/json"}
     }).then(res => res.json() as Promise<GeneralResponse>);
 }
+
+export async function editMusic(musicID:number, musicName:string, musicIMG:string){
+    const music = {Music: {MusicID: musicID, MusicName: musicName, MusicIMG: musicIMG}};
+    return fetch(`${API_URL}/edit`, {
+        method: "put",
+        body: JSON.stringify(music),
+        headers: {"Content-Type": "application/json"}
+    }).then(res => res.json() as Promise<GeneralResponse>);
+}

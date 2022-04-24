@@ -1,6 +1,6 @@
 import "../css/add_page.css";
 import { Component } from "react";
-import { createMusic } from "../controller/MusicController";
+import { createMusic, editMusic } from "../controller/MusicController";
 import { UserButInSessionStorage } from "../model/User";
 import { goHomeKiddos } from "../common";
 
@@ -9,12 +9,21 @@ interface AddMusicComponentState {
     musicName: string;
     musicURL: string;
 }
-type AddMusicComponentStateInit = AddMusicComponentState;
+interface AddMusicComponentStateInit {
+    inplace : boolean;
+    musicName : string;
+    musicURL : string;
+    musicIMG ?: string;
+    musicID ?: number;
+}
 class AddMusicComponent extends Component<AddMusicComponentStateInit, AddMusicComponentState> {
 
     constructor(props:AddMusicComponentStateInit){
         super(props);
-        this.state = props;
+        this.state = {
+            musicName : props.musicName,
+            musicURL : props.musicURL,
+        };
         this.onCreateMusic = this.onCreateMusic.bind(this);
         this.onMusicName = this.onMusicName.bind(this);
         this.onMusicURL = this.onMusicURL.bind(this);
@@ -32,16 +41,30 @@ class AddMusicComponent extends Component<AddMusicComponentStateInit, AddMusicCo
         const userJSON = sessionStorage.getItem("user");
         if(userJSON){
             const user = JSON.parse(userJSON) as UserButInSessionStorage;
-            createMusic(user.UserID, this.state.musicName, this.state.musicURL, "/logo512.png").then(res => {
-                if(!res.error){
-                    alert("add a new music complete");
-                    window.location.reload();
-                }
-                else{
-                    console.log(res.message);
-                    alert("lmao it crashed");
-                }
-            });
+            if(!this.props.inplace) { // create new music
+                createMusic(user.UserID, this.state.musicName, this.state.musicURL, "/logo512.png").then(res => {
+                    if(!res.error){
+                        alert("add a new music complete");
+                        window.location.reload();
+                    }
+                    else{
+                        console.log(res.message);
+                        alert("lmao it crashed");
+                    }
+                });
+            }
+            else if (this.props.inplace && this.props.musicID !== undefined && this.props.musicIMG){
+                editMusic(this.props.musicID, this.state.musicName, this.props.musicIMG).then(res => {
+                    if(!res.error){
+                        alert("edit music complete");
+                        window.location.reload();
+                    }
+                    else{
+                        console.log(res.message);
+                        alert("lmao it crashed");
+                    }
+                });
+            }
         }
         else{
             goHomeKiddos();
@@ -53,7 +76,7 @@ class AddMusicComponent extends Component<AddMusicComponentStateInit, AddMusicCo
             <div className="container mx-auto mt-4">
                 <h1 className="header-add">Add Music</h1>
                 <div className = "profile-img-block">
-                    <img className="profile-pic" src="/ProfilePic/DefaultProfilePic.png" alt="Default Profile Pic" width="150" height="150"/>
+                    <img className="profile-pic" src={this.props.musicIMG || "/ProfilePic/DefaultProfilePic.png"} alt="Default Profile Pic" width="150" height="150"/>
                 </div>
                 <div>
                     <div className="mb-3">

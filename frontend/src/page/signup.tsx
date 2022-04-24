@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { goHomeKiddos, ROLES } from "../common";
+import { ROLES } from "../common";
 import { signup } from "../controller/UserController";
 import "../css/signup.css"
 
@@ -11,18 +11,32 @@ interface SignUpPageState {
     password:string;
     role: number;
 }
-type SignUpPageInitState = SignUpPageState;
+interface SignUpPageInitState{
+    firstname:string;
+    lastname:string;
+    username:string;
+    role: number;
+    userIMG?: string;
+}
 class SignUpPage extends Component<SignUpPageInitState, SignUpPageState>{
 
     constructor(props:SignUpPageInitState){
         super(props);
-        this.state = props;
+        this.state = {
+            email:"",
+            firstname: props.firstname,
+            lastname: props.lastname,
+            username: props.username,
+            password:"",
+            role: props.role
+        };
         this.onSignup = this.onSignup.bind(this);
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onFirstnameChange = this.onFirstnameChange.bind(this);
         this.onLastnameChange = this.onLastnameChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onUsernameChange = this.onUsernameChange.bind(this);
+        this.onRoleChange = this.onRoleChange.bind(this);
         this.onRoleChange = this.onRoleChange.bind(this);
     }
 
@@ -82,7 +96,7 @@ class SignUpPage extends Component<SignUpPageInitState, SignUpPageState>{
                 <h1 className="header-add">Sign Up</h1>
                 <form >
                     <div className="profile-img-block d-flex justify-content-center">
-                        <img className="profile-pic" src="/ProfilePic/DefaultProfilePic.png" alt="Default Profile Pic" width="150" height="150"/>
+                        <img className="profile-pic" src={this.props.userIMG || "/ProfilePic/DefaultProfilePic.png"} alt="Default Profile Pic" width="150" height="150"/>
                     </div>
                     <div className="mb-3">
                         <label className="form-label">Email</label>
