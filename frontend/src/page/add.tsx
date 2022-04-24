@@ -35,6 +35,7 @@ class AddPage extends Component<{}, AddPageState>{
         this.changeClassNameUser = this.changeClassNameUser.bind(this); 
         this.changeClassNameMusic = this.changeClassNameMusic.bind(this);
         this.changeClassNamePlaylist = this.changeClassNamePlaylist.bind(this);
+        document.title = "Add - HooDee";
     }
 
     changeClassNameUser() {

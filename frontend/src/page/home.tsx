@@ -38,6 +38,7 @@ class HomePage extends Component<{}, HomePageState> {
         };
         this.onMusicShowall = this.onMusicShowall.bind(this);
         this.onPlaylistShowall = this.onPlaylistShowall.bind(this);
+        document.title = "Home - HooDee";
     }
 
     componentDidMount(){

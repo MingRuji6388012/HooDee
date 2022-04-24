@@ -38,6 +38,7 @@ class SignUpPage extends Component<SignUpPageInitState, SignUpPageState>{
         this.onUsernameChange = this.onUsernameChange.bind(this);
         this.onRoleChange = this.onRoleChange.bind(this);
         this.onRoleChange = this.onRoleChange.bind(this);
+        document.title = "Sign Up - HooDee";
     }
 
     onSignup(_:any){

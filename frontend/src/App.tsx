@@ -3,7 +3,7 @@ import "./bootstrap-5.1.3-dist/css/bootstrap.min.css";
 import "./css/common.css";
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Navbar from './component/Navbar';
-import About_usPage from './page/about_us';
+import AboutUsPage from './page/about_us';
 import SearchPage from './page/search';
 import ResultPage from './page/result';
 import UserPage from './page/user';
@@ -24,7 +24,7 @@ function App() {
         <BrowserRouter>
             <Navbar/>
             <Routes>
-                <Route path="/about_us" element={<About_usPage/>}></Route>
+                <Route path="/about_us" element={<AboutUsPage/>}></Route>
                 <Route path="/" element={<HomePage/>}></Route>
                 <Route path="/login" element={<LoginPage/>}></Route>
                 <Route path="/search" element={<SearchPage/>}></Route>

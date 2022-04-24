@@ -18,6 +18,8 @@ class SignUp2FAPage extends Component<{}, SignUp2FAPageState>{
         }
         this.onSignUp2FA = this.onSignUp2FA.bind(this);
         this.onCodeChange = this.onCodeChange.bind(this);
+        document.title = "Sign Up 2FA - HooDee";
+
     }
 
     onSignUp2FA(_:any){

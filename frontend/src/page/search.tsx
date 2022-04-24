@@ -15,6 +15,7 @@ class SearchPage extends Component<{}, SearchPageState>{
         this.state = { 
             musicsComponent: null
         };
+        document.title = "Search - HooDee";
     }
 
     componentDidMount(){

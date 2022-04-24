@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ROLES, is_playlist_followed, is_user_followed, refetchUserInfo } from "../common";
+import { ROLES, is_playlist_followed, is_user_followed } from "../common";
 import { removeMusic } from "../controller/MusicController";
 import { addNewMusicToPlaylist, playlistUnfollow, removePlaylist, playlistFollow } from "../controller/PlaylistController";
 import { removeUser, userFollowUser, userUnfollowUser } from "../controller/UserController";

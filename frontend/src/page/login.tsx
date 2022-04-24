@@ -15,6 +15,7 @@ class LoginPage extends Component<{},  LoginPageState> {
         this.onEmailChange = this.onEmailChange.bind(this);
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onFA2Change = this.onFA2Change.bind(this);
+        document.title = "Login - HooDee";
     }
     
     onLogin(){

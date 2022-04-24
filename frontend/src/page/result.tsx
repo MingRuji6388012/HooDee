@@ -75,13 +75,14 @@ class ResultPage extends Component <{}, ResultState> {
         this.handlePlaylistShowall = this.handlePlaylistShowall.bind(this);
         this.handleUserShowall = this.handleUserShowall.bind(this);
         this.handleMusicShowall = this.handleMusicShowall.bind(this);
+        document.title = "Result - HooDee";
     }
 
     componentDidMount(){
         const {queryText, quantifier, subQuantifier} = this.state.resultQuery;
     
         let user_list = null, music_list = null, playlist_list = null;
-        if((quantifier === "user" && subQuantifier === "userName") || (quantifier === "all" && subQuantifier === "itsName")){
+        if((quantifier === "user" && subQuantifier === "userName") || (quantifier === "all" && subQuantifier === "itsName") || (quantifier === "all" && subQuantifier === "creatorName")){
             user_list = searchUsersByUserName(queryText);
         }
         else if(quantifier === "user" && subQuantifier === "firstName") {
@@ -96,7 +97,7 @@ class ResultPage extends Component <{}, ResultState> {
         if((quantifier === "music" && subQuantifier === "musicName") || (quantifier === "all" && subQuantifier === "itsName")){
             music_list = searchMusicsByMusicName(queryText);
         }
-        else if(quantifier === "music" && subQuantifier === "aritistName"){
+        else if((quantifier === "music" && subQuantifier === "aritistName") || (quantifier === "all" && subQuantifier === "creatorName")){
             music_list = searchMusicByAuthorName(queryText);
         }
         if((quantifier === "playlist" && subQuantifier === "playlistName") || (quantifier === "all" && subQuantifier === "itsName")){
@@ -206,7 +207,7 @@ class ResultPage extends Component <{}, ResultState> {
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Top result</div>
-                            <div className="col-lg-4 music-title">Musics ({this.state.musicFetch.musics && this.state.musicFetch.musics.length})</div>
+                            <div className="col-lg-4 music-title">Musics ({this.state.musicFetch && this.state.musicFetch.musics && this.state.musicFetch.musics.length})</div>
                             <div className="col-lg-2 showall" onClick={this.handleMusicShowall}>
                                 {this.state.updateHtml.musicShowall}
                                 </div>
@@ -227,7 +228,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="playlist" hidden={this.state.resultQuery.quantifier !== "playlist" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">Playlist ({this.state.playlistFetch.playlists && this.state.playlistFetch.playlists.length})</div>
+                            <div className="col-lg-4 music-title">Playlist ({this.state.playlistFetch && this.state.playlistFetch.playlists && this.state.playlistFetch.playlists.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handlePlaylistShowall}>{this.state.updateHtml.playlistShowall}</div>
                             <div className="col-lg-1"></div>
@@ -240,7 +241,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="artist" hidden={this.state.resultQuery.quantifier !== "user" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">User/Artist ({this.state.userFetch.users && this.state.userFetch.users.length})</div>
+                            <div className="col-lg-4 music-title">User/Artist ({this.state.userFetch && this.state.userFetch.users && this.state.userFetch.users.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handleUserShowall}>{this.state.updateHtml.userShowall}</div>
                             <div className="col-lg-1"></div>

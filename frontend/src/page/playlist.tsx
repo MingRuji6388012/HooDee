@@ -42,6 +42,7 @@ class PlaylistPage extends Component <{}, PlaylistPageState>{
 
     componentDidMount() {
         this.fetchPlaylistData();
+        document.title = `${this.state.playlist?.PlaylistName} - HooDee`;
     }
 
     fetchPlaylistData(){

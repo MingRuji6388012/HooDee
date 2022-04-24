@@ -109,6 +109,7 @@ class EditPage extends Component<{}, EditPageState> {
                 });
             }
         }
+        document.title = "Edit - HooDee";
     }
 
     componentDidMount(){

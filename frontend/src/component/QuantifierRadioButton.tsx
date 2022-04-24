@@ -50,19 +50,19 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
                 <div className="row my-3 search-mode-radio-button" onChange={this.handlePrimaryQuantifierChange}>
                     <div className="col-lg-1">Quantifier</div>
                     <div className="col-lg-1 form-check form-check-inline mx-0 px-4">
-                        <input className="form-check-input" type="radio" name="quantifier" id="all-radio-button" value="all" defaultChecked/>
+                        <input className="form-check-input" type="radio" name="quantifier" id="all-radio-button" value="all" defaultChecked={this.state.quantifier === "all"}/>
                         <label className="form-check-label">All</label>
                     </div>
                     <div className="col-lg-1 form-check form-check-inlines mx-0 px-4">
-                        <input className="form-check-input" type="radio" name="quantifier" id="user-radio-button" value="user"/>
+                        <input className="form-check-input" type="radio" name="quantifier" id="user-radio-button" value="user" defaultChecked={this.state.quantifier === "user"}/>
                         <label className="form-check-label">User</label>
                     </div>
                     <div className="col-lg-1 form-check form-check-inline mx-0 px-4">
-                        <input className="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music"/>
+                        <input className="form-check-input" type="radio" name="quantifier" id="music-radio-button" value="music" defaultChecked={this.state.quantifier === "music"}/>
                         <label className="form-check-label">Music</label>
                     </div>
                     <div className="col-lg-1 form-check form-check-inline mx-0 px-4">
-                        <input className="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist"/>
+                        <input className="form-check-input" type="radio" name="quantifier" id="playlist-radio-button" value="playlist" defaultChecked={this.state.quantifier === "playlist"}/>
                         <label className="form-check-label">Playlist</label>
                     </div>
                     <div className="col-lg-6 done-button mx-0 px-4">
@@ -75,11 +75,11 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
                     {
                         this.state.quantifier === "all" && [
                             <div className="col-lg-2 form-check form-check-inlines mx-0 px-4" key={"subQuantifier itsName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="itsName" defaultChecked={this.state.quantifier === "all"}/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="itsName" defaultChecked={this.state.subQuantifier === "itsName"}/>
                                 <label className="form-check-label">By It's name</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inline mx-0 px-4" key={"subQuantifier creatorName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="creatorName"/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="creatorName" defaultChecked={this.state.subQuantifier === "creatorName"}/>
                                 <label className="form-check-label">By Creator name</label>
                             </div>
                         ]
@@ -87,19 +87,19 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
                     {
                         this.state.quantifier === "user" && [
                             <div className="col-lg-2 form-check form-check-inlines mx-0 px-4" key={"subQuantifier userName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="userName" defaultChecked={this.state.quantifier === "user"}/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="userName" defaultChecked={this.state.subQuantifier === "userName"}/>
                                 <label className="form-check-label">By Username</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inline mx-0 px-4" key={"subQuantifier firstName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="firstName"/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="firstName" defaultChecked={this.state.subQuantifier === "firstName"}/>
                                 <label className="form-check-label">By First Name</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inline mx-0 px-4" key={"subQuantifier userOnly"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="userOnly"/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="userOnly" defaultChecked={this.state.subQuantifier === "userOnly"}/>
                                 <label className="form-check-label">Only User</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inline mx-0 px-4" key={"subQuantifier artistOnly"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="artistOnly"/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="artistOnly" defaultChecked={this.state.subQuantifier === "artistOnly"}/>
                                 <label className="form-check-label">Only Artist</label>
                             </div>
                         ]
@@ -119,11 +119,11 @@ class QuantifierRadioButtonForSearch extends Component<{}, QuantifierRadioButton
                     {
                         this.state.quantifier === "playlist" && [
                             <div className="col-lg-2 form-check form-check-inlines mx-0 px-4" key={"subQuantifier playlistName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="playlistName" defaultChecked={this.state.quantifier === "playlist"}/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="playlistName" defaultChecked={this.state.subQuantifier === "playlistName"}/>
                                 <label className="form-check-label">By Playlist name</label>
                             </div>,
                             <div className="col-lg-2 form-check form-check-inlines mx-0 px-4" key={"subQuantifier playlistCreatorName"}>
-                                <input className="form-check-input" type="radio" name="subQuantifier" value="playlistCreatorName"/>
+                                <input className="form-check-input" type="radio" name="subQuantifier" value="playlistCreatorName" defaultChecked={this.state.subQuantifier === "playlistCreatorName"}/>
                                 <label className="form-check-label">By Creator names</label>
                             </div>,
                         ]

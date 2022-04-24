@@ -57,6 +57,7 @@ class UserPage extends Component<{}, UserPageState> {
 
     componentDidMount(){
         this.fetchUserData();
+        document.title = `${this.state.user?.UserName} - HooDee`;
     }
 
     fetchUserData(){
