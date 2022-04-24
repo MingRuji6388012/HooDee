@@ -83,7 +83,7 @@ class AddPage extends Component<{}, AddPageState>{
 
                 {(this.state.userInSession.Role === ROLES.admin) && this.state.userPressed && <SignUpPage firstname="" lastname="" role={ROLES.user} username="" userIMG="" />}
                 {(this.state.userInSession.Role !== ROLES.user) && this.state.musicPressed && <AddMusicComponent musicName="" musicURL="" musicIMG="" inplace={false} />}
-                {this.state.playlistPressed && <AddPlaylistComponent playlistName="" playlistIMG="" inPlace={true}/>}
+                {this.state.playlistPressed && <AddPlaylistComponent playlistName="" playlistIMG="" inPlace={false}/>}
             </div>
         );
     }
