@@ -1,5 +1,5 @@
 import { Component } from "react";
-import { ROLES } from "../common";
+import { ROLES, is_playlist_followed, is_user_followed, refetchUserInfo } from "../common";
 import { removeMusic } from "../controller/MusicController";
 import { addNewMusicToPlaylist, playlistUnfollow, removePlaylist, playlistFollow } from "../controller/PlaylistController";
 import { removeUser, userFollowUser, userUnfollowUser } from "../controller/UserController";
@@ -36,7 +36,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         const selectedAction = e.target.value as string;
         console.log(selectedAction);
         const [command, params] = selectedAction.split(":");
-        let music_id, playlist_id, user_id, followee_id, ty, id;
+        let music_id, playlist_id, user_id, followee_id, ty, id, reload = true;
         switch (command) {
             case Dropdown.ACTION_IN_SELECT[0]: // addToPlaylist:MusicID,PlaylistID
                 [music_id, playlist_id] = params.split(",").map(v => Number(v));
@@ -70,13 +70,15 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             case Dropdown.ACTION_IN_SELECT[2]: // redirectToUser:UserID
                 user_id = params;
                 window.location.href = `/user?userid=${user_id}`; //redirect to ...
+                reload = false;
                 break;
             case Dropdown.ACTION_IN_SELECT[3]: // share:
                 console.log(`${command}: `); // noop
                 alert("TBD");
+                reload = false;
                 break;
             case Dropdown.ACTION_IN_SELECT[4]: // followUser:FollowerID,FolloweeID
-                [user_id, followee_id] = params.split(",");
+                [user_id, followee_id] = params.split(",").map(Number);
                 userFollowUser(user_id, followee_id).then((res) => {
                     if(res.error){
                         alert("Follow error");
@@ -150,21 +152,18 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             case Dropdown.ACTION_IN_SELECT[10]: // edit:type,id
                 [ty, id] = params.split(",");
                 window.location.href = `/edit?type=${ty}&id=${id}`
+                reload = false;
                 break;
             default:
                 console.log(`Command ${selectedAction} invalid: misuse of ondropdown_change function`);
         }
-        this.resetSelected();
-        Dropdown.updateUserInStorage();
+        if(reload)
+            this.updateUserInStorage();
     }
 
-    static updateUserInStorage(){
-        // refetchUserInfo();
+    updateUserInStorage(){
+        // im still seeking for better way to do this.
         window.location.reload();
-    }
-
-    resetSelected(){
-        this.setState({selected : ""});
     }
 
     create_dropdown_session_related_options(): JSX.Element[]{
@@ -175,18 +174,16 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         const user = JSON.parse(userJSON) as UserButInSessionStorage;
         let dropdown_sessioned_options = [], followed, text, selected_value;
         if(this.props.type === "music" && this.props.dropdownOn){ // assume dropdownOn is Music
-            if(user.Role === ROLES.admin){
+            if(user.Role === ROLES.admin)
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`removeMusic:${this.props.dropdownOn.MusicID}`}>Delete this music</option>,
                     <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this user</option>
                 );
-            }
-            else{
-                if(this.props.dropdownOn.UserID === user.UserID)
+            else if(this.props.dropdownOn.UserID === user.UserID)
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`edit:music,${this.props.dropdownOn.UserID}`}>Edit this music</option>
                 );
-            }
+            
 
             dropdown_sessioned_options.push(<optgroup className="opt" label="Add to playlist : " />);
             const playlists = user.Playlists;
@@ -197,7 +194,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             }
         }
         else if(this.props.type === "user" && this.props.dropdownOn) { // assume dropdownOn is User (usually other than the one in the session)
-            followed = this.is_user_followed(this.props.dropdownOn.UserID, user.Followees)
+            followed = is_user_followed(this.props.dropdownOn.UserID, user.Followees)
             if(!followed){
                 text = "Follow this user";
                 selected_value = `followUser:${user.UserID},${this.props.dropdownOn.UserID}`;
@@ -223,7 +220,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             }
         }
         else if(this.props.type === "playlist" && this.props.dropdownOn) { // assume dropdownOn is Playlist
-            followed = this.is_playlist_followed(this.props.dropdownOn.PlaylistID, user.PlaylistsFollow);
+            followed = is_playlist_followed(this.props.dropdownOn.PlaylistID, user.PlaylistsFollow);
             if(!followed){
                 text = "Follow this playlist";
                 selected_value = `followPlaylist:${user.UserID},${this.props.dropdownOn.PlaylistID}`;
@@ -239,7 +236,7 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
             if(user.Role === ROLES.admin){
                 dropdown_sessioned_options.push(
                     <option className="opt" value={`removePlaylist:${this.props.dropdownOn.PlaylistID}`}>Delete this playlist</option>,
-                    <option className="opt" value={`edit:playlist,${this.props.dropdownOn.MusicID}`}>Edit this playlist</option>
+                    <option className="opt" value={`edit:playlist,${this.props.dropdownOn.PlaylistID}`}>Edit this playlist</option>
                 );
             }
         }
@@ -249,35 +246,11 @@ class Dropdown extends Component<DrowdownProps, DrowdownState> {
         return dropdown_sessioned_options;
     }
 
-    is_user_followed(user_id:number, users_followee:{FolloweeID: number}[]){
-        let followed = false;
-        for(let idx = 0; idx < users_followee.length; idx++){
-            if(users_followee[idx].FolloweeID === user_id){
-                followed = true;
-                break;
-            }
-        }
-        // users_followee.map(v => v.FolloweeID === user_id).reduce((a, b) => a || b, false);
-        return followed;
-    }
-
-    is_playlist_followed(playlist_id:number, playlists_followed:{PlaylistID: number}[]){
-        let followed = false;
-        for(let idx = 0; idx < playlists_followed.length; idx++){
-            if(playlists_followed[idx].PlaylistID === playlist_id){
-                followed = true;
-                break;
-            }
-        }
-        // playlists_followed.map(v => v.PlaylistID === playlist_id).reduce((a, b) => a || b, false);
-        return followed;
-    }
-
     render() {
         return (
             <div className="dropdown">
                 <select className="dropimg" name="selectoption" onChange={this.onDropdownChange}>
-                    <option value="" hidden={true} disabled={true} defaultChecked>
+                    <option value="" hidden={true} disabled={false} defaultChecked={true}>
                         <img className="dropimg" width="1" src="/button/dropdown.png" alt="dropdown"/>
                     </option>
                     <option className="opt" value={`${Dropdown.ACTION_IN_SELECT[2]}:${((this.props.dropdownOn) as User).UserID ? ((this.props.dropdownOn) as User).UserID : ((this.props.dropdownOn) as Playlist).PlaylistCreator}`}>Go to artist</option>

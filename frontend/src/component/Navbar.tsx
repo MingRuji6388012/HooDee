@@ -5,14 +5,14 @@ import { UserButInSessionStorage } from "../model/User";
 
 interface NavbarState{
     buttonLogInOut: JSX.Element | null;
-    adminFeatures: JSX.Element[];
+    sessionFeatures: JSX.Element[];
 }
 class Navbar extends Component<{}, NavbarState> {
     constructor(props:any){
         super(props);
         this.state = {
             buttonLogInOut: null,
-            adminFeatures: []
+            sessionFeatures: []
         };
     }
 
@@ -35,8 +35,8 @@ class Navbar extends Component<{}, NavbarState> {
         this.setState({
             buttonLogInOut: <button className={className} onClick={onClick}>{text}</button>
         });
-     }
-    
+    }
+
     componentDidMount(){
         let userJSON = sessionStorage.getItem("user");
         let user = null;
@@ -46,29 +46,23 @@ class Navbar extends Component<{}, NavbarState> {
                 user = JSON.parse(userJSON) as UserButInSessionStorage;
                 this.addAdminFeatures(user)
                 this.updateLoginButton(user);
-                this.forceUpdate();
             }).catch(() => {
                 console.log("fetch failed");
             });
         }
         else{
             this.updateLoginButton(user);
-            this.forceUpdate();
         }
     }
 
-    addAdminFeatures(user:UserButInSessionStorage){
-        if(user.Role === ROLES.admin){
-            this.setState({
-                adminFeatures: [
-                    <li className="nav_items" key="add">
-                        <a href="add">Add</a>
-                    </li>
-                ]
-            }, () =>  {
-                this.forceUpdate();
-            });
-        }
+    addAdminFeatures(_:UserButInSessionStorage){
+        this.setState({
+            sessionFeatures: [
+                <li className="nav_items" key="add">
+                    <a href="add">Add</a>
+                </li>
+            ]
+        });
     }
 
     render() {
@@ -79,7 +73,7 @@ class Navbar extends Component<{}, NavbarState> {
                 </a>
                 <nav>
                     <ul className="nav_links">
-                        {this.state.adminFeatures}
+                        {this.state.sessionFeatures}
                         <li className="nav_items" key="search">
                             <a href="search">Search</a>
                         </li>

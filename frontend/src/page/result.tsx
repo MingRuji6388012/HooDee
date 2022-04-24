@@ -108,9 +108,8 @@ class ResultPage extends Component <{}, ResultState> {
         
         Promise.all([user_list, music_list, playlist_list]).then((values) => {
             const [users, musics, playlists] = values as [QueryManyUsers, QueryManyMusics, QueryManyPlaylists];
-            this.setState({userFetch: users, musicFetch: musics, playlistFetch: playlists});
+            this.setState({userFetch: users, musicFetch: musics, playlistFetch: playlists}, this.updateComponent);
             console.log(users, musics, playlists);
-            this.updateComponent();
         });
     }
 
@@ -118,8 +117,8 @@ class ResultPage extends Component <{}, ResultState> {
         const users = this.state.userFetch, musics = this.state.musicFetch, playlists = this.state.playlistFetch;
         let userComponents = [], playlistComponents = [], musicComponents = [], topMusicComponent = null;
 
-        if(this.state.resultQuery.quantifier === "user" || this.state.resultQuery.quantifier === "all"){
-            for(let idx = 0; users !== null && users.users !== null && idx < users.users.length; idx+=EACH_ROW){
+        if((this.state.resultQuery.quantifier === "user" || this.state.resultQuery.quantifier === "all") &&  users && users.users){
+            for(let idx = 0; idx < users.users.length; idx+=EACH_ROW){
                 const users5 = users.users.slice(idx, idx+EACH_ROW);
                 userComponents.push(
                     <RowVerticalCard users={users5} type={"user"}/>
@@ -127,7 +126,7 @@ class ResultPage extends Component <{}, ResultState> {
                 if(this.state.userHidden) break;
             }
         }
-        if((this.state.resultQuery.quantifier === "music" || this.state.resultQuery.quantifier === "all") && musics !== null && musics.musics !== null && musics.musics.length){
+        if((this.state.resultQuery.quantifier === "music" || this.state.resultQuery.quantifier === "all") && musics && musics.musics && musics.musics.length > 0){
             let music: MusicWithUserName = musics.musics[0];
             topMusicComponent = <HalfTopCard  top_text={music.MusicName} bottom_text={music.UserName} img_url={music.MusicIMG} href={music.MusicFile} type={"music"} card_info={music}/>
             
@@ -139,9 +138,8 @@ class ResultPage extends Component <{}, ResultState> {
                 if(this.state.musicHidden && musicComponents.length >= EACH_ROW-1) break;
             }
         }
-        
-        if(this.state.resultQuery.quantifier === "playlist" || this.state.resultQuery.quantifier === "all"){
-            for(let idx = 0; playlists !== null && playlists.playlists !== null && idx < playlists.playlists.length; idx+=EACH_ROW){
+        if((this.state.resultQuery.quantifier === "playlist" || this.state.resultQuery.quantifier === "all") &&  playlists && playlists.playlists){
+            for(let idx = 0; idx < playlists.playlists.length; idx+=EACH_ROW){
                 const playlists5 = playlists.playlists.slice(idx, idx+EACH_ROW);
                 playlistComponents.push(
                     <RowVerticalCard playlists={playlists5} type={"playlist"}/>
@@ -200,7 +198,6 @@ class ResultPage extends Component <{}, ResultState> {
     }
 
     render(): ReactNode {
-        // <a href="">Show all</a> i remove this thing from html below, hence styling that apply and a tag is gone.
         return (
             <div>
                 <UserSearchBar />
@@ -209,7 +206,7 @@ class ResultPage extends Component <{}, ResultState> {
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
                             <div className="col-lg-4 music-title">Top result</div>
-                            <div className="col-lg-4 music-title">Musics</div>
+                            <div className="col-lg-4 music-title">Musics ({this.state.musicFetch.musics && this.state.musicFetch.musics.length})</div>
                             <div className="col-lg-2 showall" onClick={this.handleMusicShowall}>
                                 {this.state.updateHtml.musicShowall}
                                 </div>
@@ -230,7 +227,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="playlist" hidden={this.state.resultQuery.quantifier !== "playlist" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">Playlist</div>
+                            <div className="col-lg-4 music-title">Playlist ({this.state.playlistFetch.playlists && this.state.playlistFetch.playlists.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handlePlaylistShowall}>{this.state.updateHtml.playlistShowall}</div>
                             <div className="col-lg-1"></div>
@@ -243,7 +240,7 @@ class ResultPage extends Component <{}, ResultState> {
                     <div id="artist" hidden={this.state.resultQuery.quantifier !== "user" && this.state.resultQuery.quantifier !== "all"}>
                         <div className="row my-3">
                             <div className="col-lg-1"></div>
-                            <div className="col-lg-4 music-title">Artist</div>
+                            <div className="col-lg-4 music-title">User/Artist ({this.state.userFetch.users && this.state.userFetch.users.length})</div>
                             <div className="col-lg-4"></div>
                             <div className="col-lg-2 showall" onClick={this.handleUserShowall}>{this.state.updateHtml.userShowall}</div>
                             <div className="col-lg-1"></div>

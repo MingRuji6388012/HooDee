@@ -12,16 +12,16 @@ class AddMusicPage extends Component{
             <form>
                 <div className="mb-3">
                     <label className="form-label">Music name</label>
-                    <input className="form-control" id="musicName" name="musicName" onChange={}/>
+``                    <input className="form-control" id="musicName" name="musicName" onChange={undefined}/>
                 </div>
                 <div className="mb-3">
                     <label className="form-label">Music URL</label>
-                    <input className="form-control" id="musicURL" name="musicURL" onChange={}/>
+                    <input className="form-control" id="musicURL" name="musicURL" onChange={undefined}/>
                 </div>
 
                 <div className="button-block">
-                    <input type="button" className="button-add btn btn-primary" onClick={}>Done</input>
-                    <input type="button" className="button-cancel btn btn-primary" onClick={}>Cancel</input>]
+                    <input type="button" className="button-add btn btn-primary" onClick={undefined}>Done</input>
+                    <input type="button" className="button-cancel btn btn-primary" onClick={undefined}>Cancel</input>]
                 </div>
             </form>
           </div>

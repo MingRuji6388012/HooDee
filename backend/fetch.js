@@ -217,6 +217,176 @@ fetch(`${domain_name}/api/user/registeration`,
     }
 )
 
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Tw",
+                "LastName" : "ice",
+                "UserName" : "TWICE",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "twice@gmail.com",
+                "Password" : "TWICE"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Kob",
+                "LastName" : "Songsit",
+                "UserName" : "Kob Songsit",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Kob@gmail.com",
+                "Password" : "Kob"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Iam",
+                "LastName" : "Artist",
+                "UserName" : "IamArtist",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "IamArtist@gmail.com",
+                "Password" : "IamArtist"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "I",
+                "LastName" : "dunno",
+                "UserName" : "Idunno",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Idunno@gmail.com",
+                "Password" : "Idunno"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Aespa",
+                "LastName" : "SM",
+                "UserName" : "Aespa",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Aespa@gmail.com",
+                "Password" : "Aespa"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Super",
+                "LastName" : "Junior",
+                "UserName" : "Super Junior",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Super@gmail.com",
+                "Password" : "Super"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Jeeeun",
+                "LastName" : "Lee",
+                "UserName" : "IU",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "IU@gmail.com",
+                "Password" : "IU"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Stray",
+                "LastName" : "Kids",
+                "UserName" : "Stray Kids",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Stray@gmail.com",
+                "Password" : "Stray"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Stray",
+                "LastName" : "Kids",
+                "UserName" : "Stray Kids",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Stray@gmail.com",
+                "Password" : "Stray"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/user/registeration`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({
+            "User" : {
+                "Role": 3,
+                "FirstName": "Red",
+                "LastName" : "Velvet",
+                "UserName" : "Red Velvet",
+                "UserProfileIMG" : "https://pbs.twimg.com/profile_images/1254260244684984320/dMnx5TB3_400x400.jpg",
+                "Email" : "Red@gmail.com",
+                "Password" : "Red"
+            }})
+    }
+)
+
 
 // Create data to "music" table in Database
 fetch(`${domain_name}/api/music/add`,
@@ -239,7 +409,7 @@ fetch(`${domain_name}/api/music/add`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Music" : { 
-                "UserID" : 11, 
+                "UserID" : 31, 
                 "MusicName" : "Perfect World",  
                 "MusicFile" : "https://www.youtube.com/watch?v=fmOEKOjyDxU",
                 "MusicIMG" : "https://i.ytimg.com/vi/fmOEKOjyDxU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDLnUz0HhvePFbYOloIiJ9PwLoBiw"
@@ -253,7 +423,7 @@ fetch(`${domain_name}/api/music/add`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Music" : { 
-                "UserID" : 11, 
+                "UserID" : 31, 
                 "MusicName" : "Fanfare",  
                 "MusicFile" : "https://www.youtube.com/watch?v=kRT174IdxuM",
                 "MusicIMG" : "https://i.ytimg.com/vi/kRT174IdxuM/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC11UHrBEq9edXI1y6Z4-qww-f-wA"
@@ -267,7 +437,7 @@ fetch(`${domain_name}/api/music/add`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Music" : { 
-                "UserID" : 11, 
+                "UserID" : 31, 
                 "MusicName" : "I WANT YOU BACK",  
                 "MusicFile" : "https://www.youtube.com/watch?v=X3H-4crGD6k",
                 "MusicIMG" : "https://i.ytimg.com/an_webp/X3H-4crGD6k/mqdefault_6s.webp?du=3000&sqp=CPi-nJIG&rs=AOn4CLCdQWzr2cFyHQp92KSMpQLxrn7qfA"
@@ -281,10 +451,164 @@ fetch(`${domain_name}/api/music/add`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Music" : { 
-                "UserID" : 11, 
+                "UserID" : 31, 
                 "MusicName" : "The Feels",  
                 "MusicFile" : "https://www.youtube.com/watch?v=f5_wn8mexmM",
                 "MusicIMG" : "https://i.ytimg.com/vi/f5_wn8mexmM/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC-tykU4D6qLBX-nq1pKpdhgUkOFw"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "Doughnut",  
+                "MusicFile" : "https://www.youtube.com/watch?v=VcOSUOpACq0",
+                "MusicIMG" : "https://i0.wp.com/colorcodedlyrics.com/wp-content/uploads/2021/11/TWICE-Doughnut.jpg?fit=600%2C600&ssl=1"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "Wonderful day",  
+                "MusicFile" : "https://www.youtube.com/watch?v=otoxc_H8qkE",
+                "MusicIMG" : "https://static.wikia.nocookie.net/twicenation/images/a/a5/Doughnut_First_Limited_Edition_A_Cover.jpg/revision/latest?cb=20211029144831"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "Fancy",  
+                "MusicFile" : "https://youtu.be/kOHB85vDuow",
+                "MusicIMG" : "https://187436-553851-1-raikfcquaxqncofqfm.stackpathdns.com/wp-content/uploads/2019/04/TWICE-Fancy-You.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "Scientist",  
+                "MusicFile" : "https://youtu.be/vPwaXytZcgI",
+                "MusicIMG" : "https://images.workpointnews.com/workpointnews/2021/11/12115933/1636693170_29022_2web.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "I can't stop me",  
+                "MusicFile" : "https://youtu.be/CM4CkVFmTds",
+                "MusicIMG" : "https://upload.wikimedia.org/wikipedia/en/8/83/Twice_-_I_Can%27t_Stop_Me_%28English_Version%29.png"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "What is Love?",  
+                "MusicFile" : "https://www.youtube.com/watch?v=i0p1bmr0EmE",
+                "MusicIMG" : "https://i0.wp.com/colorcodedlyrics.com/wp-content/uploads/2018/04/twice.jpg?fit=600%2C600&ssl=1"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" : "Feel special",  
+                "MusicFile" : "https://www.youtube.com/watch?v=3ymwOvzhwHs",
+                "MusicIMG" : "https://i0.wp.com/colorcodedlyrics.com/wp-content/uploads/2018/04/twice.jpg?fit=600%2C600&ssl=1"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" :"Cry for me",  
+                "MusicFile" : "https://www.youtube.com/watch?v=FO0iwx3PUHo",
+                "MusicIMG" : "https://f.ptcdn.info/904/071/000/ql4pps54gOTyzer6jSq-o.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" :"Yes or Yes",  
+                "MusicFile" : "https://www.youtube.com/watch?v=mAKsZ26SabQ",
+                "MusicIMG" : "https://2.bp.blogspot.com/-M4W9Tm2Q6G0/W-L13i5jmZI/AAAAAAAABhQ/PeRmCq3_h6AFG_X8iApyazJJcOSDi76bwCLcBGAs/s1600/twice_yes_or_yes.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" :"Alcohol free",  
+                "MusicFile" : "https://www.youtube.com/watch?v=XA2YEHn-A8Q",
+                "MusicIMG" : "https://i.ytimg.com/vi/FRvPXtvfg1w/maxresdefault.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/music/add`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Music" : { 
+                "UserID" : 31, 
+                "MusicName" :"Better",  
+                "MusicFile" : "https://www.youtube.com/watch?v=sLmLwgxnPUE",
+                "MusicIMG" : "https://inwfile.com/s-o/a3mgvt.png"
             }})
     }
 )
@@ -450,9 +774,48 @@ fetch(`${domain_name}/api/playlist/create`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Playlist" : { 
-                "PlaylistCreator" : 11, 
-                "PlaylistName" : "I luv Twice",  
-                "PlaylistIMG" : "https://pbs.twimg.com/media/FLzvztFagAE3y4F.jpg:large"
+                "PlaylistCreator" : 31, 
+                "PlaylistName" : "TWICE All Musics",  
+                "PlaylistIMG" : "https://upload.wikimedia.org/wikipedia/commons/f/f4/180717_%EC%97%B4%EB%A6%B0%EC%9D%8C%EC%95%85%ED%9A%8C_%ED%8A%B8%EC%99%80%EC%9D%B4%EC%8A%A4_02.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/create`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "PlaylistCreator" : 31, 
+                "PlaylistName" : "TWICE 1",  
+                "PlaylistIMG" : "https://www.pinkvilla.com/files/styles/amp_metadata_content_image/public/de_twice_main_image_1.png"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/create`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "PlaylistCreator" : 31, 
+                "PlaylistName" : "TWICE 2",  
+                "PlaylistIMG" : "https://www.nme.com/wp-content/uploads/2021/04/twice-betterconceptphoto-2020.jpg"
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/create`,
+    {
+        method: "POST",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "PlaylistCreator" : 31, 
+                "PlaylistName" : "TWICE 3",  
+                "PlaylistIMG" : "https://data.whicdn.com/images/324699521/original.jpg"
             }})
     }
 )
@@ -476,7 +839,7 @@ fetch(`${domain_name}/api/playlist/create`,
         headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({ 
             "Playlist" : { 
-                "PlaylistCreator" : 31, 
+                "PlaylistCreator" : 11, 
                 "PlaylistName" : "Red Velvet!!!",  
                 "PlaylistIMG" : "https://thestandom.com/wp-content/uploads/2019/08/20190605-red-velvet.jpg"
             }})
@@ -496,3 +859,362 @@ fetch(`${domain_name}/api/playlist/create`,
     }
 )
 
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 11, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 21, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 31, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 41, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 51, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 61, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 71, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 81, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 91, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 101, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 111, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 121, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 131, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 141, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 151, 
+                "PlaylistID" : 11
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 11, 
+                "PlaylistID" : 21
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 21, 
+                "PlaylistID" : 21
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 31, 
+                "PlaylistID" : 21
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 41, 
+                "PlaylistID" : 21
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 51, 
+                "PlaylistID" : 21
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 61, 
+                "PlaylistID" : 31
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 71, 
+                "PlaylistID" : 31
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 81, 
+                "PlaylistID" : 31
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 91, 
+                "PlaylistID" : 31
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 101, 
+                "PlaylistID" : 31
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 111, 
+                "PlaylistID" : 41
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 121, 
+                "PlaylistID" : 41
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 131, 
+                "PlaylistID" : 41
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 141, 
+                "PlaylistID" : 41
+            }})
+    }
+)
+
+fetch(`${domain_name}/api/playlist/add_music`,
+    {
+        method: "PUT",
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify({ 
+            "Playlist" : { 
+                "MusicID" : 151, 
+                "PlaylistID" : 41
+            }})
+    }
+)

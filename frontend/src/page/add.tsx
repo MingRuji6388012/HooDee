@@ -1,17 +1,39 @@
 import { Component } from "react";
 // import "../css/add_page";
-import DomainSelection from '../component/DomainSelection';
 
-class AddPage extends Component{
+interface AddPageState {
+    classNameUser: string;
+    classNameMusic: string;
+    classNamePlaylist: string;
+    
+}
+
+class AddPage extends Component<{}, AddPageState>{
     constructor(props:any){
         super(props)
-        const stateDomainSelector = <DomainSelection/>
-    
+        this.state = {
+            
+        };
+        
+    }
+
+    changeClassNameUser(e:any){
+
     }
 
     render(){
         return(
-            <DomainSelection/>
+            <div>
+                <div className = "DomainList">
+                    <button onClick={this.changeClassNameUser} className={this.state.classNameUser}>User/Artist/Admin</button>
+                    <button onClick={this.changeClassNameMusic} className={this.state.classNameMusic}>Music</button>
+                    <button onClick={this.changeClassNamePlaylist} className={this.state.classNamePlaylist}>Playlist</button>
+                </div>
+
+                {this.state.stateDomainSelector}
+            </div>
+
+
         )
     }
 }

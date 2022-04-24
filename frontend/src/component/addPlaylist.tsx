@@ -12,11 +12,11 @@ class AddPlaylistPage extends Component{
             <form>
                 <div className="mb-3">
                     <label className="form-label">Music name</label>
-                    <input className="form-control" id="playlistName" name="playlistName" onChange={}/>
+                    <input className="form-control" id="playlistName" name="playlistName" onChange={undefined}/>
                 </div>
                 <div className="button-block">
-                    <input type="button" className="button-add btn btn-primary" onClick={}>Done</input>
-                    <input type="button" className="button-cancel btn btn-primary" onClick={}>Cancel</input>]
+                    <input type="button" className="button-add btn btn-primary" onClick={undefined}>Done</input>
+                    <input type="button" className="button-cancel btn btn-primary" onClick={undefined}>Cancel</input>]
                 </div>
             </form>
           </div>

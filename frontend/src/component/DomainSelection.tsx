@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import "../css/DomainSelection.css";
 
-
 interface DomainSelectionState{
     classNameUser: string;
     classNameMusic: string;
@@ -12,7 +11,12 @@ interface DomainSelectionState{
 }
 
 class DomainSelection extends Component<{},DomainSelectionState>{
+    IsUserPage: boolean;
+    IsMusicPage: boolean;
+    IsPlaylistPage: boolean;
+
     constructor(props:any){
+        
         super(props)
         this.state = {
             classNameUser: 'DomainButton',
@@ -21,6 +25,7 @@ class DomainSelection extends Component<{},DomainSelectionState>{
             IsUserPage: false,
             IsMusicPage: false,
             IsPlaylistPage: false
+            
         }
         this.changeClassNameUser = this.changeClassNameUser.bind(this);
     }
