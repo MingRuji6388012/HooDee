@@ -252,9 +252,9 @@ user_api_route.put("/edit", function(req, res){
      * }
      * 
      */
-    console.log("editing user ", user.UserID);
     const user = req.body.User
     const user_id = user.UserID;
+    console.log("editing user ", user.UserID);
     if(user.Email !== undefined){ delete user.Email; }   // strictly cant change
     if(user.Salt !== undefined){ delete user.Salt; }     // strictly cant change
     if(user.TimeCreated !== undefined){ delete user.TimeCreated; }     // strictly cant change

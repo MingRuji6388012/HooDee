@@ -104,3 +104,13 @@ export async function searchUserByUserNameButRole(queryText:string, role: number
     .then(res => res.json() as Promise<QueryManyUsers>);
 }
 
+export async function editUser(userID:number, userName:string|null, firstName:string|null, lastName:string|null, dob:Date|null, password:string|null){
+    const user = {User: {UserID: userID, UserName: userName, FirstName: firstName, LastName: lastName, DOB: dob, password: password}};
+    return fetch(`${API_URL}/edit`, {
+        method: "put", 
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(user)
+    }).then(res => res.json() as Promise<GeneralResponse>);
+}

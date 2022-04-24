@@ -31,7 +31,7 @@ function App() {
                 <Route path="/user" element={<UserPage/>}></Route>
                 <Route path="/playlist" element={<PlaylistPage/>}></Route>
                 <Route path="/result" element={<ResultPage/>}></Route>
-                <Route path="/signup" element={<SignUpPage firstname="" lastname="" role={ROLES.user} username="" userIMG={undefined} />}></Route>
+                <Route path="/signup" element={<SignUpPage email="" firstname="" lastname="" role={ROLES.user} username="" userIMG={undefined} />}></Route>
                 <Route path="/signup-2fa" element={<SignUp2FAPage/>}></Route>
                 <Route path="/add" element={<AddPage/>}></Route>
                 <Route path="/edit" element={<EditPage/>}></Route>

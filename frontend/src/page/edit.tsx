@@ -175,7 +175,7 @@ class EditPage extends Component<{}, EditPageState> {
     render(){
         return (
             <div>
-                {this.state.type === "user" && this.state.tobeEdit.user && <SignUpPage firstname={this.state.tobeEdit.user.FirstName} lastname={this.state.tobeEdit.user.LastName} username={this.state.tobeEdit.user.UserName} role={this.state.tobeEdit.user.Role} userIMG={this.state.tobeEdit.user.UserProfileIMG} />}
+                {this.state.type === "user" && this.state.tobeEdit.user && <SignUpPage  email="" firstname={this.state.tobeEdit.user.FirstName} lastname={this.state.tobeEdit.user.LastName} username={this.state.tobeEdit.user.UserName} role={this.state.tobeEdit.user.Role} userIMG={this.state.tobeEdit.user.UserProfileIMG} inplace={true} userID={this.state.tobeEdit.user.UserID}/>}
                 {this.state.type === "music" && this.state.tobeEdit.music && <AddMusicComponent musicName={this.state.tobeEdit.music.MusicName} musicURL={this.state.tobeEdit.music.MusicFile} musicIMG={this.state.tobeEdit.music.MusicIMG} inplace={true} musicID={this.state.id}/>}
                 {this.state.type === "playlist" && this.state.tobeEdit.playlist && <AddPlaylistComponent playlistName={this.state.tobeEdit.playlist.PlaylistName} playlistIMG={this.state.tobeEdit.playlist.PlaylistIMG} inPlace={true} playlistID={this.state.id}/>}
                 {this.state.type === "playlist" && <BundleOfHorizonalCard topText="Music" horiCards={this.state.musicsFromPlaylistComponent}/>}
